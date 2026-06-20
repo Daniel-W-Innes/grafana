@@ -45,7 +45,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "${ds_prometheus}"
+                        "name": "PBFA97CFB590B2093"
                       },
                       "group": "prometheus",
                       "kind": "DataQuery",
@@ -151,7 +151,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "${ds_prometheus}"
+                        "name": "PBFA97CFB590B2093"
                       },
                       "group": "prometheus",
                       "kind": "DataQuery",
@@ -265,7 +265,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "${ds_prometheus}"
+                        "name": "PBFA97CFB590B2093"
                       },
                       "group": "prometheus",
                       "kind": "DataQuery",
@@ -359,7 +359,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "${ds_prometheus}"
+                        "name": "PBFA97CFB590B2093"
                       },
                       "group": "prometheus",
                       "kind": "DataQuery",
@@ -473,7 +473,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "${ds_prometheus}"
+                        "name": "PBFA97CFB590B2093"
                       },
                       "group": "prometheus",
                       "kind": "DataQuery",
@@ -494,7 +494,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "${ds_prometheus}"
+                        "name": "PBFA97CFB590B2093"
                       },
                       "group": "prometheus",
                       "kind": "DataQuery",
@@ -611,7 +611,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "${ds_prometheus}"
+                        "name": "PBFA97CFB590B2093"
                       },
                       "group": "prometheus",
                       "kind": "DataQuery",
@@ -632,7 +632,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "${ds_prometheus}"
+                        "name": "PBFA97CFB590B2093"
                       },
                       "group": "prometheus",
                       "kind": "DataQuery",
@@ -749,7 +749,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "${ds_prometheus}"
+                        "name": "PBFA97CFB590B2093"
                       },
                       "group": "prometheus",
                       "kind": "DataQuery",
@@ -866,7 +866,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "${ds_prometheus}"
+                        "name": "PBFA97CFB590B2093"
                       },
                       "group": "prometheus",
                       "kind": "DataQuery",
@@ -887,7 +887,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "${ds_prometheus}"
+                        "name": "PBFA97CFB590B2093"
                       },
                       "group": "prometheus",
                       "kind": "DataQuery",
@@ -1004,7 +1004,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "${ds_prometheus}"
+                        "name": "PBFA97CFB590B2093"
                       },
                       "group": "prometheus",
                       "kind": "DataQuery",
@@ -1085,6 +1085,10 @@
                 "overrides": []
               },
               "options": {
+                "annotations": {
+                  "clustering": -1,
+                  "multiLane": false
+                },
                 "legend": {
                   "calcs": [],
                   "displayMode": "list",
@@ -1098,7 +1102,7 @@
                 }
               }
             },
-            "version": "12.3.6+security-01"
+            "version": "13.0.2"
           }
         }
       },
@@ -1115,7 +1119,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "${ds_prometheus}"
+                        "name": "PBFA97CFB590B2093"
                       },
                       "group": "prometheus",
                       "kind": "DataQuery",
@@ -1136,7 +1140,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "${ds_prometheus}"
+                        "name": "PBFA97CFB590B2093"
                       },
                       "group": "prometheus",
                       "kind": "DataQuery",
@@ -1217,6 +1221,10 @@
                 "overrides": []
               },
               "options": {
+                "annotations": {
+                  "clustering": -1,
+                  "multiLane": false
+                },
                 "legend": {
                   "calcs": [],
                   "displayMode": "list",
@@ -1230,7 +1238,7 @@
                 }
               }
             },
-            "version": "12.3.6+security-01"
+            "version": "13.0.2"
           }
         }
       },
@@ -1247,7 +1255,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "${ds_prometheus}"
+                        "name": "PBFA97CFB590B2093"
                       },
                       "group": "prometheus",
                       "kind": "DataQuery",
@@ -1268,7 +1276,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "${ds_prometheus}"
+                        "name": "PBFA97CFB590B2093"
                       },
                       "group": "prometheus",
                       "kind": "DataQuery",
@@ -1289,7 +1297,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "${ds_prometheus}"
+                        "name": "PBFA97CFB590B2093"
                       },
                       "group": "prometheus",
                       "kind": "DataQuery",
@@ -1366,6 +1374,14 @@
                 "overrides": []
               },
               "options": {
+                "barShape": "flat",
+                "barWidthFactor": 0.5,
+                "effects": {
+                  "barGlow": false,
+                  "centerGlow": false,
+                  "gradient": false
+                },
+                "endpointMarker": "point",
                 "minVizHeight": 75,
                 "minVizWidth": 75,
                 "orientation": "auto",
@@ -1376,12 +1392,17 @@
                   "fields": "",
                   "values": false
                 },
+                "segmentCount": 1,
+                "segmentSpacing": 0.3,
+                "shape": "gauge",
                 "showThresholdLabels": false,
                 "showThresholdMarkers": true,
-                "sizing": "auto"
+                "sizing": "auto",
+                "sparkline": false,
+                "textMode": "auto"
               }
             },
-            "version": "12.3.6+security-01"
+            "version": "13.0.2"
           }
         }
       },
@@ -1398,7 +1419,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "${ds_prometheus}"
+                        "name": "PBFA97CFB590B2093"
                       },
                       "group": "prometheus",
                       "kind": "DataQuery",
@@ -1419,7 +1440,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "${ds_prometheus}"
+                        "name": "PBFA97CFB590B2093"
                       },
                       "group": "prometheus",
                       "kind": "DataQuery",
@@ -1521,6 +1542,14 @@
                 ]
               },
               "options": {
+                "barShape": "flat",
+                "barWidthFactor": 0.5,
+                "effects": {
+                  "barGlow": false,
+                  "centerGlow": false,
+                  "gradient": false
+                },
+                "endpointMarker": "point",
                 "minVizHeight": 75,
                 "minVizWidth": 75,
                 "orientation": "auto",
@@ -1531,12 +1560,17 @@
                   "fields": "",
                   "values": false
                 },
+                "segmentCount": 1,
+                "segmentSpacing": 0.3,
+                "shape": "gauge",
                 "showThresholdLabels": false,
                 "showThresholdMarkers": true,
-                "sizing": "auto"
+                "sizing": "auto",
+                "sparkline": false,
+                "textMode": "auto"
               }
             },
-            "version": "12.3.6+security-01"
+            "version": "13.0.2"
           }
         }
       },
@@ -1553,7 +1587,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "${ds_prometheus}"
+                        "name": "PBFA97CFB590B2093"
                       },
                       "group": "prometheus",
                       "kind": "DataQuery",
@@ -1574,7 +1608,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "${ds_prometheus}"
+                        "name": "PBFA97CFB590B2093"
                       },
                       "group": "prometheus",
                       "kind": "DataQuery",
@@ -1643,6 +1677,14 @@
                 "overrides": []
               },
               "options": {
+                "barShape": "flat",
+                "barWidthFactor": 0.5,
+                "effects": {
+                  "barGlow": false,
+                  "centerGlow": false,
+                  "gradient": false
+                },
+                "endpointMarker": "point",
                 "minVizHeight": 75,
                 "minVizWidth": 75,
                 "orientation": "auto",
@@ -1653,12 +1695,17 @@
                   "fields": "",
                   "values": false
                 },
+                "segmentCount": 1,
+                "segmentSpacing": 0.3,
+                "shape": "gauge",
                 "showThresholdLabels": false,
                 "showThresholdMarkers": true,
-                "sizing": "auto"
+                "sizing": "auto",
+                "sparkline": false,
+                "textMode": "auto"
               }
             },
-            "version": "12.3.6+security-01"
+            "version": "13.0.2"
           }
         }
       },
@@ -1675,7 +1722,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "${ds_prometheus}"
+                        "name": "PBFA97CFB590B2093"
                       },
                       "group": "prometheus",
                       "kind": "DataQuery",
@@ -1696,7 +1743,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "${ds_prometheus}"
+                        "name": "PBFA97CFB590B2093"
                       },
                       "group": "prometheus",
                       "kind": "DataQuery",
@@ -1762,6 +1809,14 @@
                 "overrides": []
               },
               "options": {
+                "barShape": "flat",
+                "barWidthFactor": 0.5,
+                "effects": {
+                  "barGlow": false,
+                  "centerGlow": false,
+                  "gradient": false
+                },
+                "endpointMarker": "point",
                 "minVizHeight": 75,
                 "minVizWidth": 75,
                 "orientation": "auto",
@@ -1772,12 +1827,17 @@
                   "fields": "",
                   "values": false
                 },
+                "segmentCount": 1,
+                "segmentSpacing": 0.3,
+                "shape": "gauge",
                 "showThresholdLabels": false,
                 "showThresholdMarkers": true,
-                "sizing": "auto"
+                "sizing": "auto",
+                "sparkline": false,
+                "textMode": "auto"
               }
             },
-            "version": "12.3.6+security-01"
+            "version": "13.0.2"
           }
         }
       },
@@ -1794,7 +1854,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "${ds_prometheus}"
+                        "name": "PBFA97CFB590B2093"
                       },
                       "group": "prometheus",
                       "kind": "DataQuery",
@@ -1815,7 +1875,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "${ds_prometheus}"
+                        "name": "PBFA97CFB590B2093"
                       },
                       "group": "prometheus",
                       "kind": "DataQuery",
@@ -1836,7 +1896,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "${ds_prometheus}"
+                        "name": "PBFA97CFB590B2093"
                       },
                       "group": "prometheus",
                       "kind": "DataQuery",
@@ -1898,6 +1958,14 @@
                 "overrides": []
               },
               "options": {
+                "barShape": "flat",
+                "barWidthFactor": 0.5,
+                "effects": {
+                  "barGlow": false,
+                  "centerGlow": false,
+                  "gradient": false
+                },
+                "endpointMarker": "point",
                 "minVizHeight": 75,
                 "minVizWidth": 75,
                 "orientation": "auto",
@@ -1908,12 +1976,17 @@
                   "fields": "",
                   "values": false
                 },
+                "segmentCount": 1,
+                "segmentSpacing": 0.3,
+                "shape": "gauge",
                 "showThresholdLabels": false,
                 "showThresholdMarkers": true,
-                "sizing": "auto"
+                "sizing": "auto",
+                "sparkline": false,
+                "textMode": "auto"
               }
             },
-            "version": "12.3.6+security-01"
+            "version": "13.0.2"
           }
         }
       },
@@ -1930,7 +2003,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "${ds_prometheus}"
+                        "name": "PBFA97CFB590B2093"
                       },
                       "group": "prometheus",
                       "kind": "DataQuery",
@@ -1951,7 +2024,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "${ds_prometheus}"
+                        "name": "PBFA97CFB590B2093"
                       },
                       "group": "prometheus",
                       "kind": "DataQuery",
@@ -2046,6 +2119,14 @@
                 ]
               },
               "options": {
+                "barShape": "flat",
+                "barWidthFactor": 0.5,
+                "effects": {
+                  "barGlow": false,
+                  "centerGlow": false,
+                  "gradient": false
+                },
+                "endpointMarker": "point",
                 "minVizHeight": 75,
                 "minVizWidth": 75,
                 "orientation": "auto",
@@ -2056,12 +2137,17 @@
                   "fields": "",
                   "values": false
                 },
+                "segmentCount": 1,
+                "segmentSpacing": 0.3,
+                "shape": "gauge",
                 "showThresholdLabels": false,
                 "showThresholdMarkers": true,
-                "sizing": "auto"
+                "sizing": "auto",
+                "sparkline": false,
+                "textMode": "auto"
               }
             },
-            "version": "12.3.6+security-01"
+            "version": "13.0.2"
           }
         }
       },
@@ -2078,7 +2164,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "${ds_prometheus}"
+                        "name": "PBFA97CFB590B2093"
                       },
                       "group": "prometheus",
                       "kind": "DataQuery",
@@ -2099,7 +2185,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "${ds_prometheus}"
+                        "name": "PBFA97CFB590B2093"
                       },
                       "group": "prometheus",
                       "kind": "DataQuery",
@@ -2161,6 +2247,14 @@
                 "overrides": []
               },
               "options": {
+                "barShape": "flat",
+                "barWidthFactor": 0.5,
+                "effects": {
+                  "barGlow": false,
+                  "centerGlow": false,
+                  "gradient": false
+                },
+                "endpointMarker": "point",
                 "minVizHeight": 75,
                 "minVizWidth": 75,
                 "orientation": "auto",
@@ -2171,12 +2265,17 @@
                   "fields": "",
                   "values": false
                 },
+                "segmentCount": 1,
+                "segmentSpacing": 0.3,
+                "shape": "gauge",
                 "showThresholdLabels": false,
                 "showThresholdMarkers": true,
-                "sizing": "auto"
+                "sizing": "auto",
+                "sparkline": false,
+                "textMode": "auto"
               }
             },
-            "version": "12.3.6+security-01"
+            "version": "13.0.2"
           }
         }
       },
@@ -2315,7 +2414,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "${ds_prometheus}"
+                        "name": "PBFA97CFB590B2093"
                       },
                       "group": "prometheus",
                       "kind": "DataQuery",
@@ -2336,7 +2435,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "${ds_prometheus}"
+                        "name": "PBFA97CFB590B2093"
                       },
                       "group": "prometheus",
                       "kind": "DataQuery",
@@ -2402,6 +2501,14 @@
                 "overrides": []
               },
               "options": {
+                "barShape": "flat",
+                "barWidthFactor": 0.5,
+                "effects": {
+                  "barGlow": false,
+                  "centerGlow": false,
+                  "gradient": false
+                },
+                "endpointMarker": "point",
                 "minVizHeight": 75,
                 "minVizWidth": 75,
                 "orientation": "auto",
@@ -2412,12 +2519,17 @@
                   "fields": "",
                   "values": false
                 },
+                "segmentCount": 1,
+                "segmentSpacing": 0.3,
+                "shape": "gauge",
                 "showThresholdLabels": false,
                 "showThresholdMarkers": true,
-                "sizing": "auto"
+                "sizing": "auto",
+                "sparkline": false,
+                "textMode": "auto"
               }
             },
-            "version": "12.3.6+security-01"
+            "version": "13.0.2"
           }
         }
       },
@@ -2434,7 +2546,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "${ds_prometheus}"
+                        "name": "PBFA97CFB590B2093"
                       },
                       "group": "prometheus",
                       "kind": "DataQuery",
@@ -2556,7 +2668,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "${ds_prometheus}"
+                        "name": "PBFA97CFB590B2093"
                       },
                       "group": "prometheus",
                       "kind": "DataQuery",
@@ -2670,7 +2782,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "${ds_prometheus}"
+                        "name": "PBFA97CFB590B2093"
                       },
                       "group": "prometheus",
                       "kind": "DataQuery",
@@ -2691,7 +2803,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "${ds_prometheus}"
+                        "name": "PBFA97CFB590B2093"
                       },
                       "group": "prometheus",
                       "kind": "DataQuery",
@@ -2712,7 +2824,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "${ds_prometheus}"
+                        "name": "PBFA97CFB590B2093"
                       },
                       "group": "prometheus",
                       "kind": "DataQuery",
@@ -2829,7 +2941,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "${ds_prometheus}"
+                        "name": "PBFA97CFB590B2093"
                       },
                       "group": "prometheus",
                       "kind": "DataQuery",
@@ -2940,7 +3052,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "${ds_prometheus}"
+                        "name": "PBFA97CFB590B2093"
                       },
                       "group": "prometheus",
                       "kind": "DataQuery",
@@ -3444,7 +3556,7 @@
         "2h"
       ],
       "fiscalYearStartMonth": 0,
-      "from": "now-24h",
+      "from": "now",
       "hideTimepicker": false,
       "timezone": "browser",
       "to": "now+24h"
@@ -3456,8 +3568,8 @@
         "spec": {
           "allowCustomValue": false,
           "current": {
-            "text": "0",
-            "value": "0"
+            "text": "15",
+            "value": "15"
           },
           "definition": "label_values(openweathermap_forecast_temperature_celsius{forecast_type=\"hourly\"}, absolute_hours)",
           "hide": "dontHide",
@@ -3468,7 +3580,7 @@
           "options": [],
           "query": {
             "datasource": {
-              "name": "${ds_prometheus}"
+              "name": "PBFA97CFB590B2093"
             },
             "group": "prometheus",
             "kind": "DataQuery",
@@ -3491,8 +3603,8 @@
         "spec": {
           "allowCustomValue": false,
           "current": {
-            "text": "0",
-            "value": "0"
+            "text": "3",
+            "value": "3"
           },
           "definition": "label_values(openweathermap_forecast_temperature_celsius{forecast_type=\"hourly\", absolute_hours=\"$forecast_hour\"}, offset_hours)",
           "description": "Smallest available forecast offset for the selected forecast hour.",
@@ -3504,7 +3616,7 @@
           "options": [],
           "query": {
             "datasource": {
-              "name": "${ds_prometheus}"
+              "name": "PBFA97CFB590B2093"
             },
             "group": "prometheus",
             "kind": "DataQuery",
