@@ -334,9 +334,9 @@
                 },
                 "segmentCount": 1,
                 "segmentSpacing": 0.3,
-                "shape": "gauge",
+                "shape": "circle",
                 "showThresholdLabels": false,
-                "showThresholdMarkers": true,
+                "showThresholdMarkers": false,
                 "sizing": "auto",
                 "sparkline": false,
                 "textMode": "auto"
