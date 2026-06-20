@@ -2,30 +2,23 @@
   "apiVersion": "dashboard.grafana.app/v2",
   "kind": "Dashboard",
   "metadata": {
-    "name": "jMfvAjxWz",
-    "generation": 1,
-    "creationTimestamp": "2026-06-13T15:40:21Z",
-    "labels": {},
-    "annotations": {}
+    "name": "jMfvAjxWz"
   },
   "spec": {
     "annotations": [
       {
         "kind": "AnnotationQuery",
         "spec": {
-          "query": {
-            "kind": "DataQuery",
-            "group": "",
-            "version": "v0",
-            "spec": {}
-          },
+          "builtIn": true,
           "enable": true,
           "hide": true,
           "iconColor": "rgba(0, 211, 255, 1)",
-          "name": "Annotations & Alerts",
-          "builtIn": true,
-          "legacyOptions": {
-            "type": "dashboard"
+          "name": "Annotations \u0026 Alerts",
+          "query": {
+            "group": "grafana",
+            "kind": "DataQuery",
+            "spec": {},
+            "version": "v0"
           }
         }
       }
@@ -37,10 +30,6 @@
       "panel-10": {
         "kind": "Panel",
         "spec": {
-          "id": 10,
-          "title": "Wireless Signal",
-          "description": "",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -48,54 +37,54 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "sum by ($Identifier) (unpoller_client_radio_signal_db{ap_name=~\"$AP\", site_name=~\"$Site\", name=~\"$Wireless\"})",
                         "instant": false,
                         "interval": "$Smooth",
                         "intervalFactor": 1,
                         "legendFormat": "{{name}} {{mac}}"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "A",
-                    "hidden": false
+                    "refId": "A"
                   }
                 }
               ],
-              "transformations": [],
-              "queryOptions": {}
+              "queryOptions": {},
+              "transformations": []
             }
           },
+          "description": "",
+          "id": 10,
+          "links": [],
+          "title": "Wireless Signal",
+          "transparent": true,
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "timeseries",
-            "version": "",
+            "kind": "VizConfig",
             "spec": {
-              "options": {
-                "dataLinks": []
-              },
               "fieldConfig": {
                 "defaults": {},
                 "overrides": []
+              },
+              "options": {
+                "dataLinks": []
               }
-            }
-          },
-          "transparent": true
+            },
+            "version": ""
+          }
         }
       },
       "panel-11": {
         "kind": "Panel",
         "spec": {
-          "id": 11,
-          "title": "Clients / AP Radio",
-          "description": "Visualize how many clients are connected to which radios/APs.",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -103,53 +92,53 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "count by (radio_proto) (unpoller_client_roam_count_total{site_name=~\"$Site\", name=~\"$Wireless\", ap_name=~\"$AP\"})",
                         "instant": true,
                         "interval": "$Smooth",
                         "legendFormat": "{{radio_proto}}"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "A",
-                    "hidden": false
+                    "refId": "A"
                   }
                 }
               ],
-              "transformations": [],
               "queryOptions": {
                 "maxDataPoints": 3
-              }
+              },
+              "transformations": []
             }
           },
+          "description": "Visualize how many clients are connected to which radios/APs.",
+          "id": 11,
+          "links": [],
+          "title": "Clients / AP Radio",
+          "transparent": true,
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "piechart",
-            "version": "",
+            "kind": "VizConfig",
             "spec": {
-              "options": {},
               "fieldConfig": {
                 "defaults": {},
                 "overrides": []
-              }
-            }
-          },
-          "transparent": true
+              },
+              "options": {}
+            },
+            "version": ""
+          }
         }
       },
       "panel-12": {
         "kind": "Panel",
         "spec": {
-          "id": 12,
-          "title": "Client MAC OUI Breakdown",
-          "description": "This shows an OUI breakdown from Unifi's perspective. e = wired, w = wireless",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -157,74 +146,74 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "count by (oui) (unpoller_client_uptime_seconds{site_name=~\"$Site\", name=~\"$Wireless\", ap_name=~\"$AP\"})",
                         "instant": true,
                         "interval": "$Smooth",
                         "legendFormat": " w {{oui}}"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "A",
-                    "hidden": false
+                    "refId": "A"
                   }
                 },
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "count by (oui) (+unpoller_client_uptime_seconds{site_name=~\"$Site\", name=~\"$Wired\", sw_name=~\"$Switch\"})",
                         "instant": true,
                         "interval": "$Smooth",
                         "legendFormat": "e  {{oui}}"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "B",
-                    "hidden": false
+                    "refId": "B"
                   }
                 }
               ],
-              "transformations": [],
               "queryOptions": {
                 "maxDataPoints": 3
-              }
+              },
+              "transformations": []
             }
           },
+          "description": "This shows an OUI breakdown from Unifi's perspective. e = wired, w = wireless",
+          "id": 12,
+          "links": [],
+          "title": "Client MAC OUI Breakdown",
+          "transparent": true,
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "piechart",
-            "version": "",
+            "kind": "VizConfig",
             "spec": {
-              "options": {},
               "fieldConfig": {
                 "defaults": {},
                 "overrides": []
-              }
-            }
-          },
-          "transparent": true
+              },
+              "options": {}
+            },
+            "version": ""
+          }
         }
       },
       "panel-15": {
         "kind": "Panel",
         "spec": {
-          "id": 15,
-          "title": "Client Bandwidth: Cameras",
-          "description": "Cameras TX / RX bytes per second. Rx is on the negative axis. This graph shows any device with the word \"camera\" in its name and has nothing to do with UniFi Protect/video products. e = wired, w = wireless",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -232,112 +221,112 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "sum by ($Identifier) (rate(unpoller_client_transmit_bytes_total{ap_name=~\"$AP\", name=~\".*camera.*|.*cam$\", site_name=~\"$Site\"}[$__interval]))",
                         "instant": false,
                         "interval": "$Smooth",
                         "legendFormat": "w {{name}} {{mac}} Tx"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "A",
-                    "hidden": false
+                    "refId": "A"
                   }
                 },
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "sum by ($Identifier) (rate(unpoller_client_receive_bytes_total{ap_name=~\"$AP\", name=~\".*camera.*|.*cam$\", site_name=~\"$Site\"}[$__interval]))",
                         "interval": "$Smooth",
                         "legendFormat": "w {{name}} {{mac}} Rx"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "B",
-                    "hidden": false
+                    "refId": "B"
                   }
                 },
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "sum by ($Identifier) (rate(unpoller_client_transmit_bytes_total{sw_name=~\"$Switch\", name=~\".*camera.*|.*cam$\", site_name=~\"$Site\"}[$__interval]))",
                         "interval": "$Smooth",
                         "legendFormat": "e {{name}} {{mac}} Tx"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "C",
-                    "hidden": false
+                    "refId": "C"
                   }
                 },
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "sum by ($Identifier) (rate(unpoller_client_receive_bytes_total{sw_name=~\"$Switch\", name=~\".*camera.*|.*cam$\", site_name=~\"$Site\"}[$__interval]))",
                         "interval": "$Smooth",
                         "legendFormat": "e {{name}} {{mac}} Rx"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "D",
-                    "hidden": false
+                    "refId": "D"
                   }
                 }
               ],
-              "transformations": [],
-              "queryOptions": {}
+              "queryOptions": {},
+              "transformations": []
             }
           },
+          "description": "Cameras TX / RX bytes per second. Rx is on the negative axis. This graph shows any device with the word \"camera\" in its name and has nothing to do with UniFi Protect/video products. e = wired, w = wireless",
+          "id": 15,
+          "links": [],
+          "title": "Client Bandwidth: Cameras",
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "timeseries",
-            "version": "",
+            "kind": "VizConfig",
             "spec": {
-              "options": {
-                "dataLinks": []
-              },
               "fieldConfig": {
                 "defaults": {},
                 "overrides": []
+              },
+              "options": {
+                "dataLinks": []
               }
-            }
+            },
+            "version": ""
           }
         }
       },
       "panel-19": {
         "kind": "Panel",
         "spec": {
-          "id": 19,
-          "title": "TX Rate",
-          "description": "Client reported transmit rate.",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -345,51 +334,51 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "sum by ($Identifier) (unpoller_client_radio_transmit_rate_bps{ap_name=~\"$AP\", site_name=~\"$Site\", name=~\"$Wireless\"})",
                         "interval": "$Smooth",
                         "legendFormat": "{{name}} {{mac}}"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "A",
-                    "hidden": false
+                    "refId": "A"
                   }
                 }
               ],
-              "transformations": [],
-              "queryOptions": {}
+              "queryOptions": {},
+              "transformations": []
             }
           },
+          "description": "Client reported transmit rate.",
+          "id": 19,
+          "links": [],
+          "title": "TX Rate",
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "timeseries",
-            "version": "",
+            "kind": "VizConfig",
             "spec": {
-              "options": {
-                "dataLinks": []
-              },
               "fieldConfig": {
                 "defaults": {},
                 "overrides": []
+              },
+              "options": {
+                "dataLinks": []
               }
-            }
+            },
+            "version": ""
           }
         }
       },
       "panel-2": {
         "kind": "Panel",
         "spec": {
-          "id": 2,
-          "title": "Switch Bandwidth / Wired Devices",
-          "description": "Wired TX / RX bytes per second (calculated in 30 second buckets). Rx is on the negative axis. Does not include amazon and camera devices. Unaffected by the AP setting.",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -397,73 +386,73 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "sum by ($Identifier) (rate(unpoller_client_transmit_bytes_total{name!~\".*camera.*|.*cam(era)?$\", name=~\"$Wired\", site_name=~\"$Site\", sw_name=~\"$Switch\"}[$__interval]))",
                         "interval": "$Smooth",
                         "legendFormat": "{{name}} {{mac}} Tx"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "A",
-                    "hidden": false
+                    "refId": "A"
                   }
                 },
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "sum by ($Identifier) (rate(unpoller_client_receive_bytes_total{name!~\".*camera.*|.*cam(era)?$\", name=~\"$Wired\", site_name=~\"$Site\", sw_name=~\"$Switch\"}[$__interval]))",
                         "interval": "$Smooth",
                         "intervalFactor": 1,
                         "legendFormat": "{{name}} {{mac}} Rx"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "B",
-                    "hidden": false
+                    "refId": "B"
                   }
                 }
               ],
-              "transformations": [],
-              "queryOptions": {}
+              "queryOptions": {},
+              "transformations": []
             }
           },
+          "description": "Wired TX / RX bytes per second (calculated in 30 second buckets). Rx is on the negative axis. Does not include amazon and camera devices. Unaffected by the AP setting.",
+          "id": 2,
+          "links": [],
+          "title": "Switch Bandwidth / Wired Devices",
+          "transparent": true,
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "timeseries",
-            "version": "",
+            "kind": "VizConfig",
             "spec": {
-              "options": {
-                "dataLinks": []
-              },
               "fieldConfig": {
                 "defaults": {},
                 "overrides": []
+              },
+              "options": {
+                "dataLinks": []
               }
-            }
-          },
-          "transparent": true
+            },
+            "version": ""
+          }
         }
       },
       "panel-21": {
         "kind": "Panel",
         "spec": {
-          "id": 21,
-          "title": "Wireless Devices",
-          "description": "This table represents current (latest) data.\nBytes columns are lifetime totals.",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -471,108 +460,94 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "sum by (channel,essid,ip,mac,name,network,oui,radio_desc,site_name,source) (\n unpoller_client_receive_bytes_total{wired!=\"true\", site_name=~\"$Site\", name=~\"$Wireless\"})",
                         "format": "table",
                         "instant": true,
                         "interval": "",
                         "legendFormat": ""
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "A",
-                    "hidden": false
+                    "refId": "A"
                   }
                 },
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "sum by (channel,essid,ip,mac,name,network,oui,radio_desc,site_name,source) (\n unpoller_client_transmit_bytes_total{wired!=\"true\",site_name=~\"$Site\", name=~\"$Wireless\"})",
                         "format": "table",
                         "instant": true,
                         "interval": "",
                         "legendFormat": ""
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "B",
-                    "hidden": false
+                    "refId": "B"
                   }
                 },
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "sum by (channel,essid,ip,mac,name,network,oui,radio_desc,site_name,source) (\n unpoller_client_uptime_seconds{wired!=\"true\",site_name=~\"$Site\", name=~\"$Wireless\"})",
                         "format": "table",
                         "instant": true,
                         "interval": "",
                         "legendFormat": ""
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "C",
-                    "hidden": false
+                    "refId": "C"
                   }
                 }
               ],
+              "queryOptions": {},
               "transformations": [
                 {
-                  "kind": "Transformation",
                   "group": "merge",
+                  "kind": "Transformation",
                   "spec": {
                     "options": {
                       "reducers": []
                     }
                   }
                 }
-              ],
-              "queryOptions": {}
+              ]
             }
           },
+          "description": "This table represents current (latest) data.\nBytes columns are lifetime totals.",
+          "id": 21,
+          "links": [],
+          "title": "Wireless Devices",
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "table",
-            "version": "12.3.6+security-01",
+            "kind": "VizConfig",
             "spec": {
-              "options": {
-                "cellHeight": "sm",
-                "showHeader": true
-              },
               "fieldConfig": {
                 "defaults": {
-                  "thresholds": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "value": 0,
-                        "color": "green"
-                      },
-                      {
-                        "value": 80,
-                        "color": "red"
-                      }
-                    ]
-                  },
                   "custom": {
                     "align": "auto",
                     "cellOptions": {
@@ -582,6 +557,19 @@
                       "reducers": []
                     },
                     "inspect": false
+                  },
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": 0
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
                   }
                 },
                 "overrides": [
@@ -1238,18 +1226,19 @@
                     ]
                   }
                 ]
+              },
+              "options": {
+                "cellHeight": "sm",
+                "showHeader": true
               }
-            }
+            },
+            "version": "13.0.2"
           }
         }
       },
       "panel-22": {
         "kind": "Panel",
         "spec": {
-          "id": 22,
-          "title": "Wired Devices",
-          "description": "This table represents current (latest) data.\nBytes columns are lifetime totals.",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -1257,105 +1246,91 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "sum by (ap_name,ip,mac,name,network,oui,site_name,source,sw_port) (\n     unpoller_client_uptime_seconds{wired=\"true\", site_name=~\"$Site\", name=~\"$Wired\", sw_name=~\"$Switch\"})",
                         "format": "table",
                         "instant": true,
                         "interval": ""
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "A",
-                    "hidden": false
+                    "refId": "A"
                   }
                 },
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "sum by (ap_name,ip,mac,name,network,oui,site_name,source,sw_port) (\n     unpoller_client_receive_bytes_total{wired=\"true\", site_name=~\"$Site\", name=~\"$Wired\", sw_name=~\"$Switch\"})",
                         "format": "table",
                         "instant": true,
                         "interval": ""
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "B",
-                    "hidden": false
+                    "refId": "B"
                   }
                 },
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "sum by (ap_name,ip,mac,name,network,oui,site_name,source,sw_port) (\n     unpoller_client_transmit_bytes_total{wired=\"true\", site_name=~\"$Site\", name=~\"$Wired\", sw_name=~\"$Switch\"})",
                         "format": "table",
                         "instant": true,
                         "interval": ""
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "C",
-                    "hidden": false
+                    "refId": "C"
                   }
                 }
               ],
+              "queryOptions": {},
               "transformations": [
                 {
-                  "kind": "Transformation",
                   "group": "merge",
+                  "kind": "Transformation",
                   "spec": {
                     "options": {
                       "reducers": []
                     }
                   }
                 }
-              ],
-              "queryOptions": {}
+              ]
             }
           },
+          "description": "This table represents current (latest) data.\nBytes columns are lifetime totals.",
+          "id": 22,
+          "links": [],
+          "title": "Wired Devices",
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "table",
-            "version": "12.3.6+security-01",
+            "kind": "VizConfig",
             "spec": {
-              "options": {
-                "cellHeight": "sm",
-                "showHeader": true
-              },
               "fieldConfig": {
                 "defaults": {
-                  "thresholds": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "value": 0,
-                        "color": "green"
-                      },
-                      {
-                        "value": 80,
-                        "color": "red"
-                      }
-                    ]
-                  },
                   "custom": {
                     "align": "auto",
                     "cellOptions": {
@@ -1365,6 +1340,19 @@
                       "reducers": []
                     },
                     "inspect": false
+                  },
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": 0
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
                   }
                 },
                 "overrides": [
@@ -1848,18 +1836,19 @@
                     ]
                   }
                 ]
+              },
+              "options": {
+                "cellHeight": "sm",
+                "showHeader": true
               }
-            }
+            },
+            "version": "13.0.2"
           }
         }
       },
       "panel-23": {
         "kind": "Panel",
         "spec": {
-          "id": 23,
-          "title": "Client Bandwidth / Echos & FireTVs",
-          "description": "Amazon Devices TX / RX bytes per second. Rx is on the negative axis. My home network has a ton of Amazon devices, so I broke them out separately. If you don't have Amazon devices, or they have different names, you can edit the query to use a different name. e = wired, w = wireless",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -1867,111 +1856,111 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "sum by ($Identifier) (rate(unpoller_client_transmit_bytes_total{name=~\"^amazon.*\", name=~\"$Wireless\", site_name=~\"$Site\", ap_name=~\"$AP\"}[$__interval]))",
                         "interval": "$Smooth",
                         "legendFormat": "w {{name}} {{mac}} Tx"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "A",
-                    "hidden": false
+                    "refId": "A"
                   }
                 },
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "sum by ($Identifier) (rate(unpoller_client_receive_bytes_total{name=~\"^amazon.*\", name=~\"$Wireless\", site_name=~\"$Site\", ap_name=~\"$AP\"}[$__interval]))",
                         "interval": "$Smooth",
                         "legendFormat": "w {{name}} {{mac}} Rx"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "B",
-                    "hidden": false
+                    "refId": "B"
                   }
                 },
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "sum by ($Identifier) (rate(unpoller_client_transmit_bytes_total{name=~\"^amazon.*\", name=~\"$Wired\", site_name=~\"$Site\", sw_name=~\"$Switch\"}[$__interval]))",
                         "interval": "$Smooth",
                         "legendFormat": "e {{name}} {{mac}} Tx"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "C",
-                    "hidden": false
+                    "refId": "C"
                   }
                 },
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "sum by ($Identifier) (rate(unpoller_client_receive_bytes_total{name=~\"^amazon.*\", name=~\"$Wired\", site_name=~\"$Site\", sw_name=~\"$Switch\"}[$__interval]))",
                         "interval": "$Smooth",
                         "legendFormat": "e {{name}} {{mac}} Rx"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "D",
-                    "hidden": false
+                    "refId": "D"
                   }
                 }
               ],
-              "transformations": [],
-              "queryOptions": {}
+              "queryOptions": {},
+              "transformations": []
             }
           },
+          "description": "Amazon Devices TX / RX bytes per second. Rx is on the negative axis. My home network has a ton of Amazon devices, so I broke them out separately. If you don't have Amazon devices, or they have different names, you can edit the query to use a different name. e = wired, w = wireless",
+          "id": 23,
+          "links": [],
+          "title": "Client Bandwidth / Echos \u0026 FireTVs",
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "timeseries",
-            "version": "",
+            "kind": "VizConfig",
             "spec": {
-              "options": {
-                "dataLinks": []
-              },
               "fieldConfig": {
                 "defaults": {},
                 "overrides": []
+              },
+              "options": {
+                "dataLinks": []
               }
-            }
+            },
+            "version": ""
           }
         }
       },
       "panel-24": {
         "kind": "Panel",
         "spec": {
-          "id": 24,
-          "title": "Client Wifi Tx Attempts",
-          "description": "",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -1979,52 +1968,52 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "avg by ($Identifier) (rate(unpoller_client_wifi_attempts_transmit_total{ap_name=~\"$AP\", site_name=~\"$Site\", name=~\"$Wireless\"}[$__interval]))",
                         "interval": "$Smooth",
                         "legendFormat": "{{name}} {{mac}}"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "A",
-                    "hidden": false
+                    "refId": "A"
                   }
                 }
               ],
-              "transformations": [],
-              "queryOptions": {}
+              "queryOptions": {},
+              "transformations": []
             }
           },
+          "description": "",
+          "id": 24,
+          "links": [],
+          "title": "Client Wifi Tx Attempts",
+          "transparent": true,
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "timeseries",
-            "version": "",
+            "kind": "VizConfig",
             "spec": {
-              "options": {
-                "dataLinks": []
-              },
               "fieldConfig": {
                 "defaults": {},
                 "overrides": []
+              },
+              "options": {
+                "dataLinks": []
               }
-            }
-          },
-          "transparent": true
+            },
+            "version": ""
+          }
         }
       },
       "panel-25": {
         "kind": "Panel",
         "spec": {
-          "id": 25,
-          "title": "Client Anomalies",
-          "description": "",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -2032,52 +2021,52 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "sum by ($Identifier) (unpoller_client_anomalies{ap_name=~\"$AP\", site_name=~\"$Site\", name=~\"$Wireless\"})",
                         "interval": "$Smooth",
                         "legendFormat": "{{name}} {{mac}}"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "A",
-                    "hidden": false
+                    "refId": "A"
                   }
                 }
               ],
-              "transformations": [],
-              "queryOptions": {}
+              "queryOptions": {},
+              "transformations": []
             }
           },
+          "description": "",
+          "id": 25,
+          "links": [],
+          "title": "Client Anomalies",
+          "transparent": true,
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "timeseries",
-            "version": "",
+            "kind": "VizConfig",
             "spec": {
-              "options": {
-                "dataLinks": []
-              },
               "fieldConfig": {
                 "defaults": {},
                 "overrides": []
+              },
+              "options": {
+                "dataLinks": []
               }
-            }
-          },
-          "transparent": true
+            },
+            "version": ""
+          }
         }
       },
       "panel-26": {
         "kind": "Panel",
         "spec": {
-          "id": 26,
-          "title": "RX Rate",
-          "description": "Client reported receive rate.",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -2085,52 +2074,52 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "sum by ($Identifier) (unpoller_client_radio_receive_rate_bps{ap_name=~\"$AP\", site_name=~\"$Site\", name=~\"$Wireless\"})",
                         "interval": "$Smooth",
                         "legendFormat": "{{name}} {{mac}}"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "A",
-                    "hidden": false
+                    "refId": "A"
                   }
                 }
               ],
-              "transformations": [],
-              "queryOptions": {}
+              "queryOptions": {},
+              "transformations": []
             }
           },
+          "description": "Client reported receive rate.",
+          "id": 26,
+          "links": [],
+          "title": "RX Rate",
+          "transparent": true,
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "timeseries",
-            "version": "",
+            "kind": "VizConfig",
             "spec": {
-              "options": {
-                "dataLinks": []
-              },
               "fieldConfig": {
                 "defaults": {},
                 "overrides": []
+              },
+              "options": {
+                "dataLinks": []
               }
-            }
-          },
-          "transparent": true
+            },
+            "version": ""
+          }
         }
       },
       "panel-27": {
         "kind": "Panel",
         "spec": {
-          "id": 27,
-          "title": "Client Connection Quality %",
-          "description": "",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -2138,51 +2127,51 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "sum by ($Identifier) (unpoller_client_ccq_ratio{ap_name=~\"$AP\", site_name=~\"$Site\", name=~\"$Wireless\"})",
                         "interval": "$Smooth",
                         "legendFormat": "{{name}} {{mac}}"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "A",
-                    "hidden": false
+                    "refId": "A"
                   }
                 }
               ],
-              "transformations": [],
-              "queryOptions": {}
+              "queryOptions": {},
+              "transformations": []
             }
           },
+          "description": "",
+          "id": 27,
+          "links": [],
+          "title": "Client Connection Quality %",
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "timeseries",
-            "version": "",
+            "kind": "VizConfig",
             "spec": {
-              "options": {
-                "dataLinks": []
-              },
               "fieldConfig": {
                 "defaults": {},
                 "overrides": []
+              },
+              "options": {
+                "dataLinks": []
               }
-            }
+            },
+            "version": ""
           }
         }
       },
       "panel-28": {
         "kind": "Panel",
         "spec": {
-          "id": 28,
-          "title": "Roam Count",
-          "description": "",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -2190,51 +2179,51 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "sum by ($Identifier) (unpoller_client_roam_count_total{ap_name=~\"$AP\", site_name=~\"$Site\", name=~\"$Wireless\"})",
                         "interval": "$Smooth",
                         "legendFormat": "{{name}} {{mac}}"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "A",
-                    "hidden": false
+                    "refId": "A"
                   }
                 }
               ],
-              "transformations": [],
-              "queryOptions": {}
+              "queryOptions": {},
+              "transformations": []
             }
           },
+          "description": "",
+          "id": 28,
+          "links": [],
+          "title": "Roam Count",
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "timeseries",
-            "version": "",
+            "kind": "VizConfig",
             "spec": {
-              "options": {
-                "dataLinks": []
-              },
               "fieldConfig": {
                 "defaults": {},
                 "overrides": []
+              },
+              "options": {
+                "dataLinks": []
               }
-            }
+            },
+            "version": ""
           }
         }
       },
       "panel-29": {
         "kind": "Panel",
         "spec": {
-          "id": 29,
-          "title": "Client Transmit Power",
-          "description": "",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -2242,51 +2231,51 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "sum by ($Identifier) (unpoller_client_radio_transmit_power_dbm{ap_name=~\"$AP\", site_name=~\"$Site\", name=~\"$Wireless\"})",
                         "interval": "$Smooth",
                         "legendFormat": "{{name}} {{mac}}"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "A",
-                    "hidden": false
+                    "refId": "A"
                   }
                 }
               ],
-              "transformations": [],
-              "queryOptions": {}
+              "queryOptions": {},
+              "transformations": []
             }
           },
+          "description": "",
+          "id": 29,
+          "links": [],
+          "title": "Client Transmit Power",
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "timeseries",
-            "version": "",
+            "kind": "VizConfig",
             "spec": {
-              "options": {
-                "dataLinks": []
-              },
               "fieldConfig": {
                 "defaults": {},
                 "overrides": []
+              },
+              "options": {
+                "dataLinks": []
               }
-            }
+            },
+            "version": ""
           }
         }
       },
       "panel-3": {
         "kind": "Panel",
         "spec": {
-          "id": 3,
-          "title": "UAP Bandwidth / Wireless Devices",
-          "description": "Bandwidth usage per wireless devices as reported by the UAPs. Rx is on the negative axis. Does not include amazon devices.",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -2294,73 +2283,73 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "sum by ($Identifier) (rate(unpoller_client_transmit_bytes_total{name!~\".*camera.*|.*cam(era)?$\", name=~\"$Wireless\", site_name=~\"$Site\", ap_name=~\"$AP\"}[$__interval]))",
                         "instant": false,
                         "interval": "$Smooth",
                         "legendFormat": "{{name}} {{mac}} Tx"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "B",
-                    "hidden": false
+                    "refId": "B"
                   }
                 },
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "sum by ($Identifier) (rate(unpoller_client_receive_bytes_total{name!~\".*camera.*|.*cam(era)?$\", name=~\"$Wireless\", site_name=~\"$Site\", ap_name=~\"$AP\"}[$__interval]))",
                         "instant": false,
                         "interval": "$Smooth",
                         "legendFormat": "{{name}} {{mac}} Rx"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "C",
-                    "hidden": false
+                    "refId": "C"
                   }
                 }
               ],
-              "transformations": [],
-              "queryOptions": {}
+              "queryOptions": {},
+              "transformations": []
             }
           },
+          "description": "Bandwidth usage per wireless devices as reported by the UAPs. Rx is on the negative axis. Does not include amazon devices.",
+          "id": 3,
+          "links": [],
+          "title": "UAP Bandwidth / Wireless Devices",
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "timeseries",
-            "version": "",
+            "kind": "VizConfig",
             "spec": {
-              "options": {
-                "dataLinks": []
-              },
               "fieldConfig": {
                 "defaults": {},
                 "overrides": []
+              },
+              "options": {
+                "dataLinks": []
               }
-            }
+            },
+            "version": ""
           }
         }
       },
       "panel-30": {
         "kind": "Panel",
         "spec": {
-          "id": 30,
-          "title": "Client Transmit Retries",
-          "description": "",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -2368,51 +2357,51 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "sum by ($Identifier) (rate(unpoller_client_transmit_retries_total{ap_name=~\"$AP\", site_name=~\"$Site\", name=~\"$Wireless\"}[$__interval]))",
                         "interval": "$Smooth",
                         "legendFormat": "{{name}} {{mac}}"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "A",
-                    "hidden": false
+                    "refId": "A"
                   }
                 }
               ],
-              "transformations": [],
-              "queryOptions": {}
+              "queryOptions": {},
+              "transformations": []
             }
           },
+          "description": "",
+          "id": 30,
+          "links": [],
+          "title": "Client Transmit Retries",
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "timeseries",
-            "version": "",
+            "kind": "VizConfig",
             "spec": {
-              "options": {
-                "dataLinks": []
-              },
               "fieldConfig": {
                 "defaults": {},
                 "overrides": []
+              },
+              "options": {
+                "dataLinks": []
               }
-            }
+            },
+            "version": ""
           }
         }
       },
       "panel-31": {
         "kind": "Panel",
         "spec": {
-          "id": 31,
-          "title": "Client Satisfaction",
-          "description": "",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -2420,52 +2409,52 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "sum by ($Identifier) (unpoller_client_satisfaction_ratio{ap_name=~\"$AP\", site_name=~\"$Site\", name=~\"$Wireless\"})",
                         "interval": "$Smooth",
                         "legendFormat": "{{name}} {{mac}}"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "A",
-                    "hidden": false
+                    "refId": "A"
                   }
                 }
               ],
-              "transformations": [],
-              "queryOptions": {}
+              "queryOptions": {},
+              "transformations": []
             }
           },
+          "description": "",
+          "id": 31,
+          "links": [],
+          "title": "Client Satisfaction",
+          "transparent": true,
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "timeseries",
-            "version": "",
+            "kind": "VizConfig",
             "spec": {
-              "options": {
-                "dataLinks": []
-              },
               "fieldConfig": {
                 "defaults": {},
                 "overrides": []
+              },
+              "options": {
+                "dataLinks": []
               }
-            }
-          },
-          "transparent": true
+            },
+            "version": ""
+          }
         }
       },
       "panel-6": {
         "kind": "Panel",
         "spec": {
-          "id": 6,
-          "title": "UAP Client Stats / Noise",
-          "description": "",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -2473,52 +2462,52 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "sum by ($Identifier) (unpoller_client_noise_db{ap_name=~\"$AP\", site_name=~\"$Site\", name=~\"$Wireless\"})",
                         "instant": false,
                         "interval": "$Smooth",
                         "legendFormat": "{{name}} {{mac}}"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "A",
-                    "hidden": false
+                    "refId": "A"
                   }
                 }
               ],
-              "transformations": [],
-              "queryOptions": {}
+              "queryOptions": {},
+              "transformations": []
             }
           },
+          "description": "",
+          "id": 6,
+          "links": [],
+          "title": "UAP Client Stats / Noise",
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "timeseries",
-            "version": "",
+            "kind": "VizConfig",
             "spec": {
-              "options": {
-                "dataLinks": []
-              },
               "fieldConfig": {
                 "defaults": {},
                 "overrides": []
+              },
+              "options": {
+                "dataLinks": []
               }
-            }
+            },
+            "version": ""
           }
         }
       },
       "panel-7": {
         "kind": "Panel",
         "spec": {
-          "id": 7,
-          "title": "Received Signal Strength Indicator",
-          "description": "",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -2526,52 +2515,52 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "sum by ($Identifier) (unpoller_client_rssi_db{ap_name=~\"$AP\", site_name=~\"$Site\", name=~\"$Wireless\"})",
                         "interval": "1m",
                         "legendFormat": "{{name}} {{mac}}"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "A",
-                    "hidden": false
+                    "refId": "A"
                   }
                 }
               ],
-              "transformations": [],
-              "queryOptions": {}
+              "queryOptions": {},
+              "transformations": []
             }
           },
+          "description": "",
+          "id": 7,
+          "links": [],
+          "title": "Received Signal Strength Indicator",
+          "transparent": true,
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "timeseries",
-            "version": "",
+            "kind": "VizConfig",
             "spec": {
-              "options": {
-                "dataLinks": []
-              },
               "fieldConfig": {
                 "defaults": {},
                 "overrides": []
+              },
+              "options": {
+                "dataLinks": []
               }
-            }
-          },
-          "transparent": true
+            },
+            "version": ""
+          }
         }
       },
       "panel-9": {
         "kind": "Panel",
         "spec": {
-          "id": 9,
-          "title": "Clients / Channel",
-          "description": "Visualize wireless channel usage w/ wired client counts.",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -2579,64 +2568,68 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "count by (hostname) (unpoller_client_uptime_seconds{site_name=~\"$Site\", name=~\"$Wired\", sw_name=~\"$Switch\"})",
                         "instant": true,
                         "legendFormat": "Wired"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "A",
-                    "hidden": false
+                    "refId": "A"
                   }
                 },
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "count by (channel) (unpoller_client_roam_count_total{site_name=~\"$Site\", name=~\"$Wireless\", ap_name=~\"$AP\"})",
                         "instant": true,
                         "interval": "$Smooth",
                         "legendFormat": "Channel {{channel}}"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "B",
-                    "hidden": false
+                    "refId": "B"
                   }
                 }
               ],
-              "transformations": [],
               "queryOptions": {
                 "maxDataPoints": 3
-              }
+              },
+              "transformations": []
             }
           },
+          "description": "Visualize wireless channel usage w/ wired client counts.",
+          "id": 9,
+          "links": [],
+          "title": "Clients / Channel",
+          "transparent": true,
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "piechart",
-            "version": "",
+            "kind": "VizConfig",
             "spec": {
-              "options": {},
               "fieldConfig": {
                 "defaults": {},
                 "overrides": []
-              }
-            }
-          },
-          "transparent": true
+              },
+              "options": {}
+            },
+            "version": ""
+          }
         }
       }
     },
@@ -2647,274 +2640,274 @@
           {
             "kind": "GridLayoutItem",
             "spec": {
-              "x": 0,
-              "y": 0,
-              "width": 24,
-              "height": 13,
               "element": {
                 "kind": "ElementReference",
                 "name": "panel-21"
-              }
+              },
+              "height": 13,
+              "width": 24,
+              "x": 0,
+              "y": 0
             }
           },
           {
             "kind": "GridLayoutItem",
             "spec": {
-              "x": 0,
-              "y": 13,
-              "width": 24,
-              "height": 12,
               "element": {
                 "kind": "ElementReference",
                 "name": "panel-22"
-              }
+              },
+              "height": 12,
+              "width": 24,
+              "x": 0,
+              "y": 13
             }
           },
           {
             "kind": "GridLayoutItem",
             "spec": {
-              "x": 0,
-              "y": 25,
-              "width": 8,
-              "height": 10,
               "element": {
                 "kind": "ElementReference",
                 "name": "panel-9"
-              }
+              },
+              "height": 10,
+              "width": 8,
+              "x": 0,
+              "y": 25
             }
           },
           {
             "kind": "GridLayoutItem",
             "spec": {
-              "x": 8,
-              "y": 25,
-              "width": 8,
-              "height": 10,
               "element": {
                 "kind": "ElementReference",
                 "name": "panel-11"
-              }
+              },
+              "height": 10,
+              "width": 8,
+              "x": 8,
+              "y": 25
             }
           },
           {
             "kind": "GridLayoutItem",
             "spec": {
-              "x": 16,
-              "y": 25,
-              "width": 8,
-              "height": 10,
               "element": {
                 "kind": "ElementReference",
                 "name": "panel-12"
-              }
+              },
+              "height": 10,
+              "width": 8,
+              "x": 16,
+              "y": 25
             }
           },
           {
             "kind": "GridLayoutItem",
             "spec": {
-              "x": 0,
-              "y": 35,
-              "width": 24,
-              "height": 14,
               "element": {
                 "kind": "ElementReference",
                 "name": "panel-3"
-              }
+              },
+              "height": 14,
+              "width": 24,
+              "x": 0,
+              "y": 35
             }
           },
           {
             "kind": "GridLayoutItem",
             "spec": {
-              "x": 0,
-              "y": 49,
-              "width": 24,
-              "height": 17,
               "element": {
                 "kind": "ElementReference",
                 "name": "panel-2"
-              }
+              },
+              "height": 17,
+              "width": 24,
+              "x": 0,
+              "y": 49
             }
           },
           {
             "kind": "GridLayoutItem",
             "spec": {
-              "x": 0,
-              "y": 66,
-              "width": 12,
-              "height": 11,
               "element": {
                 "kind": "ElementReference",
                 "name": "panel-23"
-              }
+              },
+              "height": 11,
+              "width": 12,
+              "x": 0,
+              "y": 66
             }
           },
           {
             "kind": "GridLayoutItem",
             "spec": {
-              "x": 12,
-              "y": 66,
-              "width": 12,
-              "height": 11,
               "element": {
                 "kind": "ElementReference",
                 "name": "panel-15"
-              }
+              },
+              "height": 11,
+              "width": 12,
+              "x": 12,
+              "y": 66
             }
           },
           {
             "kind": "GridLayoutItem",
             "spec": {
-              "x": 0,
-              "y": 77,
-              "width": 12,
-              "height": 9,
               "element": {
                 "kind": "ElementReference",
                 "name": "panel-7"
-              }
+              },
+              "height": 9,
+              "width": 12,
+              "x": 0,
+              "y": 77
             }
           },
           {
             "kind": "GridLayoutItem",
             "spec": {
-              "x": 12,
-              "y": 77,
-              "width": 12,
-              "height": 9,
               "element": {
                 "kind": "ElementReference",
                 "name": "panel-10"
-              }
+              },
+              "height": 9,
+              "width": 12,
+              "x": 12,
+              "y": 77
             }
           },
           {
             "kind": "GridLayoutItem",
             "spec": {
-              "x": 0,
-              "y": 86,
-              "width": 12,
-              "height": 8,
               "element": {
                 "kind": "ElementReference",
                 "name": "panel-6"
-              }
+              },
+              "height": 8,
+              "width": 12,
+              "x": 0,
+              "y": 86
             }
           },
           {
             "kind": "GridLayoutItem",
             "spec": {
-              "x": 12,
-              "y": 86,
-              "width": 12,
-              "height": 8,
               "element": {
                 "kind": "ElementReference",
                 "name": "panel-19"
-              }
+              },
+              "height": 8,
+              "width": 12,
+              "x": 12,
+              "y": 86
             }
           },
           {
             "kind": "GridLayoutItem",
             "spec": {
-              "x": 0,
-              "y": 94,
-              "width": 12,
-              "height": 8,
               "element": {
                 "kind": "ElementReference",
                 "name": "panel-24"
-              }
+              },
+              "height": 8,
+              "width": 12,
+              "x": 0,
+              "y": 94
             }
           },
           {
             "kind": "GridLayoutItem",
             "spec": {
-              "x": 12,
-              "y": 94,
-              "width": 12,
-              "height": 8,
               "element": {
                 "kind": "ElementReference",
                 "name": "panel-26"
-              }
+              },
+              "height": 8,
+              "width": 12,
+              "x": 12,
+              "y": 94
             }
           },
           {
             "kind": "GridLayoutItem",
             "spec": {
-              "x": 0,
-              "y": 102,
-              "width": 12,
-              "height": 8,
               "element": {
                 "kind": "ElementReference",
                 "name": "panel-30"
-              }
+              },
+              "height": 8,
+              "width": 12,
+              "x": 0,
+              "y": 102
             }
           },
           {
             "kind": "GridLayoutItem",
             "spec": {
-              "x": 12,
-              "y": 102,
-              "width": 12,
-              "height": 8,
               "element": {
                 "kind": "ElementReference",
                 "name": "panel-29"
-              }
+              },
+              "height": 8,
+              "width": 12,
+              "x": 12,
+              "y": 102
             }
           },
           {
             "kind": "GridLayoutItem",
             "spec": {
-              "x": 0,
-              "y": 110,
-              "width": 12,
-              "height": 8,
               "element": {
                 "kind": "ElementReference",
                 "name": "panel-25"
-              }
+              },
+              "height": 8,
+              "width": 12,
+              "x": 0,
+              "y": 110
             }
           },
           {
             "kind": "GridLayoutItem",
             "spec": {
-              "x": 12,
-              "y": 110,
-              "width": 12,
-              "height": 8,
               "element": {
                 "kind": "ElementReference",
                 "name": "panel-31"
-              }
+              },
+              "height": 8,
+              "width": 12,
+              "x": 12,
+              "y": 110
             }
           },
           {
             "kind": "GridLayoutItem",
             "spec": {
-              "x": 0,
-              "y": 118,
-              "width": 12,
-              "height": 8,
               "element": {
                 "kind": "ElementReference",
                 "name": "panel-28"
-              }
+              },
+              "height": 8,
+              "width": 12,
+              "x": 0,
+              "y": 118
             }
           },
           {
             "kind": "GridLayoutItem",
             "spec": {
-              "x": 12,
-              "y": 118,
-              "width": 12,
-              "height": 8,
               "element": {
                 "kind": "ElementReference",
                 "name": "panel-27"
-              }
+              },
+              "height": 8,
+              "width": 12,
+              "x": 12,
+              "y": 118
             }
           }
         ]
@@ -2922,53 +2915,65 @@
     },
     "links": [
       {
-        "title": "UniFi Poller",
-        "type": "dashboards",
+        "asDropdown": false,
         "icon": "external link",
-        "tooltip": "",
+        "includeVars": false,
+        "keepTime": false,
+        "tags": [],
+        "targetBlank": true,
+        "title": "Source (GitHub)",
+        "tooltip": "View source file in repository",
+        "type": "link",
+        "url": "https://github.com/Daniel-W-Innes/grafana/blob/main/unpoller/clients.json"
+      },
+      {
+        "asDropdown": true,
+        "icon": "external link",
+        "includeVars": false,
+        "keepTime": true,
         "tags": [
           "unifi-poller"
         ],
-        "asDropdown": true,
         "targetBlank": false,
-        "includeVars": false,
-        "keepTime": true
+        "title": "UniFi Poller",
+        "tooltip": "",
+        "type": "dashboards"
       },
       {
-        "title": "Help",
-        "type": "link",
+        "asDropdown": false,
         "icon": "question",
-        "tooltip": "",
-        "url": "https://golift.io/unifi-poller/issues",
-        "tags": [],
-        "asDropdown": false,
-        "targetBlank": false,
         "includeVars": false,
-        "keepTime": false
+        "keepTime": false,
+        "tags": [],
+        "targetBlank": false,
+        "title": "Help",
+        "tooltip": "",
+        "type": "link",
+        "url": "https://golift.io/unifi-poller/issues"
       },
       {
-        "title": "Wiki",
-        "type": "link",
+        "asDropdown": false,
         "icon": "doc",
-        "tooltip": "",
-        "url": "https://golift.io/unifi-poller/wiki",
-        "tags": [],
-        "asDropdown": false,
-        "targetBlank": false,
         "includeVars": false,
-        "keepTime": false
+        "keepTime": false,
+        "tags": [],
+        "targetBlank": false,
+        "title": "Wiki",
+        "tooltip": "",
+        "type": "link",
+        "url": "https://golift.io/unifi-poller/wiki"
       },
       {
-        "title": "Discord",
-        "type": "link",
-        "icon": "bolt",
-        "tooltip": "",
-        "url": "https://discord.gg/KnyKYt2",
-        "tags": [],
         "asDropdown": false,
-        "targetBlank": false,
+        "icon": "bolt",
         "includeVars": false,
-        "keepTime": false
+        "keepTime": false,
+        "tags": [],
+        "targetBlank": false,
+        "title": "Discord",
+        "tooltip": "",
+        "type": "link",
+        "url": "https://discord.gg/KnyKYt2"
       }
     ],
     "liveNow": false,
@@ -2978,9 +2983,6 @@
       "unifi-poller"
     ],
     "timeSettings": {
-      "timezone": "browser",
-      "from": "now-3h",
-      "to": "now",
       "autoRefresh": "1m",
       "autoRefreshIntervals": [
         "30s",
@@ -2991,307 +2993,289 @@
         "1h",
         "2h"
       ],
+      "fiscalYearStartMonth": 0,
+      "from": "now-3h",
       "hideTimepicker": false,
-      "fiscalYearStartMonth": 0
+      "timezone": "browser",
+      "to": "now"
     },
     "title": "UniFi-Poller: Client Insights - Prometheus",
     "variables": [
       {
         "kind": "DatasourceVariable",
         "spec": {
+          "allowCustomValue": true,
+          "current": {
+            "text": "Prometheus",
+            "value": "PBFA97CFB590B2093"
+          },
+          "hide": "dontHide",
+          "includeAll": false,
+          "label": "Datasource",
+          "multi": false,
           "name": "ds_prometheus",
+          "options": [],
           "pluginId": "prometheus",
           "refresh": "onDashboardLoad",
           "regex": "",
-          "current": {
-            "text": "",
-            "value": ""
-          },
-          "options": [],
-          "multi": false,
-          "includeAll": false,
-          "label": "Datasource",
-          "hide": "dontHide",
-          "skipUrlSync": false,
-          "allowCustomValue": true
+          "skipUrlSync": false
         }
       },
       {
         "kind": "QueryVariable",
         "spec": {
-          "name": "Controller",
+          "allowCustomValue": true,
           "current": {
-            "text": "",
-            "value": ""
+            "text": [
+              "All"
+            ],
+            "value": [
+              "$__all"
+            ]
           },
+          "definition": "label_values(unpoller_client_uptime_seconds,source)",
           "hide": "hideVariable",
-          "refresh": "onDashboardLoad",
-          "skipUrlSync": false,
+          "includeAll": true,
+          "multi": true,
+          "name": "Controller",
+          "options": [],
           "query": {
-            "kind": "DataQuery",
-            "group": "prometheus",
-            "version": "v0",
             "datasource": {
               "name": "${ds_prometheus}"
             },
+            "group": "prometheus",
+            "kind": "DataQuery",
             "spec": {
               "__legacyStringValue": "label_values(unpoller_client_uptime_seconds,source)"
-            }
+            },
+            "version": "v0"
           },
+          "refresh": "onDashboardLoad",
           "regex": "",
-          "sort": "alphabeticalDesc",
-          "definition": "label_values(unpoller_client_uptime_seconds,source)",
-          "options": [],
-          "multi": true,
-          "includeAll": true,
-          "allowCustomValue": true
+          "regexApplyTo": "value",
+          "skipUrlSync": false,
+          "sort": "alphabeticalDesc"
         }
       },
       {
         "kind": "QueryVariable",
         "spec": {
-          "name": "Site",
+          "allValue": ".*",
+          "allowCustomValue": true,
           "current": {
-            "text": "",
-            "value": ""
+            "text": [
+              "All"
+            ],
+            "value": [
+              "$__all"
+            ]
           },
+          "definition": "label_values(unpoller_client_uptime_seconds{source=~\"$Controller\"},site_name)",
           "hide": "dontHide",
-          "refresh": "onDashboardLoad",
-          "skipUrlSync": false,
+          "includeAll": true,
+          "multi": true,
+          "name": "Site",
+          "options": [],
           "query": {
-            "kind": "DataQuery",
-            "group": "prometheus",
-            "version": "v0",
             "datasource": {
               "name": "${ds_prometheus}"
             },
+            "group": "prometheus",
+            "kind": "DataQuery",
             "spec": {
               "__legacyStringValue": "label_values(unpoller_client_uptime_seconds{source=~\"$Controller\"},site_name)"
-            }
+            },
+            "version": "v0"
           },
+          "refresh": "onDashboardLoad",
           "regex": "",
-          "sort": "alphabeticalAsc",
-          "definition": "label_values(unpoller_client_uptime_seconds{source=~\"$Controller\"},site_name)",
-          "options": [],
-          "multi": true,
-          "includeAll": true,
-          "allValue": ".*",
-          "allowCustomValue": true
+          "regexApplyTo": "value",
+          "skipUrlSync": false,
+          "sort": "alphabeticalAsc"
         }
       },
       {
         "kind": "QueryVariable",
         "spec": {
-          "name": "AP",
+          "allowCustomValue": true,
           "current": {
-            "text": "",
-            "value": ""
+            "text": [
+              "All"
+            ],
+            "value": [
+              "$__all"
+            ]
           },
+          "definition": "label_values(unpoller_client_uptime_seconds{site_name=~\"$Site\"},ap_name)",
           "hide": "dontHide",
-          "refresh": "onTimeRangeChanged",
-          "skipUrlSync": false,
+          "includeAll": true,
+          "multi": true,
+          "name": "AP",
+          "options": [],
           "query": {
-            "kind": "DataQuery",
-            "group": "prometheus",
-            "version": "v0",
             "datasource": {
               "name": "${ds_prometheus}"
             },
+            "group": "prometheus",
+            "kind": "DataQuery",
             "spec": {
               "__legacyStringValue": "label_values(unpoller_client_uptime_seconds{site_name=~\"$Site\"},ap_name)"
-            }
+            },
+            "version": "v0"
           },
+          "refresh": "onTimeRangeChanged",
           "regex": "",
-          "sort": "alphabeticalAsc",
-          "definition": "label_values(unpoller_client_uptime_seconds{site_name=~\"$Site\"},ap_name)",
-          "options": [],
-          "multi": true,
-          "includeAll": true,
-          "allowCustomValue": true
+          "regexApplyTo": "value",
+          "skipUrlSync": false,
+          "sort": "alphabeticalAsc"
         }
       },
       {
         "kind": "QueryVariable",
         "spec": {
-          "name": "Switch",
+          "allowCustomValue": true,
           "current": {
-            "text": "",
-            "value": ""
+            "text": [
+              "All"
+            ],
+            "value": [
+              "$__all"
+            ]
           },
+          "definition": "label_values(unpoller_client_uptime_seconds{site_name=~\"$Site\"},sw_name)",
           "hide": "dontHide",
-          "refresh": "onDashboardLoad",
-          "skipUrlSync": false,
+          "includeAll": true,
+          "multi": true,
+          "name": "Switch",
+          "options": [],
           "query": {
-            "kind": "DataQuery",
-            "group": "prometheus",
-            "version": "v0",
             "datasource": {
               "name": "${ds_prometheus}"
             },
+            "group": "prometheus",
+            "kind": "DataQuery",
             "spec": {
               "__legacyStringValue": "label_values(unpoller_client_uptime_seconds{site_name=~\"$Site\"},sw_name)"
-            }
+            },
+            "version": "v0"
           },
+          "refresh": "onDashboardLoad",
           "regex": "",
-          "sort": "alphabeticalAsc",
-          "definition": "label_values(unpoller_client_uptime_seconds{site_name=~\"$Site\"},sw_name)",
-          "options": [],
-          "multi": true,
-          "includeAll": true,
-          "allowCustomValue": true
+          "regexApplyTo": "value",
+          "skipUrlSync": false,
+          "sort": "alphabeticalAsc"
         }
       },
       {
         "kind": "QueryVariable",
         "spec": {
-          "name": "Wireless",
+          "allValue": ".*",
+          "allowCustomValue": true,
           "current": {
-            "text": "",
-            "value": ""
+            "text": [
+              "All"
+            ],
+            "value": [
+              "$__all"
+            ]
           },
+          "definition": "label_values(unpoller_client_uptime_seconds{site_name=~\"$Site\", ap_name=~\"$AP\", wired=\"false\"},name)",
           "hide": "dontHide",
-          "refresh": "onDashboardLoad",
-          "skipUrlSync": false,
+          "includeAll": true,
+          "multi": true,
+          "name": "Wireless",
+          "options": [],
           "query": {
-            "kind": "DataQuery",
-            "group": "prometheus",
-            "version": "v0",
             "datasource": {
               "name": "${ds_prometheus}"
             },
+            "group": "prometheus",
+            "kind": "DataQuery",
             "spec": {
               "__legacyStringValue": "label_values(unpoller_client_uptime_seconds{site_name=~\"$Site\", ap_name=~\"$AP\", wired=\"false\"},name)"
-            }
+            },
+            "version": "v0"
           },
+          "refresh": "onDashboardLoad",
           "regex": "",
-          "sort": "alphabeticalAsc",
-          "definition": "label_values(unpoller_client_uptime_seconds{site_name=~\"$Site\", ap_name=~\"$AP\", wired=\"false\"},name)",
-          "options": [],
-          "multi": true,
-          "includeAll": true,
-          "allValue": ".*",
-          "allowCustomValue": true
+          "regexApplyTo": "value",
+          "skipUrlSync": false,
+          "sort": "alphabeticalAsc"
         }
       },
       {
         "kind": "QueryVariable",
         "spec": {
-          "name": "Wired",
+          "allValue": ".*",
+          "allowCustomValue": true,
           "current": {
-            "text": "",
-            "value": ""
+            "text": [
+              "All"
+            ],
+            "value": [
+              "$__all"
+            ]
           },
+          "definition": "label_values(unpoller_client_uptime_seconds{site_name=~\"$Site\", sw_name=~\"$Switch\", wired=\"true\"},name)",
           "hide": "dontHide",
-          "refresh": "onDashboardLoad",
-          "skipUrlSync": false,
+          "includeAll": true,
+          "multi": true,
+          "name": "Wired",
+          "options": [],
           "query": {
-            "kind": "DataQuery",
-            "group": "prometheus",
-            "version": "v0",
             "datasource": {
               "name": "${ds_prometheus}"
             },
+            "group": "prometheus",
+            "kind": "DataQuery",
             "spec": {
               "__legacyStringValue": "label_values(unpoller_client_uptime_seconds{site_name=~\"$Site\", sw_name=~\"$Switch\", wired=\"true\"},name)"
-            }
+            },
+            "version": "v0"
           },
+          "refresh": "onDashboardLoad",
           "regex": "",
-          "sort": "alphabeticalAsc",
-          "definition": "label_values(unpoller_client_uptime_seconds{site_name=~\"$Site\", sw_name=~\"$Switch\", wired=\"true\"},name)",
-          "options": [],
-          "multi": true,
-          "includeAll": true,
-          "allValue": ".*",
-          "allowCustomValue": true
+          "regexApplyTo": "value",
+          "skipUrlSync": false,
+          "sort": "alphabeticalAsc"
         }
       },
       {
         "kind": "CustomVariable",
         "spec": {
-          "name": "Smooth",
-          "query": "30s,1m,2m,5m,10m,15m,30m,1h",
+          "allowCustomValue": true,
           "current": {
             "text": "2m",
             "value": "2m"
           },
-          "options": [
-            {
-              "selected": false,
-              "text": "30s",
-              "value": "30s"
-            },
-            {
-              "selected": false,
-              "text": "1m",
-              "value": "1m"
-            },
-            {
-              "selected": true,
-              "text": "2m",
-              "value": "2m"
-            },
-            {
-              "selected": false,
-              "text": "5m",
-              "value": "5m"
-            },
-            {
-              "selected": false,
-              "text": "10m",
-              "value": "10m"
-            },
-            {
-              "selected": false,
-              "text": "15m",
-              "value": "15m"
-            },
-            {
-              "selected": false,
-              "text": "30m",
-              "value": "30m"
-            },
-            {
-              "selected": false,
-              "text": "1h",
-              "value": "1h"
-            }
-          ],
-          "multi": false,
-          "includeAll": false,
           "hide": "dontHide",
+          "includeAll": false,
+          "multi": false,
+          "name": "Smooth",
+          "options": [],
+          "query": "30s,1m,2m,5m,10m,15m,30m,1h",
           "skipUrlSync": false,
-          "allowCustomValue": true
+          "valuesFormat": "csv"
         }
       },
       {
         "kind": "CustomVariable",
         "spec": {
-          "name": "Identifier",
-          "query": "name, name\\,mac",
+          "allowCustomValue": true,
           "current": {
             "text": "name",
             "value": "name"
           },
-          "options": [
-            {
-              "selected": true,
-              "text": "name",
-              "value": "name"
-            },
-            {
-              "selected": false,
-              "text": "name,mac",
-              "value": "name,mac"
-            }
-          ],
-          "multi": false,
-          "includeAll": false,
           "hide": "dontHide",
+          "includeAll": false,
+          "multi": false,
+          "name": "Identifier",
+          "options": [],
+          "query": "name, name\\,mac",
           "skipUrlSync": false,
-          "allowCustomValue": true
+          "valuesFormat": "csv"
         }
       }
     ]
   }
 }
-
