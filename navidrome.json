@@ -2432,7 +2432,7 @@
         "2h"
       ],
       "fiscalYearStartMonth": 0,
-      "from": "now-30m",
+      "from": "now-30d",
       "hideTimepicker": false,
       "timezone": "browser",
       "to": "now"
