@@ -2,30 +2,23 @@
   "apiVersion": "dashboard.grafana.app/v2",
   "kind": "Dashboard",
   "metadata": {
-    "name": "9WaGWZaZk",
-    "generation": 1,
-    "creationTimestamp": "2026-06-13T15:40:26Z",
-    "labels": {},
-    "annotations": {}
+    "name": "9WaGWZaZk"
   },
   "spec": {
     "annotations": [
       {
         "kind": "AnnotationQuery",
         "spec": {
-          "query": {
-            "kind": "DataQuery",
-            "group": "",
-            "version": "v0",
-            "spec": {}
-          },
+          "builtIn": true,
           "enable": true,
           "hide": true,
           "iconColor": "rgba(0, 211, 255, 1)",
-          "name": "Annotations & Alerts",
-          "builtIn": true,
-          "legacyOptions": {
-            "type": "dashboard"
+          "name": "Annotations \u0026 Alerts",
+          "query": {
+            "group": "grafana",
+            "kind": "DataQuery",
+            "spec": {},
+            "version": "v0"
           }
         }
       }
@@ -37,10 +30,6 @@
       "panel-15": {
         "kind": "Panel",
         "spec": {
-          "id": 15,
-          "title": "Data Transfer",
-          "description": "Shows data transfer for each subsystem on the site. RX is on the negative axis.",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -48,86 +37,58 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "unpoller_site_transmit_rate_bytes{site_name=~\"$Site\", subsystem=~\"$Subsystem\"}",
                         "interval": "$Smooth",
                         "legendFormat": "{{subsystem}} Tx"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "A",
-                    "hidden": false
+                    "refId": "A"
                   }
                 },
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "unpoller_site_receive_rate_bytes{site_name=~\"$Site\", subsystem=~\"$Subsystem\"}",
                         "interval": "$Smooth",
                         "legendFormat": "{{subsystem}} Rx"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "B",
-                    "hidden": false
+                    "refId": "B"
                   }
                 }
               ],
-              "transformations": [],
-              "queryOptions": {}
+              "queryOptions": {},
+              "transformations": []
             }
           },
+          "description": "Shows data transfer for each subsystem on the site. RX is on the negative axis.",
+          "id": 15,
+          "links": [],
+          "title": "Data Transfer",
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "timeseries",
-            "version": "12.3.6+security-01",
+            "kind": "VizConfig",
             "spec": {
-              "options": {
-                "dataLinks": [],
-                "legend": {
-                  "calcs": [
-                    "lastNotNull",
-                    "max"
-                  ],
-                  "displayMode": "table",
-                  "placement": "right",
-                  "showLegend": true
-                },
-                "tooltip": {
-                  "hideZeros": false,
-                  "mode": "multi",
-                  "sort": "desc"
-                }
-              },
               "fieldConfig": {
                 "defaults": {
-                  "unit": "Bps",
-                  "thresholds": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "value": 0,
-                        "color": "green"
-                      },
-                      {
-                        "value": 80,
-                        "color": "red"
-                      }
-                    ]
-                  },
                   "color": {
                     "mode": "palette-classic"
                   },
@@ -164,7 +125,21 @@
                     "thresholdsStyle": {
                       "mode": "off"
                     }
-                  }
+                  },
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": 0
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "Bps"
                 },
                 "overrides": [
                   {
@@ -192,540 +167,12 @@
                     ]
                   }
                 ]
-              }
-            }
-          }
-        }
-      },
-      "panel-2": {
-        "kind": "Panel",
-        "spec": {
-          "id": 2,
-          "title": "Client Counts",
-          "description": "This graphs shows clients connected to the site.",
-          "links": [],
-          "data": {
-            "kind": "QueryGroup",
-            "spec": {
-              "queries": [
-                {
-                  "kind": "PanelQuery",
-                  "spec": {
-                    "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
-                      "datasource": {
-                        "name": "${ds_prometheus}"
-                      },
-                      "spec": {
-                        "expr": "unpoller_site_users{site_name=~\"$Site\", subsystem=~\"$Subsystem\"}",
-                        "interval": "$Smooth",
-                        "legendFormat": "{{subsystem}} Users"
-                      }
-                    },
-                    "refId": "A",
-                    "hidden": false
-                  }
-                },
-                {
-                  "kind": "PanelQuery",
-                  "spec": {
-                    "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
-                      "datasource": {
-                        "name": "${ds_prometheus}"
-                      },
-                      "spec": {
-                        "expr": "unpoller_site_guests{site_name=~\"$Site\", subsystem=~\"$Subsystem\"}",
-                        "interval": "$Smooth",
-                        "legendFormat": "{{subsystem}} Guests"
-                      }
-                    },
-                    "refId": "B",
-                    "hidden": false
-                  }
-                },
-                {
-                  "kind": "PanelQuery",
-                  "spec": {
-                    "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
-                      "datasource": {
-                        "name": "${ds_prometheus}"
-                      },
-                      "spec": {
-                        "expr": "unpoller_site_remote_user_active{site_name=~\"$Site\", subsystem=~\"$Subsystem\"}",
-                        "interval": "$Smooth",
-                        "legendFormat": "{{subsystem}} Active"
-                      }
-                    },
-                    "refId": "C",
-                    "hidden": false
-                  }
-                },
-                {
-                  "kind": "PanelQuery",
-                  "spec": {
-                    "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
-                      "datasource": {
-                        "name": "${ds_prometheus}"
-                      },
-                      "spec": {
-                        "expr": "unpoller_site_remote_user_inactive{site_name=~\"$Site\", subsystem=~\"$Subsystem\"}",
-                        "interval": "$Smooth",
-                        "legendFormat": "{{subsystem}} Inactive"
-                      }
-                    },
-                    "refId": "D",
-                    "hidden": false
-                  }
-                },
-                {
-                  "kind": "PanelQuery",
-                  "spec": {
-                    "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
-                      "datasource": {
-                        "name": "${ds_prometheus}"
-                      },
-                      "spec": {
-                        "expr": "unpoller_site_stations{site_name=~\"$Site\", subsystem=~\"$Subsystem\"}",
-                        "interval": "$Smooth",
-                        "legendFormat": "{{subsystem}} Stations"
-                      }
-                    },
-                    "refId": "E",
-                    "hidden": false
-                  }
-                }
-              ],
-              "transformations": [],
-              "queryOptions": {}
-            }
-          },
-          "vizConfig": {
-            "kind": "VizConfig",
-            "group": "timeseries",
-            "version": "",
-            "spec": {
-              "options": {
-                "dataLinks": []
               },
-              "fieldConfig": {
-                "defaults": {},
-                "overrides": []
-              }
-            }
-          }
-        }
-      },
-      "panel-32": {
-        "kind": "Panel",
-        "spec": {
-          "id": 32,
-          "title": "",
-          "description": "",
-          "links": [],
-          "data": {
-            "kind": "QueryGroup",
-            "spec": {
-              "queries": [
-                {
-                  "kind": "PanelQuery",
-                  "spec": {
-                    "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
-                      "datasource": {
-                        "name": "${ds_prometheus}"
-                      },
-                      "spec": {
-                        "expr": "unpoller_site_latency_seconds{site_name=~\"$Site\"}",
-                        "instant": true,
-                        "interval": "$Smooth"
-                      }
-                    },
-                    "refId": "A",
-                    "hidden": false
-                  }
-                }
-              ],
-              "transformations": [],
-              "queryOptions": {}
-            }
-          },
-          "vizConfig": {
-            "kind": "VizConfig",
-            "group": "gauge",
-            "version": "12.3.6+security-01",
-            "spec": {
               "options": {
-                "minVizHeight": 75,
-                "minVizWidth": 75,
-                "orientation": "horizontal",
-                "reduceOptions": {
-                  "calcs": [
-                    "lastNotNull"
-                  ],
-                  "fields": "",
-                  "values": false
+                "annotations": {
+                  "clustering": -1,
+                  "multiLane": false
                 },
-                "showThresholdLabels": false,
-                "showThresholdMarkers": true,
-                "sizing": "auto"
-              },
-              "fieldConfig": {
-                "defaults": {
-                  "displayName": "Latency",
-                  "unit": "s",
-                  "decimals": 0,
-                  "min": 10,
-                  "max": 400,
-                  "thresholds": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "value": 0,
-                        "color": "#299c46"
-                      },
-                      {
-                        "value": 100,
-                        "color": "rgba(237, 129, 40, 0.89)"
-                      },
-                      {
-                        "value": 200,
-                        "color": "#d44a3a"
-                      }
-                    ]
-                  },
-                  "color": {
-                    "mode": "thresholds"
-                  }
-                },
-                "overrides": []
-              }
-            }
-          }
-        }
-      },
-      "panel-33": {
-        "kind": "Panel",
-        "spec": {
-          "id": 33,
-          "title": "",
-          "description": "",
-          "links": [],
-          "data": {
-            "kind": "QueryGroup",
-            "spec": {
-              "queries": [
-                {
-                  "kind": "PanelQuery",
-                  "spec": {
-                    "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
-                      "datasource": {
-                        "name": "${ds_prometheus}"
-                      },
-                      "spec": {
-                        "expr": "unpoller_site_speedtest_ping{site_name=~\"$Site\"}",
-                        "interval": "$Smooth"
-                      }
-                    },
-                    "refId": "A",
-                    "hidden": false
-                  }
-                }
-              ],
-              "transformations": [],
-              "queryOptions": {}
-            }
-          },
-          "vizConfig": {
-            "kind": "VizConfig",
-            "group": "gauge",
-            "version": "12.3.6+security-01",
-            "spec": {
-              "options": {
-                "minVizHeight": 75,
-                "minVizWidth": 75,
-                "orientation": "horizontal",
-                "reduceOptions": {
-                  "calcs": [
-                    "lastNotNull"
-                  ],
-                  "fields": "",
-                  "values": false
-                },
-                "showThresholdLabels": false,
-                "showThresholdMarkers": true,
-                "sizing": "auto"
-              },
-              "fieldConfig": {
-                "defaults": {
-                  "displayName": "Speed Test Ping",
-                  "unit": "s",
-                  "min": 1,
-                  "max": 200,
-                  "thresholds": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "value": 0,
-                        "color": "#299c46"
-                      },
-                      {
-                        "value": 50,
-                        "color": "rgba(237, 129, 40, 0.89)"
-                      },
-                      {
-                        "value": 100,
-                        "color": "#d44a3a"
-                      }
-                    ]
-                  },
-                  "color": {
-                    "mode": "thresholds"
-                  }
-                },
-                "overrides": []
-              }
-            }
-          }
-        }
-      },
-      "panel-37": {
-        "kind": "Panel",
-        "spec": {
-          "id": 37,
-          "title": "Information",
-          "description": "",
-          "links": [],
-          "data": {
-            "kind": "QueryGroup",
-            "spec": {
-              "queries": [],
-              "transformations": [],
-              "queryOptions": {}
-            }
-          },
-          "vizConfig": {
-            "kind": "VizConfig",
-            "group": "text",
-            "version": "12.3.6+security-01",
-            "spec": {
-              "options": {
-                "code": {
-                  "language": "plaintext",
-                  "showLineNumbers": false,
-                  "showMiniMap": false
-                },
-                "content": "Each site contains 5 subsystems: wan, lan, wlan, www, vpn. Each subsystem contains data specific to that system. \nAll subsystems except vpn have data rate. VPN has data transfer though.\nThere's not a ton of juicy info here, and most of it can be gleaned on other the dashboards.\nThe row below is purposely collapsed because some installationd have hundreds of sites. \nLoading them all at once is often not possible.\n",
-                "mode": "html"
-              },
-              "fieldConfig": {
-                "defaults": {},
-                "overrides": []
-              }
-            }
-          }
-        }
-      },
-      "panel-38": {
-        "kind": "Panel",
-        "spec": {
-          "id": 38,
-          "title": "Item Counts",
-          "description": "These are counters, totals, but they don't change much so the graph does not show rate.",
-          "links": [],
-          "data": {
-            "kind": "QueryGroup",
-            "spec": {
-              "queries": [
-                {
-                  "kind": "PanelQuery",
-                  "spec": {
-                    "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
-                      "datasource": {
-                        "name": "${ds_prometheus}"
-                      },
-                      "spec": {
-                        "expr": "unpoller_site_iots{site_name=~\"$Site\",subsystem=~\"$Subsystem\"}",
-                        "interval": "$Smooth",
-                        "legendFormat": "{{subsystem}} IoT"
-                      }
-                    },
-                    "refId": "A",
-                    "hidden": false
-                  }
-                },
-                {
-                  "kind": "PanelQuery",
-                  "spec": {
-                    "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
-                      "datasource": {
-                        "name": "${ds_prometheus}"
-                      },
-                      "spec": {
-                        "expr": "unpoller_site_adopted{site_name=~\"$Site\",subsystem=~\"$Subsystem\"}",
-                        "interval": "$Smooth",
-                        "legendFormat": "{{subsystem}} Adopted"
-                      }
-                    },
-                    "refId": "B",
-                    "hidden": false
-                  }
-                },
-                {
-                  "kind": "PanelQuery",
-                  "spec": {
-                    "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
-                      "datasource": {
-                        "name": "${ds_prometheus}"
-                      },
-                      "spec": {
-                        "expr": "unpoller_site_disabled{site_name=~\"$Site\",subsystem=~\"$Subsystem\"}",
-                        "interval": "$Smooth",
-                        "legendFormat": "{{subsystem}} Disabled"
-                      }
-                    },
-                    "refId": "C",
-                    "hidden": false
-                  }
-                },
-                {
-                  "kind": "PanelQuery",
-                  "spec": {
-                    "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
-                      "datasource": {
-                        "name": "${ds_prometheus}"
-                      },
-                      "spec": {
-                        "expr": "unpoller_site_disconnected{site_name=~\"$Site\",subsystem=~\"$Subsystem\"}",
-                        "interval": "$Smooth",
-                        "legendFormat": "{{subsystem}} Disconnected"
-                      }
-                    },
-                    "refId": "D",
-                    "hidden": false
-                  }
-                },
-                {
-                  "kind": "PanelQuery",
-                  "spec": {
-                    "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
-                      "datasource": {
-                        "name": "${ds_prometheus}"
-                      },
-                      "spec": {
-                        "expr": "unpoller_site_pending{site_name=~\"$Site\",subsystem=~\"$Subsystem\"}",
-                        "interval": "$Smooth",
-                        "legendFormat": "{{subsystem}} Pending"
-                      }
-                    },
-                    "refId": "E",
-                    "hidden": false
-                  }
-                },
-                {
-                  "kind": "PanelQuery",
-                  "spec": {
-                    "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
-                      "datasource": {
-                        "name": "${ds_prometheus}"
-                      },
-                      "spec": {
-                        "expr": "unpoller_site_gateways{site_name=~\"$Site\",subsystem=~\"$Subsystem\"}",
-                        "interval": "$Smooth",
-                        "legendFormat": "{{subsystem}} Gateways"
-                      }
-                    },
-                    "refId": "F",
-                    "hidden": false
-                  }
-                },
-                {
-                  "kind": "PanelQuery",
-                  "spec": {
-                    "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
-                      "datasource": {
-                        "name": "${ds_prometheus}"
-                      },
-                      "spec": {
-                        "expr": "unpoller_site_switches{site_name=~\"$Site\",subsystem=~\"$Subsystem\"}",
-                        "interval": "$Smooth",
-                        "legendFormat": "{{subsystem}} Switches"
-                      }
-                    },
-                    "refId": "G",
-                    "hidden": false
-                  }
-                },
-                {
-                  "kind": "PanelQuery",
-                  "spec": {
-                    "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
-                      "datasource": {
-                        "name": "${ds_prometheus}"
-                      },
-                      "spec": {
-                        "expr": "unpoller_site_intenet_drops_total{site_name=~\"$Site\",subsystem=~\"$Subsystem\"}",
-                        "interval": "$Smooth",
-                        "legendFormat": "{{subsystem}} Drops"
-                      }
-                    },
-                    "refId": "H",
-                    "hidden": false
-                  }
-                }
-              ],
-              "transformations": [],
-              "queryOptions": {}
-            }
-          },
-          "vizConfig": {
-            "kind": "VizConfig",
-            "group": "timeseries",
-            "version": "12.3.6+security-01",
-            "spec": {
-              "options": {
                 "dataLinks": [],
                 "legend": {
                   "calcs": [
@@ -741,24 +188,567 @@
                   "mode": "multi",
                   "sort": "desc"
                 }
+              }
+            },
+            "version": "13.0.2"
+          }
+        }
+      },
+      "panel-2": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "${ds_prometheus}"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "expr": "unpoller_site_users{site_name=~\"$Site\", subsystem=~\"$Subsystem\"}",
+                        "interval": "$Smooth",
+                        "legendFormat": "{{subsystem}} Users"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "${ds_prometheus}"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "expr": "unpoller_site_guests{site_name=~\"$Site\", subsystem=~\"$Subsystem\"}",
+                        "interval": "$Smooth",
+                        "legendFormat": "{{subsystem}} Guests"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "B"
+                  }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "${ds_prometheus}"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "expr": "unpoller_site_remote_user_active{site_name=~\"$Site\", subsystem=~\"$Subsystem\"}",
+                        "interval": "$Smooth",
+                        "legendFormat": "{{subsystem}} Active"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "C"
+                  }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "${ds_prometheus}"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "expr": "unpoller_site_remote_user_inactive{site_name=~\"$Site\", subsystem=~\"$Subsystem\"}",
+                        "interval": "$Smooth",
+                        "legendFormat": "{{subsystem}} Inactive"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "D"
+                  }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "${ds_prometheus}"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "expr": "unpoller_site_stations{site_name=~\"$Site\", subsystem=~\"$Subsystem\"}",
+                        "interval": "$Smooth",
+                        "legendFormat": "{{subsystem}} Stations"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "E"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "This graphs shows clients connected to the site.",
+          "id": 2,
+          "links": [],
+          "title": "Client Counts",
+          "vizConfig": {
+            "group": "timeseries",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {},
+                "overrides": []
               },
+              "options": {
+                "dataLinks": []
+              }
+            },
+            "version": ""
+          }
+        }
+      },
+      "panel-32": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "${ds_prometheus}"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "expr": "unpoller_site_latency_seconds{site_name=~\"$Site\"}",
+                        "instant": true,
+                        "interval": "$Smooth"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "",
+          "id": 32,
+          "links": [],
+          "title": "",
+          "vizConfig": {
+            "group": "gauge",
+            "kind": "VizConfig",
+            "spec": {
               "fieldConfig": {
                 "defaults": {
-                  "unit": "short",
+                  "color": {
+                    "mode": "thresholds"
+                  },
                   "decimals": 0,
+                  "displayName": "Latency",
+                  "max": 400,
+                  "min": 10,
                   "thresholds": {
                     "mode": "absolute",
                     "steps": [
                       {
-                        "value": 0,
-                        "color": "green"
+                        "color": "#299c46",
+                        "value": 0
                       },
                       {
-                        "value": 80,
-                        "color": "red"
+                        "color": "rgba(237, 129, 40, 0.89)",
+                        "value": 100
+                      },
+                      {
+                        "color": "#d44a3a",
+                        "value": 200
                       }
                     ]
                   },
+                  "unit": "s"
+                },
+                "overrides": []
+              },
+              "options": {
+                "barShape": "flat",
+                "barWidthFactor": 0.5,
+                "effects": {
+                  "barGlow": false,
+                  "centerGlow": false,
+                  "gradient": false
+                },
+                "endpointMarker": "point",
+                "minVizHeight": 75,
+                "minVizWidth": 75,
+                "orientation": "horizontal",
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
+                "segmentCount": 1,
+                "segmentSpacing": 0.3,
+                "shape": "gauge",
+                "showThresholdLabels": false,
+                "showThresholdMarkers": true,
+                "sizing": "auto",
+                "sparkline": false,
+                "textMode": "auto"
+              }
+            },
+            "version": "13.0.2"
+          }
+        }
+      },
+      "panel-33": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "${ds_prometheus}"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "expr": "unpoller_site_speedtest_ping{site_name=~\"$Site\"}",
+                        "interval": "$Smooth"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "",
+          "id": 33,
+          "links": [],
+          "title": "",
+          "vizConfig": {
+            "group": "gauge",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "thresholds"
+                  },
+                  "displayName": "Speed Test Ping",
+                  "max": 200,
+                  "min": 1,
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "#299c46",
+                        "value": 0
+                      },
+                      {
+                        "color": "rgba(237, 129, 40, 0.89)",
+                        "value": 50
+                      },
+                      {
+                        "color": "#d44a3a",
+                        "value": 100
+                      }
+                    ]
+                  },
+                  "unit": "s"
+                },
+                "overrides": []
+              },
+              "options": {
+                "barShape": "flat",
+                "barWidthFactor": 0.5,
+                "effects": {
+                  "barGlow": false,
+                  "centerGlow": false,
+                  "gradient": false
+                },
+                "endpointMarker": "point",
+                "minVizHeight": 75,
+                "minVizWidth": 75,
+                "orientation": "horizontal",
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
+                "segmentCount": 1,
+                "segmentSpacing": 0.3,
+                "shape": "gauge",
+                "showThresholdLabels": false,
+                "showThresholdMarkers": true,
+                "sizing": "auto",
+                "sparkline": false,
+                "textMode": "auto"
+              }
+            },
+            "version": "13.0.2"
+          }
+        }
+      },
+      "panel-37": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "",
+          "id": 37,
+          "links": [],
+          "title": "Information",
+          "vizConfig": {
+            "group": "text",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+              },
+              "options": {
+                "code": {
+                  "language": "plaintext",
+                  "showLineNumbers": false,
+                  "showMiniMap": false
+                },
+                "content": "Each site contains 5 subsystems: wan, lan, wlan, www, vpn. Each subsystem contains data specific to that system. \nAll subsystems except vpn have data rate. VPN has data transfer though.\nThere's not a ton of juicy info here, and most of it can be gleaned on other the dashboards.\nThe row below is purposely collapsed because some installationd have hundreds of sites. \nLoading them all at once is often not possible.\n",
+                "mode": "html"
+              }
+            },
+            "version": "13.0.2"
+          }
+        }
+      },
+      "panel-38": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "${ds_prometheus}"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "expr": "unpoller_site_iots{site_name=~\"$Site\",subsystem=~\"$Subsystem\"}",
+                        "interval": "$Smooth",
+                        "legendFormat": "{{subsystem}} IoT"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "${ds_prometheus}"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "expr": "unpoller_site_adopted{site_name=~\"$Site\",subsystem=~\"$Subsystem\"}",
+                        "interval": "$Smooth",
+                        "legendFormat": "{{subsystem}} Adopted"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "B"
+                  }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "${ds_prometheus}"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "expr": "unpoller_site_disabled{site_name=~\"$Site\",subsystem=~\"$Subsystem\"}",
+                        "interval": "$Smooth",
+                        "legendFormat": "{{subsystem}} Disabled"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "C"
+                  }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "${ds_prometheus}"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "expr": "unpoller_site_disconnected{site_name=~\"$Site\",subsystem=~\"$Subsystem\"}",
+                        "interval": "$Smooth",
+                        "legendFormat": "{{subsystem}} Disconnected"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "D"
+                  }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "${ds_prometheus}"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "expr": "unpoller_site_pending{site_name=~\"$Site\",subsystem=~\"$Subsystem\"}",
+                        "interval": "$Smooth",
+                        "legendFormat": "{{subsystem}} Pending"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "E"
+                  }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "${ds_prometheus}"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "expr": "unpoller_site_gateways{site_name=~\"$Site\",subsystem=~\"$Subsystem\"}",
+                        "interval": "$Smooth",
+                        "legendFormat": "{{subsystem}} Gateways"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "F"
+                  }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "${ds_prometheus}"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "expr": "unpoller_site_switches{site_name=~\"$Site\",subsystem=~\"$Subsystem\"}",
+                        "interval": "$Smooth",
+                        "legendFormat": "{{subsystem}} Switches"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "G"
+                  }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "${ds_prometheus}"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "expr": "unpoller_site_intenet_drops_total{site_name=~\"$Site\",subsystem=~\"$Subsystem\"}",
+                        "interval": "$Smooth",
+                        "legendFormat": "{{subsystem}} Drops"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "H"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "These are counters, totals, but they don't change much so the graph does not show rate.",
+          "id": 38,
+          "links": [],
+          "title": "Item Counts",
+          "vizConfig": {
+            "group": "timeseries",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
                   "color": {
                     "mode": "palette-classic"
                   },
@@ -795,7 +785,22 @@
                     "thresholdsStyle": {
                       "mode": "off"
                     }
-                  }
+                  },
+                  "decimals": 0,
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": 0
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "short"
                 },
                 "overrides": [
                   {
@@ -839,18 +844,36 @@
                     ]
                   }
                 ]
+              },
+              "options": {
+                "annotations": {
+                  "clustering": -1,
+                  "multiLane": false
+                },
+                "dataLinks": [],
+                "legend": {
+                  "calcs": [
+                    "lastNotNull",
+                    "max"
+                  ],
+                  "displayMode": "table",
+                  "placement": "right",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "multi",
+                  "sort": "desc"
+                }
               }
-            }
+            },
+            "version": "13.0.2"
           }
         }
       },
       "panel-39": {
         "kind": "Panel",
         "spec": {
-          "id": 39,
-          "title": "VPN Users Data Rate",
-          "description": "This graphs shows clients connected to the site.",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -858,71 +881,71 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "rate(unpoller_site_remote_user_transmit_bytes_total{site_name=~\"$Site\"}[$__interval])",
                         "interval": "$Smooth",
                         "legendFormat": "VPN Users Tx"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "A",
-                    "hidden": false
+                    "refId": "A"
                   }
                 },
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "rate(unpoller_site_remote_user_receive_bytes_total{site_name=~\"$Site\"}[$__interval])",
                         "interval": "$Smooth",
                         "legendFormat": "VPN Users Rx"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "B",
-                    "hidden": false
+                    "refId": "B"
                   }
                 }
               ],
-              "transformations": [],
-              "queryOptions": {}
+              "queryOptions": {},
+              "transformations": []
             }
           },
+          "description": "This graphs shows clients connected to the site.",
+          "id": 39,
+          "links": [],
+          "title": "VPN Users Data Rate",
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "timeseries",
-            "version": "",
+            "kind": "VizConfig",
             "spec": {
-              "options": {
-                "dataLinks": []
-              },
               "fieldConfig": {
                 "defaults": {},
                 "overrides": []
+              },
+              "options": {
+                "dataLinks": []
               }
-            }
+            },
+            "version": ""
           }
         }
       },
       "panel-40": {
         "kind": "Panel",
         "spec": {
-          "id": 40,
-          "title": "Uplink Uptime",
-          "description": "",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -930,36 +953,69 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "unpoller_site_uptime_seconds",
                         "format": "time_series",
                         "instant": true,
                         "interval": "$Smooth"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "A",
-                    "hidden": false
+                    "refId": "A"
                   }
                 }
               ],
-              "transformations": [],
               "queryOptions": {
                 "maxDataPoints": 100
-              }
+              },
+              "transformations": []
             }
           },
+          "description": "",
+          "id": 40,
+          "links": [],
+          "title": "Uplink Uptime",
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "stat",
-            "version": "12.3.6+security-01",
+            "kind": "VizConfig",
             "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "mappings": [
+                    {
+                      "options": {
+                        "match": "null",
+                        "result": {
+                          "text": "N/A"
+                        }
+                      },
+                      "type": "special"
+                    }
+                  ],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": 0
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "s"
+                },
+                "overrides": []
+              },
               "options": {
                 "colorMode": "none",
                 "graphMode": "none",
@@ -976,48 +1032,15 @@
                 "showPercentChange": false,
                 "textMode": "auto",
                 "wideLayout": true
-              },
-              "fieldConfig": {
-                "defaults": {
-                  "unit": "s",
-                  "mappings": [
-                    {
-                      "type": "special",
-                      "options": {
-                        "match": "null",
-                        "result": {
-                          "text": "N/A"
-                        }
-                      }
-                    }
-                  ],
-                  "thresholds": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "value": 0,
-                        "color": "green"
-                      },
-                      {
-                        "value": 80,
-                        "color": "red"
-                      }
-                    ]
-                  }
-                },
-                "overrides": []
               }
-            }
+            },
+            "version": "13.0.2"
           }
         }
       },
       "panel-41": {
         "kind": "Panel",
         "spec": {
-          "id": 41,
-          "title": "USW",
-          "description": "",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -1025,36 +1048,69 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "sum(unpoller_site_switches)",
                         "format": "time_series",
                         "instant": true,
                         "interval": "$Smooth"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "A",
-                    "hidden": false
+                    "refId": "A"
                   }
                 }
               ],
-              "transformations": [],
               "queryOptions": {
                 "maxDataPoints": 100
-              }
+              },
+              "transformations": []
             }
           },
+          "description": "",
+          "id": 41,
+          "links": [],
+          "title": "USW",
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "stat",
-            "version": "12.3.6+security-01",
+            "kind": "VizConfig",
             "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "mappings": [
+                    {
+                      "options": {
+                        "match": "null",
+                        "result": {
+                          "text": "N/A"
+                        }
+                      },
+                      "type": "special"
+                    }
+                  ],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": 0
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "none"
+                },
+                "overrides": []
+              },
               "options": {
                 "colorMode": "none",
                 "graphMode": "none",
@@ -1071,48 +1127,15 @@
                 "showPercentChange": false,
                 "textMode": "auto",
                 "wideLayout": true
-              },
-              "fieldConfig": {
-                "defaults": {
-                  "unit": "none",
-                  "mappings": [
-                    {
-                      "type": "special",
-                      "options": {
-                        "match": "null",
-                        "result": {
-                          "text": "N/A"
-                        }
-                      }
-                    }
-                  ],
-                  "thresholds": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "value": 0,
-                        "color": "green"
-                      },
-                      {
-                        "value": 80,
-                        "color": "red"
-                      }
-                    ]
-                  }
-                },
-                "overrides": []
               }
-            }
+            },
+            "version": "13.0.2"
           }
         }
       },
       "panel-42": {
         "kind": "Panel",
         "spec": {
-          "id": 42,
-          "title": "UAP",
-          "description": "",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -1120,36 +1143,69 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "sum(unpoller_site_aps)",
                         "format": "time_series",
                         "instant": true,
                         "interval": "$Smooth"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "A",
-                    "hidden": false
+                    "refId": "A"
                   }
                 }
               ],
-              "transformations": [],
               "queryOptions": {
                 "maxDataPoints": 100
-              }
+              },
+              "transformations": []
             }
           },
+          "description": "",
+          "id": 42,
+          "links": [],
+          "title": "UAP",
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "stat",
-            "version": "12.3.6+security-01",
+            "kind": "VizConfig",
             "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "mappings": [
+                    {
+                      "options": {
+                        "match": "null",
+                        "result": {
+                          "text": "N/A"
+                        }
+                      },
+                      "type": "special"
+                    }
+                  ],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": 0
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "none"
+                },
+                "overrides": []
+              },
               "options": {
                 "colorMode": "none",
                 "graphMode": "none",
@@ -1166,48 +1222,15 @@
                 "showPercentChange": false,
                 "textMode": "auto",
                 "wideLayout": true
-              },
-              "fieldConfig": {
-                "defaults": {
-                  "unit": "none",
-                  "mappings": [
-                    {
-                      "type": "special",
-                      "options": {
-                        "match": "null",
-                        "result": {
-                          "text": "N/A"
-                        }
-                      }
-                    }
-                  ],
-                  "thresholds": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "value": 0,
-                        "color": "green"
-                      },
-                      {
-                        "value": 80,
-                        "color": "red"
-                      }
-                    ]
-                  }
-                },
-                "overrides": []
               }
-            }
+            },
+            "version": "13.0.2"
           }
         }
       },
       "panel-43": {
         "kind": "Panel",
         "spec": {
-          "id": 43,
-          "title": "USG",
-          "description": "",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -1215,36 +1238,69 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "sum(unpoller_site_gateways)",
                         "format": "time_series",
                         "instant": true,
                         "interval": "$Smooth"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "A",
-                    "hidden": false
+                    "refId": "A"
                   }
                 }
               ],
-              "transformations": [],
               "queryOptions": {
                 "maxDataPoints": 100
-              }
+              },
+              "transformations": []
             }
           },
+          "description": "",
+          "id": 43,
+          "links": [],
+          "title": "USG",
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "stat",
-            "version": "12.3.6+security-01",
+            "kind": "VizConfig",
             "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "mappings": [
+                    {
+                      "options": {
+                        "match": "null",
+                        "result": {
+                          "text": "N/A"
+                        }
+                      },
+                      "type": "special"
+                    }
+                  ],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": 0
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "none"
+                },
+                "overrides": []
+              },
               "options": {
                 "colorMode": "none",
                 "graphMode": "none",
@@ -1261,48 +1317,15 @@
                 "showPercentChange": false,
                 "textMode": "auto",
                 "wideLayout": true
-              },
-              "fieldConfig": {
-                "defaults": {
-                  "unit": "none",
-                  "mappings": [
-                    {
-                      "type": "special",
-                      "options": {
-                        "match": "null",
-                        "result": {
-                          "text": "N/A"
-                        }
-                      }
-                    }
-                  ],
-                  "thresholds": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "value": 0,
-                        "color": "green"
-                      },
-                      {
-                        "value": 80,
-                        "color": "red"
-                      }
-                    ]
-                  }
-                },
-                "overrides": []
               }
-            }
+            },
+            "version": "13.0.2"
           }
         }
       },
       "panel-44": {
         "kind": "Panel",
         "spec": {
-          "id": 44,
-          "title": "Stations",
-          "description": "",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -1310,36 +1333,73 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "sum(unpoller_site_stations)",
                         "format": "time_series",
                         "instant": false,
                         "interval": "$Smooth"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "A",
-                    "hidden": false
+                    "refId": "A"
                   }
                 }
               ],
-              "transformations": [],
               "queryOptions": {
                 "maxDataPoints": 100
-              }
+              },
+              "transformations": []
             }
           },
+          "description": "",
+          "id": 44,
+          "links": [],
+          "title": "Stations",
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "stat",
-            "version": "12.3.6+security-01",
+            "kind": "VizConfig",
             "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "fixedColor": "rgb(31, 120, 193)",
+                    "mode": "fixed"
+                  },
+                  "mappings": [
+                    {
+                      "options": {
+                        "match": "null",
+                        "result": {
+                          "text": "N/A"
+                        }
+                      },
+                      "type": "special"
+                    }
+                  ],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": 0
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "none"
+                },
+                "overrides": []
+              },
               "options": {
                 "colorMode": "none",
                 "graphMode": "area",
@@ -1356,52 +1416,15 @@
                 "showPercentChange": false,
                 "textMode": "auto",
                 "wideLayout": true
-              },
-              "fieldConfig": {
-                "defaults": {
-                  "unit": "none",
-                  "mappings": [
-                    {
-                      "type": "special",
-                      "options": {
-                        "match": "null",
-                        "result": {
-                          "text": "N/A"
-                        }
-                      }
-                    }
-                  ],
-                  "thresholds": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "value": 0,
-                        "color": "green"
-                      },
-                      {
-                        "value": 80,
-                        "color": "red"
-                      }
-                    ]
-                  },
-                  "color": {
-                    "mode": "fixed",
-                    "fixedColor": "rgb(31, 120, 193)"
-                  }
-                },
-                "overrides": []
               }
-            }
+            },
+            "version": "13.0.2"
           }
         }
       },
       "panel-45": {
         "kind": "Panel",
         "spec": {
-          "id": 45,
-          "title": "Data Transfer by Category",
-          "description": "This graph only works if DPI is enabled on the controller and DPI collection is enabled in UniFi Poller. Rx is on the negative axis.",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -1409,61 +1432,65 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "sum by (category) (rate(unpoller_site_dpi_receive_bytes{site_name=~\"$Site\"}[$__interval]))",
                         "interval": "$Smooth",
                         "legendFormat": "{{category}} Rx"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "A",
-                    "hidden": false
+                    "refId": "A"
                   }
                 },
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "sum by (category) (rate(unpoller_site_dpi_transmit_bytes{site_name=~\"$Site\"}[$__interval]))",
                         "interval": "$Smooth",
                         "legendFormat": "{{category}} Tx"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "B",
-                    "hidden": false
+                    "refId": "B"
                   }
                 }
               ],
-              "transformations": [],
-              "queryOptions": {}
+              "queryOptions": {},
+              "transformations": []
             }
           },
+          "description": "This graph only works if DPI is enabled on the controller and DPI collection is enabled in UniFi Poller. Rx is on the negative axis.",
+          "id": 45,
+          "links": [],
+          "title": "Data Transfer by Category",
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "timeseries",
-            "version": "",
+            "kind": "VizConfig",
             "spec": {
-              "options": {
-                "dataLinks": []
-              },
               "fieldConfig": {
                 "defaults": {},
                 "overrides": []
+              },
+              "options": {
+                "dataLinks": []
               }
-            }
+            },
+            "version": ""
           }
         }
       }
@@ -1475,7 +1502,6 @@
           {
             "kind": "RowsLayoutRow",
             "spec": {
-              "title": "",
               "collapse": false,
               "hideHeader": true,
               "layout": {
@@ -1485,82 +1511,78 @@
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
-                        "x": 0,
-                        "y": 0,
-                        "width": 3,
-                        "height": 4,
                         "element": {
                           "kind": "ElementReference",
                           "name": "panel-41"
-                        }
+                        },
+                        "height": 4,
+                        "width": 3,
+                        "x": 0,
+                        "y": 0
                       }
                     },
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
-                        "x": 3,
-                        "y": 0,
-                        "width": 3,
-                        "height": 4,
                         "element": {
                           "kind": "ElementReference",
                           "name": "panel-42"
-                        }
+                        },
+                        "height": 4,
+                        "width": 3,
+                        "x": 3,
+                        "y": 0
                       }
                     },
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
-                        "x": 6,
-                        "y": 0,
-                        "width": 3,
-                        "height": 4,
                         "element": {
                           "kind": "ElementReference",
                           "name": "panel-43"
-                        }
+                        },
+                        "height": 4,
+                        "width": 3,
+                        "x": 6,
+                        "y": 0
                       }
                     },
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
-                        "x": 9,
-                        "y": 0,
-                        "width": 3,
-                        "height": 4,
                         "element": {
                           "kind": "ElementReference",
                           "name": "panel-44"
-                        }
+                        },
+                        "height": 4,
+                        "width": 3,
+                        "x": 9,
+                        "y": 0
                       }
                     },
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
-                        "x": 12,
-                        "y": 0,
-                        "width": 12,
-                        "height": 4,
                         "element": {
                           "kind": "ElementReference",
                           "name": "panel-37"
-                        }
+                        },
+                        "height": 4,
+                        "width": 12,
+                        "x": 12,
+                        "y": 0
                       }
                     }
                   ]
                 }
-              }
+              },
+              "title": ""
             }
           },
           {
             "kind": "RowsLayoutRow",
             "spec": {
-              "title": "Site: $Site",
               "collapse": false,
-              "repeat": {
-                "mode": "variable",
-                "value": "Site"
-              },
               "layout": {
                 "kind": "GridLayout",
                 "spec": {
@@ -1568,110 +1590,115 @@
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
-                        "x": 0,
-                        "y": 0,
-                        "width": 6,
-                        "height": 3,
                         "element": {
                           "kind": "ElementReference",
                           "name": "panel-40"
-                        }
+                        },
+                        "height": 3,
+                        "width": 6,
+                        "x": 0,
+                        "y": 0
                       }
                     },
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
-                        "x": 6,
-                        "y": 0,
-                        "width": 18,
-                        "height": 11,
                         "element": {
                           "kind": "ElementReference",
                           "name": "panel-38"
-                        }
+                        },
+                        "height": 11,
+                        "width": 18,
+                        "x": 6,
+                        "y": 0
                       }
                     },
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
-                        "x": 0,
-                        "y": 3,
-                        "width": 3,
-                        "height": 8,
                         "element": {
                           "kind": "ElementReference",
                           "name": "panel-32"
-                        }
+                        },
+                        "height": 8,
+                        "width": 3,
+                        "x": 0,
+                        "y": 3
                       }
                     },
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
-                        "x": 3,
-                        "y": 3,
-                        "width": 3,
-                        "height": 8,
                         "element": {
                           "kind": "ElementReference",
                           "name": "panel-33"
-                        }
+                        },
+                        "height": 8,
+                        "width": 3,
+                        "x": 3,
+                        "y": 3
                       }
                     },
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
-                        "x": 0,
-                        "y": 11,
-                        "width": 24,
-                        "height": 8,
                         "element": {
                           "kind": "ElementReference",
                           "name": "panel-15"
-                        }
+                        },
+                        "height": 8,
+                        "width": 24,
+                        "x": 0,
+                        "y": 11
                       }
                     },
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
-                        "x": 0,
-                        "y": 19,
-                        "width": 24,
-                        "height": 7,
                         "element": {
                           "kind": "ElementReference",
                           "name": "panel-2"
-                        }
+                        },
+                        "height": 7,
+                        "width": 24,
+                        "x": 0,
+                        "y": 19
                       }
                     },
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
-                        "x": 0,
-                        "y": 26,
-                        "width": 24,
-                        "height": 7,
                         "element": {
                           "kind": "ElementReference",
                           "name": "panel-39"
-                        }
+                        },
+                        "height": 7,
+                        "width": 24,
+                        "x": 0,
+                        "y": 26
                       }
                     },
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
-                        "x": 0,
-                        "y": 33,
-                        "width": 24,
-                        "height": 17,
                         "element": {
                           "kind": "ElementReference",
                           "name": "panel-45"
-                        }
+                        },
+                        "height": 17,
+                        "width": 24,
+                        "x": 0,
+                        "y": 33
                       }
                     }
                   ]
                 }
-              }
+              },
+              "repeat": {
+                "mode": "variable",
+                "value": "Site"
+              },
+              "title": "Site: $Site"
             }
           }
         ]
@@ -1679,53 +1706,65 @@
     },
     "links": [
       {
-        "title": "UniFi Poller",
-        "type": "dashboards",
+        "asDropdown": false,
         "icon": "external link",
-        "tooltip": "",
+        "includeVars": false,
+        "keepTime": false,
+        "tags": [],
+        "targetBlank": true,
+        "title": "Source (GitHub)",
+        "tooltip": "View source file in repository",
+        "type": "link",
+        "url": "https://github.com/Daniel-W-Innes/grafana/blob/main/unpoller/network.json"
+      },
+      {
+        "asDropdown": true,
+        "icon": "external link",
+        "includeVars": false,
+        "keepTime": true,
         "tags": [
           "unifi-poller"
         ],
-        "asDropdown": true,
         "targetBlank": false,
-        "includeVars": false,
-        "keepTime": true
+        "title": "UniFi Poller",
+        "tooltip": "",
+        "type": "dashboards"
       },
       {
-        "title": "Help",
-        "type": "link",
+        "asDropdown": false,
         "icon": "question",
-        "tooltip": "",
-        "url": "https://golift.io/unifi-poller/issues",
-        "tags": [],
-        "asDropdown": false,
-        "targetBlank": false,
         "includeVars": false,
-        "keepTime": false
+        "keepTime": false,
+        "tags": [],
+        "targetBlank": false,
+        "title": "Help",
+        "tooltip": "",
+        "type": "link",
+        "url": "https://golift.io/unifi-poller/issues"
       },
       {
-        "title": "Wiki",
-        "type": "link",
+        "asDropdown": false,
         "icon": "doc",
-        "tooltip": "",
-        "url": "https://golift.io/unifi-poller/wiki",
-        "tags": [],
-        "asDropdown": false,
-        "targetBlank": false,
         "includeVars": false,
-        "keepTime": false
+        "keepTime": false,
+        "tags": [],
+        "targetBlank": false,
+        "title": "Wiki",
+        "tooltip": "",
+        "type": "link",
+        "url": "https://golift.io/unifi-poller/wiki"
       },
       {
-        "title": "Discord",
-        "type": "link",
-        "icon": "bolt",
-        "tooltip": "",
-        "url": "https://discord.gg/KnyKYt2",
-        "tags": [],
         "asDropdown": false,
-        "targetBlank": false,
+        "icon": "bolt",
         "includeVars": false,
-        "keepTime": false
+        "keepTime": false,
+        "tags": [],
+        "targetBlank": false,
+        "title": "Discord",
+        "tooltip": "",
+        "type": "link",
+        "url": "https://discord.gg/KnyKYt2"
       }
     ],
     "liveNow": false,
@@ -1735,9 +1774,6 @@
       "unifi-poller"
     ],
     "timeSettings": {
-      "timezone": "browser",
-      "from": "now-3h",
-      "to": "now",
       "autoRefresh": "1m",
       "autoRefreshIntervals": [
         "30s",
@@ -1748,170 +1784,158 @@
         "1h",
         "2h"
       ],
+      "fiscalYearStartMonth": 0,
+      "from": "now-3h",
       "hideTimepicker": false,
-      "fiscalYearStartMonth": 0
+      "timezone": "browser",
+      "to": "now"
     },
     "title": "UniFi-Poller: Network Sites - Prometheus",
     "variables": [
       {
         "kind": "DatasourceVariable",
         "spec": {
+          "allowCustomValue": true,
+          "current": {
+            "text": "Prometheus",
+            "value": "PBFA97CFB590B2093"
+          },
+          "hide": "dontHide",
+          "includeAll": false,
+          "label": "Datasource",
+          "multi": false,
           "name": "ds_prometheus",
+          "options": [],
           "pluginId": "prometheus",
           "refresh": "onDashboardLoad",
           "regex": "",
-          "current": {
-            "text": "",
-            "value": ""
-          },
-          "options": [],
-          "multi": false,
-          "includeAll": false,
-          "label": "Datasource",
-          "hide": "dontHide",
-          "skipUrlSync": false,
-          "allowCustomValue": true
+          "skipUrlSync": false
         }
       },
       {
         "kind": "QueryVariable",
         "spec": {
-          "name": "Controller",
+          "allowCustomValue": true,
           "current": {
-            "text": "",
-            "value": ""
+            "text": [
+              "All"
+            ],
+            "value": [
+              "$__all"
+            ]
           },
+          "definition": "label_values(unpoller_site_transmit_rate_bytes,source)",
           "hide": "dontHide",
-          "refresh": "onDashboardLoad",
-          "skipUrlSync": false,
+          "includeAll": true,
+          "multi": true,
+          "name": "Controller",
+          "options": [],
           "query": {
-            "kind": "DataQuery",
-            "group": "prometheus",
-            "version": "v0",
             "datasource": {
               "name": "${ds_prometheus}"
             },
+            "group": "prometheus",
+            "kind": "DataQuery",
             "spec": {
               "__legacyStringValue": "label_values(unpoller_site_transmit_rate_bytes,source)"
-            }
+            },
+            "version": "v0"
           },
+          "refresh": "onDashboardLoad",
           "regex": "",
-          "sort": "alphabeticalAsc",
-          "definition": "label_values(unpoller_site_transmit_rate_bytes,source)",
-          "options": [],
-          "multi": true,
-          "includeAll": true,
-          "allowCustomValue": true
+          "regexApplyTo": "value",
+          "skipUrlSync": false,
+          "sort": "alphabeticalAsc"
         }
       },
       {
         "kind": "QueryVariable",
         "spec": {
-          "name": "Site",
+          "allValue": ".*",
+          "allowCustomValue": true,
           "current": {
-            "text": "",
-            "value": ""
+            "text": "All",
+            "value": "$__all"
           },
+          "definition": "label_values(unpoller_site_transmit_rate_bytes{source=~\"$Controller\"},site_name)",
           "hide": "hideVariable",
-          "refresh": "onDashboardLoad",
-          "skipUrlSync": false,
+          "includeAll": true,
+          "multi": false,
+          "name": "Site",
+          "options": [],
           "query": {
-            "kind": "DataQuery",
-            "group": "prometheus",
-            "version": "v0",
             "datasource": {
               "name": "${ds_prometheus}"
             },
+            "group": "prometheus",
+            "kind": "DataQuery",
             "spec": {
               "__legacyStringValue": "label_values(unpoller_site_transmit_rate_bytes{source=~\"$Controller\"},site_name)"
-            }
+            },
+            "version": "v0"
           },
+          "refresh": "onDashboardLoad",
           "regex": "",
-          "sort": "alphabeticalAsc",
-          "definition": "label_values(unpoller_site_transmit_rate_bytes{source=~\"$Controller\"},site_name)",
-          "options": [],
-          "multi": false,
-          "includeAll": true,
-          "allValue": ".*",
-          "allowCustomValue": true
+          "regexApplyTo": "value",
+          "skipUrlSync": false,
+          "sort": "alphabeticalAsc"
         }
       },
       {
         "kind": "QueryVariable",
         "spec": {
-          "name": "Subsystem",
+          "allValue": ".*",
+          "allowCustomValue": true,
           "current": {
-            "text": "",
-            "value": ""
+            "text": [
+              "All"
+            ],
+            "value": [
+              "$__all"
+            ]
           },
+          "definition": "label_values(subsystem)",
           "hide": "hideVariable",
-          "refresh": "onDashboardLoad",
-          "skipUrlSync": false,
+          "includeAll": true,
+          "multi": true,
+          "name": "Subsystem",
+          "options": [],
           "query": {
-            "kind": "DataQuery",
-            "group": "prometheus",
-            "version": "v0",
             "datasource": {
               "name": "${ds_prometheus}"
             },
+            "group": "prometheus",
+            "kind": "DataQuery",
             "spec": {
               "__legacyStringValue": "label_values(subsystem)"
-            }
+            },
+            "version": "v0"
           },
+          "refresh": "onDashboardLoad",
           "regex": "",
-          "sort": "disabled",
-          "definition": "label_values(subsystem)",
-          "options": [],
-          "multi": true,
-          "includeAll": true,
-          "allValue": ".*",
-          "allowCustomValue": true
+          "regexApplyTo": "value",
+          "skipUrlSync": false,
+          "sort": "disabled"
         }
       },
       {
         "kind": "CustomVariable",
         "spec": {
-          "name": "Smooth",
-          "query": "30s,1m,2m,5m,10m",
+          "allowCustomValue": true,
           "current": {
             "text": "2m",
             "value": "2m"
           },
-          "options": [
-            {
-              "selected": false,
-              "text": "30s",
-              "value": "30s"
-            },
-            {
-              "selected": true,
-              "text": "1m",
-              "value": "1m"
-            },
-            {
-              "selected": false,
-              "text": "2m",
-              "value": "2m"
-            },
-            {
-              "selected": false,
-              "text": "5m",
-              "value": "5m"
-            },
-            {
-              "selected": false,
-              "text": "10m",
-              "value": "10m"
-            }
-          ],
-          "multi": false,
-          "includeAll": false,
           "hide": "dontHide",
+          "includeAll": false,
+          "multi": false,
+          "name": "Smooth",
+          "options": [],
+          "query": "30s,1m,2m,5m,10m",
           "skipUrlSync": false,
-          "allowCustomValue": true
+          "valuesFormat": "csv"
         }
       }
     ]
   }
 }
-
