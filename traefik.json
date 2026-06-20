@@ -2,38 +2,28 @@
   "apiVersion": "dashboard.grafana.app/v2",
   "kind": "Dashboard",
   "metadata": {
-    "name": "n5bu_kv45",
-    "generation": 1,
-    "creationTimestamp": "2026-06-13T15:40:23Z",
-    "labels": {},
-    "annotations": {}
+    "name": "n5bu_kv45"
   },
   "spec": {
     "annotations": [
       {
         "kind": "AnnotationQuery",
         "spec": {
+          "builtIn": true,
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations \u0026 Alerts",
           "query": {
-            "kind": "DataQuery",
             "group": "grafana",
-            "version": "v0",
+            "kind": "DataQuery",
             "spec": {
               "limit": 100,
               "matchAny": false,
               "tags": [],
               "type": "dashboard"
             },
-            "labels": {
-              "grafana.app/export-label": "grafana-1"
-            }
-          },
-          "enable": true,
-          "hide": true,
-          "iconColor": "rgba(0, 211, 255, 1)",
-          "name": "Annotations & Alerts",
-          "builtIn": true,
-          "legacyOptions": {
-            "type": "dashboard"
+            "version": "v0"
           }
         }
       }
@@ -45,10 +35,6 @@
       "panel-13": {
         "kind": "Panel",
         "spec": {
-          "id": 13,
-          "title": "Traefik Instances",
-          "description": "",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -56,34 +42,58 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "editorMode": "code",
                         "expr": "count(traefik_config_reloads_total)",
                         "legendFormat": "__auto",
                         "range": true
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "A",
-                    "hidden": false
+                    "refId": "A"
                   }
                 }
               ],
-              "transformations": [],
-              "queryOptions": {}
+              "queryOptions": {},
+              "transformations": []
             }
           },
+          "description": "",
+          "id": 13,
+          "links": [],
+          "title": "Traefik Instances",
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "stat",
-            "version": "12.3.6+security-01",
+            "kind": "VizConfig",
             "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "thresholds"
+                  },
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": 0
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  }
+                },
+                "overrides": []
+              },
               "options": {
                 "colorMode": "value",
                 "graphMode": "area",
@@ -100,39 +110,15 @@
                 "showPercentChange": false,
                 "textMode": "auto",
                 "wideLayout": true
-              },
-              "fieldConfig": {
-                "defaults": {
-                  "thresholds": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "value": 0,
-                        "color": "green"
-                      },
-                      {
-                        "value": 80,
-                        "color": "red"
-                      }
-                    ]
-                  },
-                  "color": {
-                    "mode": "thresholds"
-                  }
-                },
-                "overrides": []
               }
-            }
+            },
+            "version": "13.0.2"
           }
         }
       },
       "panel-14": {
         "kind": "Panel",
         "spec": {
-          "id": 14,
-          "title": "Http Code ",
-          "description": "Mean Distribution",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -140,34 +126,53 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "editorMode": "code",
                         "expr": "sum(rate(traefik_service_requests_total{service=~\"$service.*\",protocol=\"http\"}[$interval])) by (method, code)",
                         "legendFormat": "{{method}}[{{code}}]",
                         "range": true
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "A",
-                    "hidden": false
+                    "refId": "A"
                   }
                 }
               ],
-              "transformations": [],
-              "queryOptions": {}
+              "queryOptions": {},
+              "transformations": []
             }
           },
+          "description": "Mean Distribution",
+          "id": 14,
+          "links": [],
+          "title": "Http Code ",
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "piechart",
-            "version": "12.3.6+security-01",
+            "kind": "VizConfig",
             "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    }
+                  },
+                  "unit": "reqps"
+                },
+                "overrides": []
+              },
               "options": {
                 "legend": {
                   "displayMode": "list",
@@ -191,34 +196,15 @@
                   "mode": "multi",
                   "sort": "asc"
                 }
-              },
-              "fieldConfig": {
-                "defaults": {
-                  "unit": "reqps",
-                  "color": {
-                    "mode": "palette-classic"
-                  },
-                  "custom": {
-                    "hideFrom": {
-                      "legend": false,
-                      "tooltip": false,
-                      "viz": false
-                    }
-                  }
-                },
-                "overrides": []
               }
-            }
+            },
+            "version": "13.0.2"
           }
         }
       },
       "panel-17": {
         "kind": "Panel",
         "spec": {
-          "id": 17,
-          "title": "2xx over $interval",
-          "description": "",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -226,67 +212,39 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "editorMode": "code",
-                        "expr": "topk(15,\n    label_replace(\n        sum by (service,method,code) \n          (rate(traefik_service_requests_total{service=~\"$service.*\",code=~\"2..\",protocol=\"http\"}[$interval])) > 0,\n        \"service\", \"$1\", \"service\", \"([^-]+-[^-]+).*\")\n)",
+                        "expr": "topk(15,\n    label_replace(\n        sum by (service,method,code) \n          (rate(traefik_service_requests_total{service=~\"$service.*\",code=~\"2..\",protocol=\"http\"}[$interval])) \u003e 0,\n        \"service\", \"$1\", \"service\", \"([^-]+-[^-]+).*\")\n)",
                         "legendFormat": "{{method}}[{{code}}] on {{service}}",
                         "range": true
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "A",
-                    "hidden": false
+                    "refId": "A"
                   }
                 }
               ],
-              "transformations": [],
-              "queryOptions": {}
+              "queryOptions": {},
+              "transformations": []
             }
           },
+          "description": "",
+          "id": 17,
+          "links": [],
+          "title": "2xx over $interval",
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "timeseries",
-            "version": "",
+            "kind": "VizConfig",
             "spec": {
-              "options": {
-                "legend": {
-                  "calcs": [
-                    "mean",
-                    "max"
-                  ],
-                  "displayMode": "table",
-                  "placement": "bottom",
-                  "showLegend": true,
-                  "sortBy": "Mean",
-                  "sortDesc": true
-                },
-                "tooltip": {
-                  "mode": "multi",
-                  "sort": "desc"
-                }
-              },
               "fieldConfig": {
                 "defaults": {
-                  "unit": "reqps",
-                  "thresholds": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "value": null,
-                        "color": "green"
-                      },
-                      {
-                        "value": 80,
-                        "color": "red"
-                      }
-                    ]
-                  },
                   "color": {
                     "mode": "palette-classic"
                   },
@@ -319,21 +277,48 @@
                     "thresholdsStyle": {
                       "mode": "off"
                     }
-                  }
+                  },
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green"
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "reqps"
                 },
                 "overrides": []
+              },
+              "options": {
+                "legend": {
+                  "calcs": [
+                    "mean",
+                    "max"
+                  ],
+                  "displayMode": "table",
+                  "placement": "bottom",
+                  "showLegend": true,
+                  "sortBy": "Mean",
+                  "sortDesc": true
+                },
+                "tooltip": {
+                  "mode": "multi",
+                  "sort": "desc"
+                }
               }
-            }
+            },
+            "version": ""
           }
         }
       },
       "panel-18": {
         "kind": "Panel",
         "spec": {
-          "id": 18,
-          "title": "5xx over $interval",
-          "description": "",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -341,67 +326,39 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "editorMode": "code",
-                        "expr": "topk(15,\n    label_replace(\n        sum by (service,method,code) \n          (rate(traefik_service_requests_total{service=~\"$service.*\",code=~\"5..\",protocol=\"http\"}[$interval])) > 0,\n        \"service\", \"$1\", \"service\", \"([^-]+-[^-]+).*\")\n)",
+                        "expr": "topk(15,\n    label_replace(\n        sum by (service,method,code) \n          (rate(traefik_service_requests_total{service=~\"$service.*\",code=~\"5..\",protocol=\"http\"}[$interval])) \u003e 0,\n        \"service\", \"$1\", \"service\", \"([^-]+-[^-]+).*\")\n)",
                         "legendFormat": "{{method}}[{{code}}] on {{service}}",
                         "range": true
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "A",
-                    "hidden": false
+                    "refId": "A"
                   }
                 }
               ],
-              "transformations": [],
-              "queryOptions": {}
+              "queryOptions": {},
+              "transformations": []
             }
           },
+          "description": "",
+          "id": 18,
+          "links": [],
+          "title": "5xx over $interval",
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "timeseries",
-            "version": "",
+            "kind": "VizConfig",
             "spec": {
-              "options": {
-                "legend": {
-                  "calcs": [
-                    "mean",
-                    "max"
-                  ],
-                  "displayMode": "table",
-                  "placement": "bottom",
-                  "showLegend": true,
-                  "sortBy": "Mean",
-                  "sortDesc": true
-                },
-                "tooltip": {
-                  "mode": "multi",
-                  "sort": "desc"
-                }
-              },
               "fieldConfig": {
                 "defaults": {
-                  "unit": "reqps",
-                  "thresholds": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "value": null,
-                        "color": "green"
-                      },
-                      {
-                        "value": 80,
-                        "color": "red"
-                      }
-                    ]
-                  },
                   "color": {
                     "mode": "palette-classic"
                   },
@@ -435,21 +392,48 @@
                     "thresholdsStyle": {
                       "mode": "off"
                     }
-                  }
+                  },
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green"
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "reqps"
                 },
                 "overrides": []
+              },
+              "options": {
+                "legend": {
+                  "calcs": [
+                    "mean",
+                    "max"
+                  ],
+                  "displayMode": "table",
+                  "placement": "bottom",
+                  "showLegend": true,
+                  "sortBy": "Mean",
+                  "sortDesc": true
+                },
+                "tooltip": {
+                  "mode": "multi",
+                  "sort": "desc"
+                }
               }
-            }
+            },
+            "version": ""
           }
         }
       },
       "panel-19": {
         "kind": "Panel",
         "spec": {
-          "id": 19,
-          "title": "Other codes over $interval",
-          "description": "",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -457,67 +441,39 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "editorMode": "code",
-                        "expr": "topk(15,\n    label_replace(\n        sum by (service,method,code) \n          (rate(traefik_service_requests_total{service=~\"$service.*\",code!~\"2..|5..\",protocol=\"http\"}[$interval])) > 0,\n        \"service\", \"$1\", \"service\", \"([^-]+-[^-]+).*\")\n)",
+                        "expr": "topk(15,\n    label_replace(\n        sum by (service,method,code) \n          (rate(traefik_service_requests_total{service=~\"$service.*\",code!~\"2..|5..\",protocol=\"http\"}[$interval])) \u003e 0,\n        \"service\", \"$1\", \"service\", \"([^-]+-[^-]+).*\")\n)",
                         "legendFormat": "{{method}}[{{code}}] on {{service}}",
                         "range": true
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "A",
-                    "hidden": false
+                    "refId": "A"
                   }
                 }
               ],
-              "transformations": [],
-              "queryOptions": {}
+              "queryOptions": {},
+              "transformations": []
             }
           },
+          "description": "",
+          "id": 19,
+          "links": [],
+          "title": "Other codes over $interval",
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "timeseries",
-            "version": "",
+            "kind": "VizConfig",
             "spec": {
-              "options": {
-                "legend": {
-                  "calcs": [
-                    "mean",
-                    "max"
-                  ],
-                  "displayMode": "table",
-                  "placement": "bottom",
-                  "showLegend": true,
-                  "sortBy": "Mean",
-                  "sortDesc": true
-                },
-                "tooltip": {
-                  "mode": "multi",
-                  "sort": "desc"
-                }
-              },
               "fieldConfig": {
                 "defaults": {
-                  "unit": "reqps",
-                  "thresholds": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "value": null,
-                        "color": "green"
-                      },
-                      {
-                        "value": 80,
-                        "color": "red"
-                      }
-                    ]
-                  },
                   "color": {
                     "mode": "palette-classic"
                   },
@@ -551,21 +507,48 @@
                     "thresholdsStyle": {
                       "mode": "off"
                     }
-                  }
+                  },
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green"
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "reqps"
                 },
                 "overrides": []
+              },
+              "options": {
+                "legend": {
+                  "calcs": [
+                    "mean",
+                    "max"
+                  ],
+                  "displayMode": "table",
+                  "placement": "bottom",
+                  "showLegend": true,
+                  "sortBy": "Mean",
+                  "sortDesc": true
+                },
+                "tooltip": {
+                  "mode": "multi",
+                  "sort": "desc"
+                }
               }
-            }
+            },
+            "version": ""
           }
         }
       },
       "panel-20": {
         "kind": "Panel",
         "spec": {
-          "id": 20,
-          "title": "Requests Size",
-          "description": "",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -573,67 +556,39 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "editorMode": "code",
-                        "expr": "topk(15,\n    label_replace(\n        sum by (service,method) \n          (rate(traefik_service_requests_bytes_total{service=~\"$service.*\",protocol=\"http\"}[$interval])) > 0,\n        \"service\", \"$1\", \"service\", \"([^-]+-[^-]+).*\")\n)",
+                        "expr": "topk(15,\n    label_replace(\n        sum by (service,method) \n          (rate(traefik_service_requests_bytes_total{service=~\"$service.*\",protocol=\"http\"}[$interval])) \u003e 0,\n        \"service\", \"$1\", \"service\", \"([^-]+-[^-]+).*\")\n)",
                         "legendFormat": "{{method}} on {{service}}",
                         "range": true
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "A",
-                    "hidden": false
+                    "refId": "A"
                   }
                 }
               ],
-              "transformations": [],
-              "queryOptions": {}
+              "queryOptions": {},
+              "transformations": []
             }
           },
+          "description": "",
+          "id": 20,
+          "links": [],
+          "title": "Requests Size",
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "timeseries",
-            "version": "",
+            "kind": "VizConfig",
             "spec": {
-              "options": {
-                "legend": {
-                  "calcs": [
-                    "mean",
-                    "max"
-                  ],
-                  "displayMode": "table",
-                  "placement": "right",
-                  "showLegend": true,
-                  "sortBy": "Mean",
-                  "sortDesc": true
-                },
-                "tooltip": {
-                  "mode": "multi",
-                  "sort": "desc"
-                }
-              },
               "fieldConfig": {
                 "defaults": {
-                  "unit": "binBps",
-                  "thresholds": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "value": null,
-                        "color": "green"
-                      },
-                      {
-                        "value": 80,
-                        "color": "red"
-                      }
-                    ]
-                  },
                   "color": {
                     "mode": "palette-classic"
                   },
@@ -667,21 +622,48 @@
                     "thresholdsStyle": {
                       "mode": "off"
                     }
-                  }
+                  },
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green"
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "binBps"
                 },
                 "overrides": []
+              },
+              "options": {
+                "legend": {
+                  "calcs": [
+                    "mean",
+                    "max"
+                  ],
+                  "displayMode": "table",
+                  "placement": "right",
+                  "showLegend": true,
+                  "sortBy": "Mean",
+                  "sortDesc": true
+                },
+                "tooltip": {
+                  "mode": "multi",
+                  "sort": "desc"
+                }
               }
-            }
+            },
+            "version": ""
           }
         }
       },
       "panel-21": {
         "kind": "Panel",
         "spec": {
-          "id": 21,
-          "title": "Connections per Entrypoint",
-          "description": "",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -689,67 +671,39 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "editorMode": "code",
                         "expr": "sum(traefik_open_connections{entrypoint=~\"$entrypoint\"}) by (entrypoint)\n",
                         "legendFormat": "{{entrypoint}}",
                         "range": true
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "A",
-                    "hidden": false
+                    "refId": "A"
                   }
                 }
               ],
-              "transformations": [],
-              "queryOptions": {}
+              "queryOptions": {},
+              "transformations": []
             }
           },
+          "description": "",
+          "id": 21,
+          "links": [],
+          "title": "Connections per Entrypoint",
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "timeseries",
-            "version": "",
+            "kind": "VizConfig",
             "spec": {
-              "options": {
-                "legend": {
-                  "calcs": [
-                    "mean",
-                    "max"
-                  ],
-                  "displayMode": "table",
-                  "placement": "right",
-                  "showLegend": true,
-                  "sortBy": "Max",
-                  "sortDesc": true
-                },
-                "tooltip": {
-                  "mode": "multi",
-                  "sort": "desc"
-                }
-              },
               "fieldConfig": {
                 "defaults": {
-                  "unit": "short",
-                  "thresholds": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "value": null,
-                        "color": "green"
-                      },
-                      {
-                        "value": 80,
-                        "color": "red"
-                      }
-                    ]
-                  },
                   "color": {
                     "mode": "palette-classic"
                   },
@@ -782,56 +736,23 @@
                     "thresholdsStyle": {
                       "mode": "off"
                     }
-                  }
+                  },
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green"
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "short"
                 },
                 "overrides": []
-              }
-            }
-          }
-        }
-      },
-      "panel-23": {
-        "kind": "Panel",
-        "spec": {
-          "id": 23,
-          "title": "Top slow services",
-          "description": "",
-          "links": [],
-          "data": {
-            "kind": "QueryGroup",
-            "spec": {
-              "queries": [
-                {
-                  "kind": "PanelQuery",
-                  "spec": {
-                    "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
-                      "datasource": {
-                        "name": "${ds_prometheus}"
-                      },
-                      "spec": {
-                        "editorMode": "code",
-                        "expr": "topk(15,\n    label_replace(\n        traefik_service_request_duration_seconds_sum{service=~\"$service.*\",protocol=\"http\"} / \n          traefik_service_request_duration_seconds_count{service=~\"$service.*\",protocol=\"http\"},\n        \"service\", \"$1\", \"service\", \"([^-]+-[^-]+).*\")\n)\n\n",
-                        "legendFormat": "{{method}}[{{code}}] on {{service}}",
-                        "range": true
-                      }
-                    },
-                    "refId": "A",
-                    "hidden": false
-                  }
-                }
-              ],
-              "transformations": [],
-              "queryOptions": {}
-            }
-          },
-          "vizConfig": {
-            "kind": "VizConfig",
-            "group": "timeseries",
-            "version": "12.3.6+security-01",
-            "spec": {
+              },
               "options": {
                 "legend": {
                   "calcs": [
@@ -841,31 +762,62 @@
                   "displayMode": "table",
                   "placement": "right",
                   "showLegend": true,
-                  "sortBy": "Mean",
+                  "sortBy": "Max",
                   "sortDesc": true
                 },
                 "tooltip": {
-                  "hideZeros": false,
                   "mode": "multi",
                   "sort": "desc"
                 }
-              },
+              }
+            },
+            "version": ""
+          }
+        }
+      },
+      "panel-23": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "${ds_prometheus}"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "editorMode": "code",
+                        "expr": "topk(15,\n    label_replace(\n        traefik_service_request_duration_seconds_sum{service=~\"$service.*\",protocol=\"http\"} / \n          traefik_service_request_duration_seconds_count{service=~\"$service.*\",protocol=\"http\"},\n        \"service\", \"$1\", \"service\", \"([^-]+-[^-]+).*\")\n)\n\n",
+                        "legendFormat": "{{method}}[{{code}}] on {{service}}",
+                        "range": true
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "",
+          "id": 23,
+          "links": [],
+          "title": "Top slow services",
+          "vizConfig": {
+            "group": "timeseries",
+            "kind": "VizConfig",
+            "spec": {
               "fieldConfig": {
                 "defaults": {
-                  "unit": "s",
-                  "thresholds": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "value": 0,
-                        "color": "green"
-                      },
-                      {
-                        "value": 80,
-                        "color": "red"
-                      }
-                    ]
-                  },
                   "color": {
                     "mode": "palette-classic"
                   },
@@ -902,57 +854,29 @@
                     "thresholdsStyle": {
                       "mode": "off"
                     }
-                  }
+                  },
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": 0
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "s"
                 },
                 "overrides": []
-              }
-            }
-          }
-        }
-      },
-      "panel-24": {
-        "kind": "Panel",
-        "spec": {
-          "id": 24,
-          "title": "Responses Size",
-          "description": "",
-          "links": [],
-          "data": {
-            "kind": "QueryGroup",
-            "spec": {
-              "queries": [
-                {
-                  "kind": "PanelQuery",
-                  "spec": {
-                    "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
-                      "datasource": {
-                        "name": "${ds_prometheus}"
-                      },
-                      "spec": {
-                        "editorMode": "code",
-                        "expr": "topk(15,\n    label_replace(\n        sum by (service,method) \n          (rate(traefik_service_responses_bytes_total{service=~\"$service.*\",protocol=\"http\"}[$interval])) > 0,\n        \"service\", \"$1\", \"service\", \"([^-]+-[^-]+).*\")\n)",
-                        "legendFormat": "{{method}} on {{service}}",
-                        "range": true
-                      }
-                    },
-                    "refId": "A",
-                    "hidden": false
-                  }
-                }
-              ],
-              "transformations": [],
-              "queryOptions": {}
-            }
-          },
-          "vizConfig": {
-            "kind": "VizConfig",
-            "group": "timeseries",
-            "version": "",
-            "spec": {
+              },
               "options": {
+                "annotations": {
+                  "clustering": -1,
+                  "multiLane": false
+                },
                 "legend": {
                   "calcs": [
                     "mean",
@@ -965,26 +889,59 @@
                   "sortDesc": true
                 },
                 "tooltip": {
+                  "hideZeros": false,
                   "mode": "multi",
                   "sort": "desc"
                 }
-              },
+              }
+            },
+            "version": "13.0.2"
+          }
+        }
+      },
+      "panel-24": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "${ds_prometheus}"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "editorMode": "code",
+                        "expr": "topk(15,\n    label_replace(\n        sum by (service,method) \n          (rate(traefik_service_responses_bytes_total{service=~\"$service.*\",protocol=\"http\"}[$interval])) \u003e 0,\n        \"service\", \"$1\", \"service\", \"([^-]+-[^-]+).*\")\n)",
+                        "legendFormat": "{{method}} on {{service}}",
+                        "range": true
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "",
+          "id": 24,
+          "links": [],
+          "title": "Responses Size",
+          "vizConfig": {
+            "group": "timeseries",
+            "kind": "VizConfig",
+            "spec": {
               "fieldConfig": {
                 "defaults": {
-                  "unit": "binBps",
-                  "thresholds": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "value": null,
-                        "color": "green"
-                      },
-                      {
-                        "value": 80,
-                        "color": "red"
-                      }
-                    ]
-                  },
                   "color": {
                     "mode": "palette-classic"
                   },
@@ -1018,21 +975,48 @@
                     "thresholdsStyle": {
                       "mode": "off"
                     }
-                  }
+                  },
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green"
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "binBps"
                 },
                 "overrides": []
+              },
+              "options": {
+                "legend": {
+                  "calcs": [
+                    "mean",
+                    "max"
+                  ],
+                  "displayMode": "table",
+                  "placement": "right",
+                  "showLegend": true,
+                  "sortBy": "Mean",
+                  "sortDesc": true
+                },
+                "tooltip": {
+                  "mode": "multi",
+                  "sort": "desc"
+                }
               }
-            }
+            },
+            "version": ""
           }
         }
       },
       "panel-3": {
         "kind": "Panel",
         "spec": {
-          "id": 3,
-          "title": "Services failing SLO of 1200ms",
-          "description": "",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -1040,63 +1024,39 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "editorMode": "code",
-                        "expr": "label_replace(\n  1 - (sum by (service)\n    (rate(traefik_service_request_duration_seconds_bucket{le=\"1.2\",service=~\"$service.*\"}[$interval])) / sum by (service) \n    (rate(traefik_service_request_duration_seconds_count{service=~\"$service.*\"}[$interval]))\n  ) > 0,\n  \"service\", \"$1\", \"service\", \"([^-]+-[^-]+).*\"\n)",
+                        "expr": "label_replace(\n  1 - (sum by (service)\n    (rate(traefik_service_request_duration_seconds_bucket{le=\"1.2\",service=~\"$service.*\"}[$interval])) / sum by (service) \n    (rate(traefik_service_request_duration_seconds_count{service=~\"$service.*\"}[$interval]))\n  ) \u003e 0,\n  \"service\", \"$1\", \"service\", \"([^-]+-[^-]+).*\"\n)",
                         "legendFormat": "{{service}}",
                         "range": true
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "A",
-                    "hidden": false
+                    "refId": "A"
                   }
                 }
               ],
-              "transformations": [],
-              "queryOptions": {}
+              "queryOptions": {},
+              "transformations": []
             }
           },
+          "description": "",
+          "id": 3,
+          "links": [],
+          "title": "Services failing SLO of 1200ms",
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "timeseries",
-            "version": "",
+            "kind": "VizConfig",
             "spec": {
-              "options": {
-                "legend": {
-                  "calcs": [
-                    "mean",
-                    "max"
-                  ],
-                  "displayMode": "table",
-                  "placement": "right",
-                  "showLegend": true,
-                  "sortBy": "Max",
-                  "sortDesc": true
-                },
-                "tooltip": {
-                  "mode": "multi",
-                  "sort": "desc"
-                }
-              },
               "fieldConfig": {
                 "defaults": {
-                  "unit": "percentunit",
-                  "thresholds": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "value": null,
-                        "color": "green"
-                      }
-                    ]
-                  },
                   "color": {
                     "mode": "palette-classic"
                   },
@@ -1129,21 +1089,44 @@
                     "thresholdsStyle": {
                       "mode": "off"
                     }
-                  }
+                  },
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green"
+                      }
+                    ]
+                  },
+                  "unit": "percentunit"
                 },
                 "overrides": []
+              },
+              "options": {
+                "legend": {
+                  "calcs": [
+                    "mean",
+                    "max"
+                  ],
+                  "displayMode": "table",
+                  "placement": "right",
+                  "showLegend": true,
+                  "sortBy": "Max",
+                  "sortDesc": true
+                },
+                "tooltip": {
+                  "mode": "multi",
+                  "sort": "desc"
+                }
               }
-            }
+            },
+            "version": ""
           }
         }
       },
       "panel-4": {
         "kind": "Panel",
         "spec": {
-          "id": 4,
-          "title": "Services failing SLO of 300ms",
-          "description": "",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -1151,63 +1134,39 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "editorMode": "code",
-                        "expr": "label_replace(\n  1 - (sum by (service)\n    (rate(traefik_service_request_duration_seconds_bucket{le=\"0.3\",service=~\"$service.*\"}[$interval])) / sum by (service) \n    (rate(traefik_service_request_duration_seconds_count{service=~\"$service.*\"}[$interval]))\n  ) > 0,\n  \"service\", \"$1\", \"service\", \"([^-]+-[^-]+).*\"\n)",
+                        "expr": "label_replace(\n  1 - (sum by (service)\n    (rate(traefik_service_request_duration_seconds_bucket{le=\"0.3\",service=~\"$service.*\"}[$interval])) / sum by (service) \n    (rate(traefik_service_request_duration_seconds_count{service=~\"$service.*\"}[$interval]))\n  ) \u003e 0,\n  \"service\", \"$1\", \"service\", \"([^-]+-[^-]+).*\"\n)",
                         "legendFormat": "{{service}}",
                         "range": true
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "A",
-                    "hidden": false
+                    "refId": "A"
                   }
                 }
               ],
-              "transformations": [],
-              "queryOptions": {}
+              "queryOptions": {},
+              "transformations": []
             }
           },
+          "description": "",
+          "id": 4,
+          "links": [],
+          "title": "Services failing SLO of 300ms",
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "timeseries",
-            "version": "",
+            "kind": "VizConfig",
             "spec": {
-              "options": {
-                "legend": {
-                  "calcs": [
-                    "mean",
-                    "max"
-                  ],
-                  "displayMode": "table",
-                  "placement": "right",
-                  "showLegend": true,
-                  "sortBy": "Max",
-                  "sortDesc": true
-                },
-                "tooltip": {
-                  "mode": "multi",
-                  "sort": "desc"
-                }
-              },
               "fieldConfig": {
                 "defaults": {
-                  "unit": "percentunit",
-                  "thresholds": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "value": null,
-                        "color": "green"
-                      }
-                    ]
-                  },
                   "color": {
                     "mode": "palette-classic"
                   },
@@ -1240,21 +1199,44 @@
                     "thresholdsStyle": {
                       "mode": "off"
                     }
-                  }
+                  },
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green"
+                      }
+                    ]
+                  },
+                  "unit": "percentunit"
                 },
                 "overrides": []
+              },
+              "options": {
+                "legend": {
+                  "calcs": [
+                    "mean",
+                    "max"
+                  ],
+                  "displayMode": "table",
+                  "placement": "right",
+                  "showLegend": true,
+                  "sortBy": "Max",
+                  "sortDesc": true
+                },
+                "tooltip": {
+                  "mode": "multi",
+                  "sort": "desc"
+                }
               }
-            }
+            },
+            "version": ""
           }
         }
       },
       "panel-5": {
         "kind": "Panel",
         "spec": {
-          "id": 5,
-          "title": "Most requested services",
-          "description": "",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -1262,35 +1244,98 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "editorMode": "code",
-                        "expr": "topk(15,\n    label_replace(\n        sum by (service,code) \n          (rate(traefik_service_requests_total{service=~\"$service.*\",protocol=\"http\"}[$interval])) > 0,\n        \"service\", \"$1\", \"service\", \"([^-]+-[^-]+).*\")\n)",
+                        "expr": "topk(15,\n    label_replace(\n        sum by (service,code) \n          (rate(traefik_service_requests_total{service=~\"$service.*\",protocol=\"http\"}[$interval])) \u003e 0,\n        \"service\", \"$1\", \"service\", \"([^-]+-[^-]+).*\")\n)",
                         "legendFormat": "[{{code}}] on {{service}}",
                         "range": true
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "A",
-                    "hidden": false
+                    "refId": "A"
                   }
                 }
               ],
-              "transformations": [],
-              "queryOptions": {}
+              "queryOptions": {},
+              "transformations": []
             }
           },
+          "description": "",
+          "id": 5,
+          "links": [],
+          "title": "Most requested services",
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "timeseries",
-            "version": "12.3.6+security-01",
+            "kind": "VizConfig",
             "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
+                    "drawStyle": "line",
+                    "fillOpacity": 0,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 1,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "auto",
+                    "showValues": false,
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": 0
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "reqps"
+                },
+                "overrides": []
+              },
               "options": {
+                "annotations": {
+                  "clustering": -1,
+                  "multiLane": false
+                },
                 "legend": {
                   "calcs": [
                     "mean",
@@ -1307,74 +1352,15 @@
                   "mode": "multi",
                   "sort": "desc"
                 }
-              },
-              "fieldConfig": {
-                "defaults": {
-                  "unit": "reqps",
-                  "thresholds": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "value": 0,
-                        "color": "green"
-                      },
-                      {
-                        "value": 80,
-                        "color": "red"
-                      }
-                    ]
-                  },
-                  "color": {
-                    "mode": "palette-classic"
-                  },
-                  "custom": {
-                    "axisBorderShow": false,
-                    "axisCenteredZero": false,
-                    "axisColorMode": "text",
-                    "axisLabel": "",
-                    "axisPlacement": "auto",
-                    "barAlignment": 0,
-                    "barWidthFactor": 0.6,
-                    "drawStyle": "line",
-                    "fillOpacity": 0,
-                    "gradientMode": "none",
-                    "hideFrom": {
-                      "legend": false,
-                      "tooltip": false,
-                      "viz": false
-                    },
-                    "insertNulls": false,
-                    "lineInterpolation": "linear",
-                    "lineWidth": 1,
-                    "pointSize": 5,
-                    "scaleDistribution": {
-                      "type": "linear"
-                    },
-                    "showPoints": "auto",
-                    "showValues": false,
-                    "spanNulls": false,
-                    "stacking": {
-                      "group": "A",
-                      "mode": "none"
-                    },
-                    "thresholdsStyle": {
-                      "mode": "off"
-                    }
-                  }
-                },
-                "overrides": []
               }
-            }
+            },
+            "version": "13.0.2"
           }
         }
       },
       "panel-6": {
         "kind": "Panel",
         "spec": {
-          "id": 6,
-          "title": "Apdex score",
-          "description": "https://medium.com/@tristan_96324/prometheus-apdex-alerting-d17a065e39d0",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -1382,67 +1368,39 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "editorMode": "code",
                         "expr": "(sum(rate(traefik_entrypoint_request_duration_seconds_bucket{le=\"0.3\",code=\"200\",entrypoint=~\"$entrypoint\"}[$interval])) by (method) + \n sum(rate(traefik_entrypoint_request_duration_seconds_bucket{le=\"1.2\",code=\"200\",entrypoint=~\"$entrypoint\"}[$interval])) by (method)) / 2 / \n sum(rate(traefik_entrypoint_request_duration_seconds_count{code=\"200\",entrypoint=~\"$entrypoint\"}[$interval])) by (method)\n",
                         "legendFormat": "{{method}}",
                         "range": true
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "A",
-                    "hidden": false
+                    "refId": "A"
                   }
                 }
               ],
-              "transformations": [],
-              "queryOptions": {}
+              "queryOptions": {},
+              "transformations": []
             }
           },
+          "description": "https://medium.com/@tristan_96324/prometheus-apdex-alerting-d17a065e39d0",
+          "id": 6,
+          "links": [],
+          "title": "Apdex score",
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "timeseries",
-            "version": "12.3.6+security-01",
+            "kind": "VizConfig",
             "spec": {
-              "options": {
-                "legend": {
-                  "calcs": [
-                    "mean",
-                    "max"
-                  ],
-                  "displayMode": "table",
-                  "placement": "bottom",
-                  "showLegend": true,
-                  "sortBy": "Max",
-                  "sortDesc": true
-                },
-                "tooltip": {
-                  "hideZeros": false,
-                  "mode": "multi",
-                  "sort": "desc"
-                }
-              },
               "fieldConfig": {
                 "defaults": {
-                  "thresholds": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "value": 0,
-                        "color": "green"
-                      },
-                      {
-                        "value": 80,
-                        "color": "red"
-                      }
-                    ]
-                  },
                   "color": {
                     "mode": "palette-classic"
                   },
@@ -1479,21 +1437,53 @@
                     "thresholdsStyle": {
                       "mode": "off"
                     }
+                  },
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": 0
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
                   }
                 },
                 "overrides": []
+              },
+              "options": {
+                "annotations": {
+                  "clustering": -1,
+                  "multiLane": false
+                },
+                "legend": {
+                  "calcs": [
+                    "mean",
+                    "max"
+                  ],
+                  "displayMode": "table",
+                  "placement": "bottom",
+                  "showLegend": true,
+                  "sortBy": "Max",
+                  "sortDesc": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "multi",
+                  "sort": "desc"
+                }
               }
-            }
+            },
+            "version": "13.0.2"
           }
         }
       },
       "panel-7": {
         "kind": "Panel",
         "spec": {
-          "id": 7,
-          "title": "Requests per Entrypoint",
-          "description": "",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -1501,68 +1491,39 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "editorMode": "code",
                         "expr": "sum(rate(traefik_entrypoint_requests_total{entrypoint=~\"$entrypoint\"}[$interval])) by (entrypoint)",
                         "legendFormat": "{{entrypoint}}",
                         "range": true
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "A",
-                    "hidden": false
+                    "refId": "A"
                   }
                 }
               ],
-              "transformations": [],
-              "queryOptions": {}
+              "queryOptions": {},
+              "transformations": []
             }
           },
+          "description": "",
+          "id": 7,
+          "links": [],
+          "title": "Requests per Entrypoint",
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "timeseries",
-            "version": "12.3.6+security-01",
+            "kind": "VizConfig",
             "spec": {
-              "options": {
-                "legend": {
-                  "calcs": [
-                    "mean",
-                    "max"
-                  ],
-                  "displayMode": "table",
-                  "placement": "bottom",
-                  "showLegend": true,
-                  "sortBy": "Max",
-                  "sortDesc": true
-                },
-                "tooltip": {
-                  "hideZeros": false,
-                  "mode": "multi",
-                  "sort": "desc"
-                }
-              },
               "fieldConfig": {
                 "defaults": {
-                  "unit": "reqps",
-                  "thresholds": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "value": 0,
-                        "color": "green"
-                      },
-                      {
-                        "value": 80,
-                        "color": "red"
-                      }
-                    ]
-                  },
                   "color": {
                     "mode": "palette-classic"
                   },
@@ -1599,11 +1560,48 @@
                     "thresholdsStyle": {
                       "mode": "off"
                     }
-                  }
+                  },
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": 0
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "reqps"
                 },
                 "overrides": []
+              },
+              "options": {
+                "annotations": {
+                  "clustering": -1,
+                  "multiLane": false
+                },
+                "legend": {
+                  "calcs": [
+                    "mean",
+                    "max"
+                  ],
+                  "displayMode": "table",
+                  "placement": "bottom",
+                  "showLegend": true,
+                  "sortBy": "Max",
+                  "sortDesc": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "multi",
+                  "sort": "desc"
+                }
               }
-            }
+            },
+            "version": "13.0.2"
           }
         }
       }
@@ -1615,7 +1613,6 @@
           {
             "kind": "RowsLayoutRow",
             "spec": {
-              "title": "General",
               "collapse": false,
               "layout": {
                 "kind": "GridLayout",
@@ -1624,90 +1621,90 @@
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
-                        "x": 0,
-                        "y": 0,
-                        "width": 5,
-                        "height": 2,
                         "element": {
                           "kind": "ElementReference",
                           "name": "panel-13"
-                        }
+                        },
+                        "height": 2,
+                        "width": 5,
+                        "x": 0,
+                        "y": 0
                       }
                     },
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
-                        "x": 5,
-                        "y": 0,
-                        "width": 7,
-                        "height": 8,
                         "element": {
                           "kind": "ElementReference",
                           "name": "panel-7"
-                        }
+                        },
+                        "height": 8,
+                        "width": 7,
+                        "x": 5,
+                        "y": 0
                       }
                     },
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
-                        "x": 12,
-                        "y": 0,
-                        "width": 12,
-                        "height": 8,
                         "element": {
                           "kind": "ElementReference",
                           "name": "panel-6"
-                        }
+                        },
+                        "height": 8,
+                        "width": 12,
+                        "x": 12,
+                        "y": 0
                       }
                     },
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
-                        "x": 0,
-                        "y": 2,
-                        "width": 5,
-                        "height": 6,
                         "element": {
                           "kind": "ElementReference",
                           "name": "panel-14"
-                        }
+                        },
+                        "height": 6,
+                        "width": 5,
+                        "x": 0,
+                        "y": 2
                       }
                     },
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
-                        "x": 0,
-                        "y": 8,
-                        "width": 12,
-                        "height": 8,
                         "element": {
                           "kind": "ElementReference",
                           "name": "panel-23"
-                        }
+                        },
+                        "height": 8,
+                        "width": 12,
+                        "x": 0,
+                        "y": 8
                       }
                     },
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
-                        "x": 12,
-                        "y": 8,
-                        "width": 12,
-                        "height": 8,
                         "element": {
                           "kind": "ElementReference",
                           "name": "panel-5"
-                        }
+                        },
+                        "height": 8,
+                        "width": 12,
+                        "x": 12,
+                        "y": 8
                       }
                     }
                   ]
                 }
-              }
+              },
+              "title": "General"
             }
           },
           {
             "kind": "RowsLayoutRow",
             "spec": {
-              "title": "SLO",
               "collapse": true,
               "layout": {
                 "kind": "GridLayout",
@@ -1716,38 +1713,38 @@
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
-                        "x": 0,
-                        "y": 0,
-                        "width": 12,
-                        "height": 8,
                         "element": {
                           "kind": "ElementReference",
                           "name": "panel-3"
-                        }
+                        },
+                        "height": 8,
+                        "width": 12,
+                        "x": 0,
+                        "y": 0
                       }
                     },
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
-                        "x": 12,
-                        "y": 0,
-                        "width": 12,
-                        "height": 8,
                         "element": {
                           "kind": "ElementReference",
                           "name": "panel-4"
-                        }
+                        },
+                        "height": 8,
+                        "width": 12,
+                        "x": 12,
+                        "y": 0
                       }
                     }
                   ]
                 }
-              }
+              },
+              "title": "SLO"
             }
           },
           {
             "kind": "RowsLayoutRow",
             "spec": {
-              "title": "HTTP Details",
               "collapse": true,
               "layout": {
                 "kind": "GridLayout",
@@ -1756,97 +1753,108 @@
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
-                        "x": 0,
-                        "y": 0,
-                        "width": 8,
-                        "height": 12,
                         "element": {
                           "kind": "ElementReference",
                           "name": "panel-17"
-                        }
+                        },
+                        "height": 12,
+                        "width": 8,
+                        "x": 0,
+                        "y": 0
                       }
                     },
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
-                        "x": 8,
-                        "y": 0,
-                        "width": 8,
-                        "height": 12,
                         "element": {
                           "kind": "ElementReference",
                           "name": "panel-18"
-                        }
+                        },
+                        "height": 12,
+                        "width": 8,
+                        "x": 8,
+                        "y": 0
                       }
                     },
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
-                        "x": 16,
-                        "y": 0,
-                        "width": 8,
-                        "height": 12,
                         "element": {
                           "kind": "ElementReference",
                           "name": "panel-19"
-                        }
+                        },
+                        "height": 12,
+                        "width": 8,
+                        "x": 16,
+                        "y": 0
                       }
                     },
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
-                        "x": 0,
-                        "y": 12,
-                        "width": 12,
-                        "height": 8,
                         "element": {
                           "kind": "ElementReference",
                           "name": "panel-20"
-                        }
+                        },
+                        "height": 8,
+                        "width": 12,
+                        "x": 0,
+                        "y": 12
                       }
                     },
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
-                        "x": 12,
-                        "y": 12,
-                        "width": 12,
-                        "height": 8,
                         "element": {
                           "kind": "ElementReference",
                           "name": "panel-24"
-                        }
+                        },
+                        "height": 8,
+                        "width": 12,
+                        "x": 12,
+                        "y": 12
                       }
                     },
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
-                        "x": 12,
-                        "y": 20,
-                        "width": 12,
-                        "height": 8,
                         "element": {
                           "kind": "ElementReference",
                           "name": "panel-21"
-                        }
+                        },
+                        "height": 8,
+                        "width": 12,
+                        "x": 12,
+                        "y": 20
                       }
                     }
                   ]
                 }
-              }
+              },
+              "title": "HTTP Details"
             }
           }
         ]
       }
     },
-    "links": [],
+    "links": [
+      {
+        "asDropdown": false,
+        "icon": "external link",
+        "includeVars": false,
+        "keepTime": false,
+        "tags": [],
+        "targetBlank": true,
+        "title": "Source (GitHub)",
+        "tooltip": "View source file in repository",
+        "type": "link",
+        "url": "https://github.com/Daniel-W-Innes/grafana/blob/main/traefik.json"
+      }
+    ],
     "liveNow": false,
     "preload": false,
     "tags": [],
     "timeSettings": {
-      "timezone": "browser",
-      "from": "now-6h",
-      "to": "now",
       "autoRefresh": "",
       "autoRefreshIntervals": [
         "30s",
@@ -1857,46 +1865,47 @@
         "1h",
         "2h"
       ],
+      "fiscalYearStartMonth": 0,
+      "from": "now-6h",
       "hideTimepicker": false,
-      "fiscalYearStartMonth": 0
+      "timezone": "browser",
+      "to": "now"
     },
     "title": "Traefik Official Standalone Dashboard",
     "variables": [
       {
         "kind": "DatasourceVariable",
         "spec": {
+          "allowCustomValue": true,
+          "current": {
+            "text": "Prometheus",
+            "value": "PBFA97CFB590B2093"
+          },
+          "hide": "dontHide",
+          "includeAll": false,
+          "label": "Datasource",
+          "multi": false,
           "name": "ds_prometheus",
+          "options": [],
           "pluginId": "prometheus",
           "refresh": "onDashboardLoad",
           "regex": "",
-          "current": {
-            "text": "",
-            "value": ""
-          },
-          "options": [],
-          "multi": false,
-          "includeAll": false,
-          "label": "Datasource",
-          "hide": "dontHide",
-          "skipUrlSync": false,
-          "allowCustomValue": true
+          "skipUrlSync": false
         }
       },
       {
         "kind": "IntervalVariable",
         "spec": {
-          "name": "interval",
-          "query": "1m,5m,10m,30m,1h,2h,4h,8h",
+          "auto": true,
+          "auto_count": 30,
+          "auto_min": "1m",
           "current": {
-            "text": "auto",
-            "value": "$__auto_interval_interval"
+            "text": "$__auto",
+            "value": "$__auto"
           },
+          "hide": "dontHide",
+          "name": "interval",
           "options": [
-            {
-              "selected": true,
-              "text": "auto",
-              "value": "$__auto_interval_interval"
-            },
             {
               "selected": false,
               "text": "1m",
@@ -1938,79 +1947,77 @@
               "value": "8h"
             }
           ],
-          "auto": true,
-          "auto_min": "1m",
-          "auto_count": 30,
+          "query": "1m,5m,10m,30m,1h,2h,4h,8h",
           "refresh": "onTimeRangeChanged",
-          "hide": "dontHide",
           "skipUrlSync": false
         }
       },
       {
         "kind": "QueryVariable",
         "spec": {
-          "name": "entrypoint",
+          "allowCustomValue": true,
           "current": {
-            "text": "",
-            "value": ""
+            "text": "All",
+            "value": "$__all"
           },
+          "definition": "label_values(traefik_open_connections, entrypoint)",
           "hide": "dontHide",
-          "refresh": "onDashboardLoad",
-          "skipUrlSync": false,
+          "includeAll": true,
+          "multi": false,
+          "name": "entrypoint",
+          "options": [],
           "query": {
-            "kind": "DataQuery",
-            "group": "prometheus",
-            "version": "v0",
             "datasource": {
               "name": "${ds_prometheus}"
             },
+            "group": "prometheus",
+            "kind": "DataQuery",
             "spec": {
               "query": "label_values(traefik_open_connections, entrypoint)",
               "refId": "StandardVariableQuery"
-            }
+            },
+            "version": "v0"
           },
+          "refresh": "onDashboardLoad",
           "regex": "",
-          "sort": "disabled",
-          "definition": "label_values(traefik_open_connections, entrypoint)",
-          "options": [],
-          "multi": false,
-          "includeAll": true,
-          "allowCustomValue": true
+          "regexApplyTo": "value",
+          "skipUrlSync": false,
+          "sort": "disabled"
         }
       },
       {
         "kind": "QueryVariable",
         "spec": {
-          "name": "service",
+          "allowCustomValue": true,
           "current": {
-            "text": "",
-            "value": ""
+            "text": "All",
+            "value": "$__all"
           },
+          "definition": "label_values(traefik_service_requests_total, service)",
           "hide": "dontHide",
-          "refresh": "onTimeRangeChanged",
-          "skipUrlSync": false,
+          "includeAll": true,
+          "multi": false,
+          "name": "service",
+          "options": [],
           "query": {
-            "kind": "DataQuery",
-            "group": "prometheus",
-            "version": "v0",
             "datasource": {
               "name": "${ds_prometheus}"
             },
+            "group": "prometheus",
+            "kind": "DataQuery",
             "spec": {
               "query": "label_values(traefik_service_requests_total, service)",
               "refId": "StandardVariableQuery"
-            }
+            },
+            "version": "v0"
           },
+          "refresh": "onTimeRangeChanged",
           "regex": "",
-          "sort": "alphabeticalAsc",
-          "definition": "label_values(traefik_service_requests_total, service)",
-          "options": [],
-          "multi": false,
-          "includeAll": true,
-          "allowCustomValue": true
+          "regexApplyTo": "value",
+          "skipUrlSync": false,
+          "sort": "alphabeticalAsc"
         }
       }
     ]
   }
 }
-
