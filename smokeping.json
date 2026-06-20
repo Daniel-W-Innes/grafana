@@ -2,33 +2,23 @@
   "apiVersion": "dashboard.grafana.app/v2",
   "kind": "Dashboard",
   "metadata": {
-    "name": "8b07053a-a56b-4803-8190-e142bf484bb6",
-    "generation": 1,
-    "creationTimestamp": "2026-06-13T15:40:23Z",
-    "labels": {},
-    "annotations": {}
+    "name": "8b07053a-a56b-4803-8190-e142bf484bb6"
   },
   "spec": {
     "annotations": [
       {
         "kind": "AnnotationQuery",
         "spec": {
-          "query": {
-            "kind": "DataQuery",
-            "group": "grafana",
-            "version": "v0",
-            "spec": {},
-            "labels": {
-              "grafana.app/export-label": "grafana-1"
-            }
-          },
+          "builtIn": true,
           "enable": true,
           "hide": true,
           "iconColor": "rgba(0, 211, 255, 1)",
-          "name": "Annotations & Alerts",
-          "builtIn": true,
-          "legacyOptions": {
-            "type": "dashboard"
+          "name": "Annotations \u0026 Alerts",
+          "query": {
+            "group": "grafana",
+            "kind": "DataQuery",
+            "spec": {},
+            "version": "v0"
           }
         }
       }
@@ -40,10 +30,6 @@
       "panel-1": {
         "kind": "Panel",
         "spec": {
-          "id": 1,
-          "title": "Avg. Response Time (Round-Trip)",
-          "description": "",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -51,102 +37,67 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "editorMode": "code",
                         "expr": "increase(smokeping_response_duration_seconds_sum{host=\"${hostname:raw}\",ip=\"${host:raw}\"} [$__interval])\n/ increase(smokeping_response_duration_seconds_count{host=\"${hostname:raw}\",ip=\"${host:raw}\"} [$__interval])",
                         "instant": false,
                         "legendFormat": "LATENCY",
                         "range": true
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "LATENCY",
-                    "hidden": false
+                    "refId": "LATENCY"
                   }
                 },
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "editorMode": "code",
                         "expr": "avg_over_time(\n  abs(\n    (increase(smokeping_response_duration_seconds_sum{host=\"home.havlas.me\",ip=\"2a0c:c500:a828::3c\",job=\"smokeping\"} [$__interval])\n     / increase(smokeping_response_duration_seconds_count{host=\"home.havlas.me\",ip=\"2a0c:c500:a828::3c\",job=\"smokeping\"} [$__interval])\n    ) - (increase(smokeping_response_duration_seconds_sum{host=\"home.havlas.me\",ip=\"2a0c:c500:a828::3c\",job=\"smokeping\"} [$__interval] offset $__interval)\n         / increase(smokeping_response_duration_seconds_count{host=\"home.havlas.me\",ip=\"2a0c:c500:a828::3c\",job=\"smokeping\"} [$__interval] offset $__interval))\n)\n[5m:])",
                         "instant": false,
                         "legendFormat": "JITTER",
                         "range": true
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "JITTER",
-                    "hidden": false
+                    "refId": "JITTER"
                   }
                 }
               ],
-              "transformations": [],
               "queryOptions": {
                 "interval": "20s"
-              }
+              },
+              "transformations": []
             }
           },
+          "description": "",
+          "id": 1,
+          "links": [],
+          "title": "Avg. Response Time (Round-Trip)",
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "timeseries",
-            "version": "12.3.6+security-01",
+            "kind": "VizConfig",
             "spec": {
-              "options": {
-                "legend": {
-                  "calcs": [],
-                  "displayMode": "list",
-                  "placement": "bottom",
-                  "showLegend": true
-                },
-                "tooltip": {
-                  "hideZeros": false,
-                  "mode": "multi",
-                  "sort": "none"
-                }
-              },
               "fieldConfig": {
                 "defaults": {
-                  "unit": "s",
-                  "decimals": 2,
-                  "mappings": [
-                    {
-                      "type": "special",
-                      "options": {
-                        "match": "null",
-                        "result": {
-                          "text": "N/A",
-                          "color": "#facc15",
-                          "index": 0
-                        }
-                      }
-                    }
-                  ],
-                  "thresholds": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "value": 0,
-                        "color": "#16a34a"
-                      }
-                    ]
-                  },
                   "color": {
                     "mode": "thresholds"
                   },
-                  "noValue": "N/A",
                   "custom": {
                     "axisBorderShow": false,
                     "axisCenteredZero": false,
@@ -184,7 +135,32 @@
                       "mode": "off"
                     }
                   },
-                  "fieldMinMax": false
+                  "decimals": 2,
+                  "fieldMinMax": false,
+                  "mappings": [
+                    {
+                      "options": {
+                        "match": "null",
+                        "result": {
+                          "color": "#facc15",
+                          "index": 0,
+                          "text": "N/A"
+                        }
+                      },
+                      "type": "special"
+                    }
+                  ],
+                  "noValue": "N/A",
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "#16a34a",
+                        "value": 0
+                      }
+                    ]
+                  },
+                  "unit": "s"
                 },
                 "overrides": [
                   {
@@ -227,18 +203,32 @@
                     ]
                   }
                 ]
+              },
+              "options": {
+                "annotations": {
+                  "clustering": -1,
+                  "multiLane": false
+                },
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "multi",
+                  "sort": "none"
+                }
               }
-            }
+            },
+            "version": "13.0.2"
           }
         }
       },
       "panel-10": {
         "kind": "Panel",
         "spec": {
-          "id": 10,
-          "title": "Time-to-Live",
-          "description": "",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -246,34 +236,70 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "editorMode": "code",
                         "expr": "smokeping_response_ttl{host=\"${hostname:raw}\",ip=\"${host:raw}\"}",
                         "legendFormat": "TTL",
                         "range": true
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "TTL",
-                    "hidden": false
+                    "refId": "TTL"
                   }
                 }
               ],
-              "transformations": [],
-              "queryOptions": {}
+              "queryOptions": {},
+              "transformations": []
             }
           },
+          "description": "",
+          "id": 10,
+          "links": [],
+          "title": "Time-to-Live",
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "stat",
-            "version": "12.3.6+security-01",
+            "kind": "VizConfig",
             "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "thresholds"
+                  },
+                  "decimals": 0,
+                  "mappings": [
+                    {
+                      "options": {
+                        "match": "null",
+                        "result": {
+                          "color": "#facc15",
+                          "index": 0,
+                          "text": "N/A"
+                        }
+                      },
+                      "type": "special"
+                    }
+                  ],
+                  "noValue": "N/A",
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "#0891b2",
+                        "value": 0
+                      }
+                    ]
+                  },
+                  "unit": "none"
+                },
+                "overrides": []
+              },
               "options": {
                 "colorMode": "value",
                 "graphMode": "none",
@@ -290,51 +316,15 @@
                 "showPercentChange": false,
                 "textMode": "value",
                 "wideLayout": true
-              },
-              "fieldConfig": {
-                "defaults": {
-                  "unit": "none",
-                  "decimals": 0,
-                  "mappings": [
-                    {
-                      "type": "special",
-                      "options": {
-                        "match": "null",
-                        "result": {
-                          "text": "N/A",
-                          "color": "#facc15",
-                          "index": 0
-                        }
-                      }
-                    }
-                  ],
-                  "thresholds": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "value": 0,
-                        "color": "#0891b2"
-                      }
-                    ]
-                  },
-                  "color": {
-                    "mode": "thresholds"
-                  },
-                  "noValue": "N/A"
-                },
-                "overrides": []
               }
-            }
+            },
+            "version": "13.0.2"
           }
         }
       },
       "panel-12": {
         "kind": "Panel",
         "spec": {
-          "id": 12,
-          "title": "Today's Avg. Response Time",
-          "description": "",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -342,34 +332,78 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "editorMode": "code",
                         "expr": "increase(smokeping_response_duration_seconds_sum{host=\"${hostname:raw}\",ip=\"${host:raw}\"} [24h])\n/ increase(smokeping_response_duration_seconds_count{host=\"${hostname:raw}\",ip=\"${host:raw}\"} [24h])",
                         "legendFormat": "LATENCY",
                         "range": true
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "LATENCY",
-                    "hidden": false
+                    "refId": "LATENCY"
                   }
                 }
               ],
-              "transformations": [],
-              "queryOptions": {}
+              "queryOptions": {},
+              "transformations": []
             }
           },
+          "description": "",
+          "id": 12,
+          "links": [],
+          "title": "Today's Avg. Response Time",
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "stat",
-            "version": "12.3.6+security-01",
+            "kind": "VizConfig",
             "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "thresholds"
+                  },
+                  "decimals": 1,
+                  "mappings": [
+                    {
+                      "options": {
+                        "match": "null",
+                        "result": {
+                          "color": "#facc15",
+                          "index": 0,
+                          "text": "N/A"
+                        }
+                      },
+                      "type": "special"
+                    }
+                  ],
+                  "noValue": "N/A",
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "#16a34a",
+                        "value": 0
+                      },
+                      {
+                        "color": "#ea580c",
+                        "value": 0.025
+                      },
+                      {
+                        "color": "#dc2626",
+                        "value": 0.03
+                      }
+                    ]
+                  },
+                  "unit": "s"
+                },
+                "overrides": []
+              },
               "options": {
                 "colorMode": "value",
                 "graphMode": "none",
@@ -386,59 +420,15 @@
                 "showPercentChange": false,
                 "textMode": "value",
                 "wideLayout": true
-              },
-              "fieldConfig": {
-                "defaults": {
-                  "unit": "s",
-                  "decimals": 1,
-                  "mappings": [
-                    {
-                      "type": "special",
-                      "options": {
-                        "match": "null",
-                        "result": {
-                          "text": "N/A",
-                          "color": "#facc15",
-                          "index": 0
-                        }
-                      }
-                    }
-                  ],
-                  "thresholds": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "value": 0,
-                        "color": "#16a34a"
-                      },
-                      {
-                        "value": 0.025,
-                        "color": "#ea580c"
-                      },
-                      {
-                        "value": 0.03,
-                        "color": "#dc2626"
-                      }
-                    ]
-                  },
-                  "color": {
-                    "mode": "thresholds"
-                  },
-                  "noValue": "N/A"
-                },
-                "overrides": []
               }
-            }
+            },
+            "version": "13.0.2"
           }
         }
       },
       "panel-13": {
         "kind": "Panel",
         "spec": {
-          "id": 13,
-          "title": "Last Week's Avg. Response Time",
-          "description": "",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -446,34 +436,78 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "editorMode": "code",
                         "expr": "increase(smokeping_response_duration_seconds_sum{host=\"${hostname:raw}\",ip=\"${host:raw}\"} [7d])\n/ increase(smokeping_response_duration_seconds_count{host=\"${hostname:raw}\",ip=\"${host:raw}\"} [7d])",
                         "legendFormat": "LATENCY",
                         "range": true
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "LATENCY",
-                    "hidden": false
+                    "refId": "LATENCY"
                   }
                 }
               ],
-              "transformations": [],
-              "queryOptions": {}
+              "queryOptions": {},
+              "transformations": []
             }
           },
+          "description": "",
+          "id": 13,
+          "links": [],
+          "title": "Last Week's Avg. Response Time",
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "stat",
-            "version": "12.3.6+security-01",
+            "kind": "VizConfig",
             "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "thresholds"
+                  },
+                  "decimals": 1,
+                  "mappings": [
+                    {
+                      "options": {
+                        "match": "null",
+                        "result": {
+                          "color": "#facc15",
+                          "index": 0,
+                          "text": "N/A"
+                        }
+                      },
+                      "type": "special"
+                    }
+                  ],
+                  "noValue": "N/A",
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "#16a34a",
+                        "value": 0
+                      },
+                      {
+                        "color": "#ea580c",
+                        "value": 0.025
+                      },
+                      {
+                        "color": "#dc2626",
+                        "value": 0.03
+                      }
+                    ]
+                  },
+                  "unit": "s"
+                },
+                "overrides": []
+              },
               "options": {
                 "colorMode": "value",
                 "graphMode": "none",
@@ -490,59 +524,15 @@
                 "showPercentChange": false,
                 "textMode": "value",
                 "wideLayout": true
-              },
-              "fieldConfig": {
-                "defaults": {
-                  "unit": "s",
-                  "decimals": 1,
-                  "mappings": [
-                    {
-                      "type": "special",
-                      "options": {
-                        "match": "null",
-                        "result": {
-                          "text": "N/A",
-                          "color": "#facc15",
-                          "index": 0
-                        }
-                      }
-                    }
-                  ],
-                  "thresholds": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "value": 0,
-                        "color": "#16a34a"
-                      },
-                      {
-                        "value": 0.025,
-                        "color": "#ea580c"
-                      },
-                      {
-                        "value": 0.03,
-                        "color": "#dc2626"
-                      }
-                    ]
-                  },
-                  "color": {
-                    "mode": "thresholds"
-                  },
-                  "noValue": "N/A"
-                },
-                "overrides": []
               }
-            }
+            },
+            "version": "13.0.2"
           }
         }
       },
       "panel-14": {
         "kind": "Panel",
         "spec": {
-          "id": 14,
-          "title": "Today's Jittering",
-          "description": "",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -550,34 +540,78 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "editorMode": "code",
                         "expr": "avg_over_time(\n  abs(\n    (increase(smokeping_response_duration_seconds_sum{host=\"home.havlas.me\",ip=\"2a0c:c500:a828::3c\",job=\"smokeping\"} [$__interval])\n     / increase(smokeping_response_duration_seconds_count{host=\"home.havlas.me\",ip=\"2a0c:c500:a828::3c\",job=\"smokeping\"} [$__interval])\n    ) - (increase(smokeping_response_duration_seconds_sum{host=\"home.havlas.me\",ip=\"2a0c:c500:a828::3c\",job=\"smokeping\"} [$__interval] offset $__interval)\n         / increase(smokeping_response_duration_seconds_count{host=\"home.havlas.me\",ip=\"2a0c:c500:a828::3c\",job=\"smokeping\"} [$__interval] offset $__interval))\n)\n[24h:])",
                         "legendFormat": "LATENCY",
                         "range": true
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "LATENCY",
-                    "hidden": false
+                    "refId": "LATENCY"
                   }
                 }
               ],
-              "transformations": [],
-              "queryOptions": {}
+              "queryOptions": {},
+              "transformations": []
             }
           },
+          "description": "",
+          "id": 14,
+          "links": [],
+          "title": "Today's Jittering",
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "stat",
-            "version": "12.3.6+security-01",
+            "kind": "VizConfig",
             "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "thresholds"
+                  },
+                  "decimals": 1,
+                  "mappings": [
+                    {
+                      "options": {
+                        "match": "null",
+                        "result": {
+                          "color": "#facc15",
+                          "index": 0,
+                          "text": "N/A"
+                        }
+                      },
+                      "type": "special"
+                    }
+                  ],
+                  "noValue": "N/A",
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "#16a34a",
+                        "value": 0
+                      },
+                      {
+                        "color": "#ea580c",
+                        "value": 0.001
+                      },
+                      {
+                        "color": "#dc2626",
+                        "value": 0.002
+                      }
+                    ]
+                  },
+                  "unit": "s"
+                },
+                "overrides": []
+              },
               "options": {
                 "colorMode": "value",
                 "graphMode": "none",
@@ -594,59 +628,15 @@
                 "showPercentChange": false,
                 "textMode": "value",
                 "wideLayout": true
-              },
-              "fieldConfig": {
-                "defaults": {
-                  "unit": "s",
-                  "decimals": 1,
-                  "mappings": [
-                    {
-                      "type": "special",
-                      "options": {
-                        "match": "null",
-                        "result": {
-                          "text": "N/A",
-                          "color": "#facc15",
-                          "index": 0
-                        }
-                      }
-                    }
-                  ],
-                  "thresholds": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "value": 0,
-                        "color": "#16a34a"
-                      },
-                      {
-                        "value": 0.001,
-                        "color": "#ea580c"
-                      },
-                      {
-                        "value": 0.002,
-                        "color": "#dc2626"
-                      }
-                    ]
-                  },
-                  "color": {
-                    "mode": "thresholds"
-                  },
-                  "noValue": "N/A"
-                },
-                "overrides": []
               }
-            }
+            },
+            "version": "13.0.2"
           }
         }
       },
       "panel-5": {
         "kind": "Panel",
         "spec": {
-          "id": 5,
-          "title": "Response Time (by Bucket)",
-          "description": "",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -654,13 +644,13 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "editorMode": "code",
                         "expr": "sum by (le) (\n  rate(smokeping_response_duration_seconds_bucket{host=\"${hostname:raw}\",ip=\"${host:raw}\"} [$__interval])\n) * 2",
@@ -668,26 +658,48 @@
                         "intervalFactor": 1,
                         "legendFormat": "{{le}}",
                         "range": true
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "RTT",
-                    "hidden": false
+                    "refId": "RTT"
                   }
                 }
               ],
-              "transformations": [],
               "queryOptions": {
-                "maxDataPoints": 48,
-                "interval": "5m"
-              }
+                "interval": "5m",
+                "maxDataPoints": 48
+              },
+              "transformations": []
             }
           },
+          "description": "",
+          "id": 5,
+          "links": [],
+          "title": "Response Time (by Bucket)",
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "heatmap",
-            "version": "12.3.6+security-01",
+            "kind": "VizConfig",
             "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "custom": {
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "scaleDistribution": {
+                      "type": "linear"
+                    }
+                  }
+                },
+                "overrides": []
+              },
               "options": {
+                "annotations": {
+                  "clustering": -1,
+                  "multiLane": false
+                },
                 "calculate": false,
                 "calculation": {},
                 "cellGap": 2,
@@ -731,33 +743,15 @@
                   "reverse": false,
                   "unit": "s"
                 }
-              },
-              "fieldConfig": {
-                "defaults": {
-                  "custom": {
-                    "hideFrom": {
-                      "legend": false,
-                      "tooltip": false,
-                      "viz": false
-                    },
-                    "scaleDistribution": {
-                      "type": "linear"
-                    }
-                  }
-                },
-                "overrides": []
               }
-            }
+            },
+            "version": "13.0.2"
           }
         }
       },
       "panel-6": {
         "kind": "Panel",
         "spec": {
-          "id": 6,
-          "title": "Packet Loss",
-          "description": "",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -765,107 +759,64 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "editorMode": "code",
                         "expr": "1 - (\n  smokeping_response_duration_seconds_count{host=\"${hostname:raw}\",ip=\"${host:raw}\"}\n  / smokeping_requests_total{host=\"${hostname:raw}\",ip=\"${host:raw}\"}\n)",
                         "legendFormat": "PERCENT",
                         "range": true
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "PERCENT",
-                    "hidden": false
+                    "refId": "PERCENT"
                   }
                 },
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "editorMode": "code",
                         "expr": "smokeping_requests_total{host=\"${hostname:raw}\",ip=\"${host:raw}\"}\n- smokeping_response_duration_seconds_count{host=\"${hostname:raw}\",ip=\"${host:raw}\"}",
                         "legendFormat": "TOTAL",
                         "range": true
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "TOTAL",
-                    "hidden": false
+                    "refId": "TOTAL"
                   }
                 }
               ],
-              "transformations": [],
-              "queryOptions": {}
+              "queryOptions": {},
+              "transformations": []
             }
           },
+          "description": "",
+          "id": 6,
+          "links": [],
+          "title": "Packet Loss",
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "timeseries",
-            "version": "12.3.6+security-01",
+            "kind": "VizConfig",
             "spec": {
-              "options": {
-                "legend": {
-                  "calcs": [],
-                  "displayMode": "table",
-                  "placement": "bottom",
-                  "showLegend": false
-                },
-                "tooltip": {
-                  "hideZeros": false,
-                  "mode": "multi",
-                  "sort": "none"
-                }
-              },
               "fieldConfig": {
                 "defaults": {
-                  "unit": "percentunit",
-                  "min": 0,
-                  "mappings": [
-                    {
-                      "type": "special",
-                      "options": {
-                        "match": "null",
-                        "result": {
-                          "text": "N/A",
-                          "color": "#facc15",
-                          "index": 0
-                        }
-                      }
-                    }
-                  ],
-                  "thresholds": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "value": 0,
-                        "color": "#16a34a"
-                      },
-                      {
-                        "value": 0.1,
-                        "color": "#ea580c"
-                      },
-                      {
-                        "value": 1,
-                        "color": "#dc2626"
-                      }
-                    ]
-                  },
                   "color": {
-                    "mode": "thresholds",
-                    "fixedColor": "#16a34a"
+                    "fixedColor": "#16a34a",
+                    "mode": "thresholds"
                   },
-                  "noValue": "N/A",
                   "custom": {
                     "axisBorderShow": false,
                     "axisCenteredZero": false,
@@ -899,7 +850,40 @@
                     "thresholdsStyle": {
                       "mode": "off"
                     }
-                  }
+                  },
+                  "mappings": [
+                    {
+                      "options": {
+                        "match": "null",
+                        "result": {
+                          "color": "#facc15",
+                          "index": 0,
+                          "text": "N/A"
+                        }
+                      },
+                      "type": "special"
+                    }
+                  ],
+                  "min": 0,
+                  "noValue": "N/A",
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "#16a34a",
+                        "value": 0
+                      },
+                      {
+                        "color": "#ea580c",
+                        "value": 0.1
+                      },
+                      {
+                        "color": "#dc2626",
+                        "value": 1
+                      }
+                    ]
+                  },
+                  "unit": "percentunit"
                 },
                 "overrides": [
                   {
@@ -940,18 +924,32 @@
                     ]
                   }
                 ]
+              },
+              "options": {
+                "annotations": {
+                  "clustering": -1,
+                  "multiLane": false
+                },
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "table",
+                  "placement": "bottom",
+                  "showLegend": false
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "multi",
+                  "sort": "none"
+                }
               }
-            }
+            },
+            "version": "13.0.2"
           }
         }
       },
       "panel-7": {
         "kind": "Panel",
         "spec": {
-          "id": 7,
-          "title": "Status History",
-          "description": "",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -959,13 +957,13 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "editorMode": "code",
                         "exemplar": false,
@@ -974,26 +972,87 @@
                         "intervalFactor": 1,
                         "legendFormat": "LOSS",
                         "range": true
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "LOSS",
-                    "hidden": false
+                    "refId": "LOSS"
                   }
                 }
               ],
-              "transformations": [],
               "queryOptions": {
-                "maxDataPoints": 24,
-                "interval": "1m"
-              }
+                "interval": "1m",
+                "maxDataPoints": 24
+              },
+              "transformations": []
             }
           },
+          "description": "",
+          "id": 7,
+          "links": [],
+          "title": "Status History",
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "status-history",
-            "version": "12.3.6+security-01",
+            "kind": "VizConfig",
             "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "thresholds"
+                  },
+                  "custom": {
+                    "axisPlacement": "auto",
+                    "fillOpacity": 80,
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "lineWidth": 0
+                  },
+                  "decimals": 0,
+                  "displayName": "​",
+                  "fieldMinMax": false,
+                  "mappings": [
+                    {
+                      "options": {
+                        "match": "null",
+                        "result": {
+                          "color": "#facc15",
+                          "index": 0,
+                          "text": "N/A"
+                        }
+                      },
+                      "type": "special"
+                    }
+                  ],
+                  "min": 0,
+                  "noValue": "N/A",
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "#16a34a",
+                        "value": 0
+                      },
+                      {
+                        "color": "#ea580c",
+                        "value": 1
+                      },
+                      {
+                        "color": "#dc2626",
+                        "value": 4
+                      }
+                    ]
+                  },
+                  "unit": "none"
+                },
+                "overrides": []
+              },
               "options": {
+                "annotations": {
+                  "clustering": -1,
+                  "multiLane": false
+                },
                 "colWidth": 0.8,
                 "legend": {
                   "displayMode": "list",
@@ -1007,72 +1066,15 @@
                   "mode": "single",
                   "sort": "none"
                 }
-              },
-              "fieldConfig": {
-                "defaults": {
-                  "displayName": "​",
-                  "unit": "none",
-                  "decimals": 0,
-                  "min": 0,
-                  "mappings": [
-                    {
-                      "type": "special",
-                      "options": {
-                        "match": "null",
-                        "result": {
-                          "text": "N/A",
-                          "color": "#facc15",
-                          "index": 0
-                        }
-                      }
-                    }
-                  ],
-                  "thresholds": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "value": 0,
-                        "color": "#16a34a"
-                      },
-                      {
-                        "value": 1,
-                        "color": "#ea580c"
-                      },
-                      {
-                        "value": 4,
-                        "color": "#dc2626"
-                      }
-                    ]
-                  },
-                  "color": {
-                    "mode": "thresholds"
-                  },
-                  "noValue": "N/A",
-                  "custom": {
-                    "axisPlacement": "auto",
-                    "fillOpacity": 80,
-                    "hideFrom": {
-                      "legend": false,
-                      "tooltip": false,
-                      "viz": false
-                    },
-                    "lineWidth": 0
-                  },
-                  "fieldMinMax": false
-                },
-                "overrides": []
               }
-            }
+            },
+            "version": "13.0.2"
           }
         }
       },
       "panel-8": {
         "kind": "Panel",
         "spec": {
-          "id": 8,
-          "title": "",
-          "description": "",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -1080,13 +1082,13 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "editorMode": "code",
                         "exemplar": false,
@@ -1096,24 +1098,101 @@
                         "intervalFactor": 1,
                         "legendFormat": "LOSS",
                         "range": false
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "LOSS",
-                    "hidden": false
+                    "refId": "LOSS"
                   }
                 }
               ],
-              "transformations": [],
               "queryOptions": {
                 "interval": "1m"
-              }
+              },
+              "transformations": []
             }
           },
+          "description": "",
+          "id": 8,
+          "links": [],
+          "title": "",
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "stat",
-            "version": "12.3.6+security-01",
+            "kind": "VizConfig",
             "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "thresholds"
+                  },
+                  "decimals": 0,
+                  "fieldMinMax": false,
+                  "mappings": [
+                    {
+                      "options": {
+                        "0": {
+                          "index": 1,
+                          "text": "OK"
+                        }
+                      },
+                      "type": "value"
+                    },
+                    {
+                      "options": {
+                        "match": "null",
+                        "result": {
+                          "color": "#facc15",
+                          "index": 0,
+                          "text": "N/A"
+                        }
+                      },
+                      "type": "special"
+                    },
+                    {
+                      "options": {
+                        "from": 0.0001,
+                        "result": {
+                          "index": 2,
+                          "text": "WARN"
+                        },
+                        "to": 3.999
+                      },
+                      "type": "range"
+                    },
+                    {
+                      "options": {
+                        "from": 4,
+                        "result": {
+                          "index": 3,
+                          "text": "DOWN"
+                        },
+                        "to": 1000000
+                      },
+                      "type": "range"
+                    }
+                  ],
+                  "min": 0,
+                  "noValue": "N/A",
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "#16a34a",
+                        "value": 0
+                      },
+                      {
+                        "color": "#ea580c",
+                        "value": 1
+                      },
+                      {
+                        "color": "#dc2626",
+                        "value": 4
+                      }
+                    ]
+                  },
+                  "unit": "none"
+                },
+                "overrides": []
+              },
               "options": {
                 "colorMode": "background",
                 "graphMode": "none",
@@ -1130,92 +1209,15 @@
                 "showPercentChange": false,
                 "textMode": "value",
                 "wideLayout": true
-              },
-              "fieldConfig": {
-                "defaults": {
-                  "unit": "none",
-                  "decimals": 0,
-                  "min": 0,
-                  "mappings": [
-                    {
-                      "type": "value",
-                      "options": {
-                        "0": {
-                          "text": "OK",
-                          "index": 1
-                        }
-                      }
-                    },
-                    {
-                      "type": "special",
-                      "options": {
-                        "match": "null",
-                        "result": {
-                          "text": "N/A",
-                          "color": "#facc15",
-                          "index": 0
-                        }
-                      }
-                    },
-                    {
-                      "type": "range",
-                      "options": {
-                        "from": 0.0001,
-                        "to": 3.999,
-                        "result": {
-                          "text": "WARN",
-                          "index": 2
-                        }
-                      }
-                    },
-                    {
-                      "type": "range",
-                      "options": {
-                        "from": 4,
-                        "to": 1000000,
-                        "result": {
-                          "text": "DOWN",
-                          "index": 3
-                        }
-                      }
-                    }
-                  ],
-                  "thresholds": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "value": 0,
-                        "color": "#16a34a"
-                      },
-                      {
-                        "value": 1,
-                        "color": "#ea580c"
-                      },
-                      {
-                        "value": 4,
-                        "color": "#dc2626"
-                      }
-                    ]
-                  },
-                  "color": {
-                    "mode": "thresholds"
-                  },
-                  "noValue": "N/A",
-                  "fieldMinMax": false
-                },
-                "overrides": []
               }
-            }
+            },
+            "version": "13.0.2"
           }
         }
       },
       "panel-9": {
         "kind": "Panel",
         "spec": {
-          "id": 9,
-          "title": "Last Check",
-          "description": "",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -1223,13 +1225,13 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "editorMode": "code",
                         "exemplar": false,
@@ -1238,22 +1240,57 @@
                         "instant": true,
                         "legendFormat": "TIMESTAMP",
                         "range": false
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "TIMESTAMP",
-                    "hidden": false
+                    "refId": "TIMESTAMP"
                   }
                 }
               ],
-              "transformations": [],
-              "queryOptions": {}
+              "queryOptions": {},
+              "transformations": []
             }
           },
+          "description": "",
+          "id": 9,
+          "links": [],
+          "title": "Last Check",
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "stat",
-            "version": "12.3.6+security-01",
+            "kind": "VizConfig",
             "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "thresholds"
+                  },
+                  "mappings": [
+                    {
+                      "options": {
+                        "match": "null",
+                        "result": {
+                          "color": "#facc15",
+                          "index": 0,
+                          "text": "N/A"
+                        }
+                      },
+                      "type": "special"
+                    }
+                  ],
+                  "noValue": "N/A",
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "#0891b2",
+                        "value": 0
+                      }
+                    ]
+                  },
+                  "unit": "dateTimeAsIso"
+                },
+                "overrides": []
+              },
               "options": {
                 "colorMode": "value",
                 "graphMode": "area",
@@ -1270,40 +1307,9 @@
                 "showPercentChange": false,
                 "textMode": "value",
                 "wideLayout": true
-              },
-              "fieldConfig": {
-                "defaults": {
-                  "unit": "dateTimeAsIso",
-                  "mappings": [
-                    {
-                      "type": "special",
-                      "options": {
-                        "match": "null",
-                        "result": {
-                          "text": "N/A",
-                          "color": "#facc15",
-                          "index": 0
-                        }
-                      }
-                    }
-                  ],
-                  "thresholds": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "value": 0,
-                        "color": "#0891b2"
-                      }
-                    ]
-                  },
-                  "color": {
-                    "mode": "thresholds"
-                  },
-                  "noValue": "N/A"
-                },
-                "overrides": []
               }
-            }
+            },
+            "version": "13.0.2"
           }
         }
       }
@@ -1315,12 +1321,7 @@
           {
             "kind": "RowsLayoutRow",
             "spec": {
-              "title": "$host",
               "collapse": false,
-              "repeat": {
-                "mode": "variable",
-                "value": "host"
-              },
               "layout": {
                 "kind": "GridLayout",
                 "spec": {
@@ -1328,142 +1329,160 @@
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
-                        "x": 0,
-                        "y": 0,
-                        "width": 6,
-                        "height": 3,
                         "element": {
                           "kind": "ElementReference",
                           "name": "panel-8"
-                        }
+                        },
+                        "height": 3,
+                        "width": 6,
+                        "x": 0,
+                        "y": 0
                       }
                     },
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
-                        "x": 6,
-                        "y": 0,
-                        "width": 18,
-                        "height": 5,
                         "element": {
                           "kind": "ElementReference",
                           "name": "panel-7"
-                        }
+                        },
+                        "height": 5,
+                        "width": 18,
+                        "x": 6,
+                        "y": 0
                       }
                     },
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
-                        "x": 0,
-                        "y": 3,
-                        "width": 6,
-                        "height": 2,
                         "element": {
                           "kind": "ElementReference",
                           "name": "panel-9"
-                        }
+                        },
+                        "height": 2,
+                        "width": 6,
+                        "x": 0,
+                        "y": 3
                       }
                     },
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
-                        "x": 0,
-                        "y": 5,
-                        "width": 6,
-                        "height": 3,
                         "element": {
                           "kind": "ElementReference",
                           "name": "panel-12"
-                        }
+                        },
+                        "height": 3,
+                        "width": 6,
+                        "x": 0,
+                        "y": 5
                       }
                     },
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
-                        "x": 6,
-                        "y": 5,
-                        "width": 6,
-                        "height": 3,
                         "element": {
                           "kind": "ElementReference",
                           "name": "panel-13"
-                        }
+                        },
+                        "height": 3,
+                        "width": 6,
+                        "x": 6,
+                        "y": 5
                       }
                     },
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
-                        "x": 12,
-                        "y": 5,
-                        "width": 6,
-                        "height": 3,
                         "element": {
                           "kind": "ElementReference",
                           "name": "panel-14"
-                        }
+                        },
+                        "height": 3,
+                        "width": 6,
+                        "x": 12,
+                        "y": 5
                       }
                     },
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
-                        "x": 18,
-                        "y": 5,
-                        "width": 6,
-                        "height": 3,
                         "element": {
                           "kind": "ElementReference",
                           "name": "panel-10"
-                        }
+                        },
+                        "height": 3,
+                        "width": 6,
+                        "x": 18,
+                        "y": 5
                       }
                     },
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
-                        "x": 0,
-                        "y": 8,
-                        "width": 12,
-                        "height": 19,
                         "element": {
                           "kind": "ElementReference",
                           "name": "panel-5"
-                        }
+                        },
+                        "height": 19,
+                        "width": 12,
+                        "x": 0,
+                        "y": 8
                       }
                     },
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
-                        "x": 12,
-                        "y": 8,
-                        "width": 12,
-                        "height": 10,
                         "element": {
                           "kind": "ElementReference",
                           "name": "panel-1"
-                        }
+                        },
+                        "height": 10,
+                        "width": 12,
+                        "x": 12,
+                        "y": 8
                       }
                     },
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
-                        "x": 12,
-                        "y": 18,
-                        "width": 12,
-                        "height": 9,
                         "element": {
                           "kind": "ElementReference",
                           "name": "panel-6"
-                        }
+                        },
+                        "height": 9,
+                        "width": 12,
+                        "x": 12,
+                        "y": 18
                       }
                     }
                   ]
                 }
-              }
+              },
+              "repeat": {
+                "mode": "variable",
+                "value": "host"
+              },
+              "title": "$host"
             }
           }
         ]
       }
     },
-    "links": [],
+    "links": [
+      {
+        "asDropdown": false,
+        "icon": "external link",
+        "includeVars": false,
+        "keepTime": false,
+        "tags": [],
+        "targetBlank": true,
+        "title": "Source (GitHub)",
+        "tooltip": "View source file in repository",
+        "type": "link",
+        "url": "https://github.com/Daniel-W-Innes/grafana/blob/main/smokeping.json"
+      }
+    ],
     "liveNow": false,
     "preload": false,
     "tags": [
@@ -1472,9 +1491,6 @@
       "smokeping_exporter"
     ],
     "timeSettings": {
-      "timezone": "browser",
-      "from": "now-6h",
-      "to": "now",
       "autoRefresh": "1m",
       "autoRefreshIntervals": [
         "30s",
@@ -1485,100 +1501,108 @@
         "1h",
         "2h"
       ],
+      "fiscalYearStartMonth": 0,
+      "from": "now-6h",
       "hideTimepicker": false,
-      "fiscalYearStartMonth": 0
+      "timezone": "browser",
+      "to": "now"
     },
     "title": "SmokePing",
     "variables": [
       {
         "kind": "DatasourceVariable",
         "spec": {
+          "allowCustomValue": true,
+          "current": {
+            "text": "Prometheus",
+            "value": "PBFA97CFB590B2093"
+          },
+          "hide": "dontHide",
+          "includeAll": false,
+          "label": "Datasource",
+          "multi": false,
           "name": "ds_prometheus",
+          "options": [],
           "pluginId": "prometheus",
           "refresh": "onDashboardLoad",
           "regex": "",
-          "current": {
-            "text": "",
-            "value": ""
-          },
-          "options": [],
-          "multi": false,
-          "includeAll": false,
-          "label": "Datasource",
-          "hide": "dontHide",
-          "skipUrlSync": false,
-          "allowCustomValue": true
+          "skipUrlSync": false
         }
       },
       {
         "kind": "QueryVariable",
         "spec": {
-          "name": "hostname",
+          "allowCustomValue": false,
           "current": {
-            "text": "",
-            "value": ""
+            "text": "1.1.1.1",
+            "value": "1.1.1.1"
           },
-          "label": "Host",
+          "definition": "label_values(smokeping_requests_total,host)",
           "hide": "dontHide",
-          "refresh": "onTimeRangeChanged",
-          "skipUrlSync": false,
+          "includeAll": false,
+          "label": "Host",
+          "multi": false,
+          "name": "hostname",
+          "options": [],
           "query": {
-            "kind": "DataQuery",
-            "group": "prometheus",
-            "version": "v0",
             "datasource": {
               "name": "${ds_prometheus}"
             },
+            "group": "prometheus",
+            "kind": "DataQuery",
             "spec": {
               "qryType": 1,
               "query": "label_values(smokeping_requests_total,host)",
               "refId": "PrometheusVariableQueryEditor-VariableQuery"
-            }
+            },
+            "version": "v0"
           },
+          "refresh": "onTimeRangeChanged",
           "regex": "",
-          "sort": "alphabeticalAsc",
-          "definition": "label_values(smokeping_requests_total,host)",
-          "options": [],
-          "multi": false,
-          "includeAll": false,
-          "allowCustomValue": false
+          "regexApplyTo": "value",
+          "skipUrlSync": false,
+          "sort": "alphabeticalAsc"
         }
       },
       {
         "kind": "QueryVariable",
         "spec": {
-          "name": "host",
+          "allowCustomValue": true,
           "current": {
-            "text": "",
-            "value": ""
+            "text": [
+              "All"
+            ],
+            "value": [
+              "$__all"
+            ]
           },
-          "label": "IP",
+          "definition": "label_values(smokeping_requests_total{host=\"$hostname\"},ip)",
           "hide": "dontHide",
-          "refresh": "onTimeRangeChanged",
-          "skipUrlSync": false,
+          "includeAll": true,
+          "label": "IP",
+          "multi": true,
+          "name": "host",
+          "options": [],
           "query": {
-            "kind": "DataQuery",
-            "group": "prometheus",
-            "version": "v0",
             "datasource": {
               "name": "${ds_prometheus}"
             },
+            "group": "prometheus",
+            "kind": "DataQuery",
             "spec": {
               "qryType": 1,
               "query": "label_values(smokeping_requests_total{host=\"$hostname\"},ip)",
               "refId": "PrometheusVariableQueryEditor-VariableQuery"
-            }
+            },
+            "version": "v0"
           },
+          "refresh": "onTimeRangeChanged",
           "regex": "",
-          "sort": "alphabeticalAsc",
-          "definition": "label_values(smokeping_requests_total{host=\"$hostname\"},ip)",
-          "options": [],
-          "multi": true,
-          "includeAll": true,
-          "allowCustomValue": true
+          "regexApplyTo": "value",
+          "skipUrlSync": false,
+          "sort": "alphabeticalAsc"
         }
       }
     ]
   }
 }
-
