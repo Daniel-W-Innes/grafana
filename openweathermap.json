@@ -2193,7 +2193,7 @@
                     "hidden": false,
                     "query": {
                       "datasource": {
-                        "name": "${ds_prometheus}"
+                        "name": "PBFA97CFB590B2093"
                       },
                       "group": "prometheus",
                       "kind": "DataQuery",
@@ -3451,26 +3451,6 @@
     },
     "title": "OpenWeatherMap",
     "variables": [
-      {
-        "kind": "DatasourceVariable",
-        "spec": {
-          "allowCustomValue": true,
-          "current": {
-            "text": "Prometheus",
-            "value": "PBFA97CFB590B2093"
-          },
-          "hide": "dontHide",
-          "includeAll": false,
-          "label": "Datasource",
-          "multi": false,
-          "name": "ds_prometheus",
-          "options": [],
-          "pluginId": "prometheus",
-          "refresh": "onDashboardLoad",
-          "regex": "",
-          "skipUrlSync": false
-        }
-      },
       {
         "kind": "QueryVariable",
         "spec": {
