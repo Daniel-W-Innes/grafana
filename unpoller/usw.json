@@ -2,30 +2,23 @@
   "apiVersion": "dashboard.grafana.app/v2",
   "kind": "Dashboard",
   "metadata": {
-    "name": "FsfxpWaZz",
-    "generation": 1,
-    "creationTimestamp": "2026-06-13T15:40:25Z",
-    "labels": {},
-    "annotations": {}
+    "name": "FsfxpWaZz"
   },
   "spec": {
     "annotations": [
       {
         "kind": "AnnotationQuery",
         "spec": {
-          "query": {
-            "kind": "DataQuery",
-            "group": "",
-            "version": "v0",
-            "spec": {}
-          },
+          "builtIn": true,
           "enable": true,
           "hide": true,
           "iconColor": "rgba(0, 211, 255, 1)",
-          "name": "Annotations & Alerts",
-          "builtIn": true,
-          "legacyOptions": {
-            "type": "dashboard"
+          "name": "Annotations \u0026 Alerts",
+          "query": {
+            "group": "grafana",
+            "kind": "DataQuery",
+            "spec": {},
+            "version": "v0"
           }
         }
       }
@@ -37,10 +30,6 @@
       "panel-1149": {
         "kind": "Panel",
         "spec": {
-          "id": 1149,
-          "title": "Device Temperature(s)",
-          "description": "",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -48,88 +37,59 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "sum by (name,temp_area,temp_type) (unpoller_device_temperature_celsius{site_name=~\"$Site\",name=~\"$Switch\"})",
                         "interval": "$Smooth",
                         "legendFormat": "{{name}} {{temp_area}} {{temp_type}} C "
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "A",
-                    "hidden": false
+                    "refId": "A"
                   }
                 },
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "sum by (name,temp_area,temp_type) (unpoller_device_temperature_celsius{site_name=~\"$Site\",name=~\"$Switch\"}*9/5+32)",
                         "instant": false,
                         "interval": "$Smooth",
                         "legendFormat": "{{name}} {{temp_area}} {{temp_type}} F"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "B",
-                    "hidden": false
+                    "refId": "B"
                   }
                 }
               ],
-              "transformations": [],
-              "queryOptions": {}
+              "queryOptions": {},
+              "transformations": []
             }
           },
+          "description": "",
+          "id": 1149,
+          "links": [],
+          "title": "Device Temperature(s)",
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "timeseries",
-            "version": "12.3.6+security-01",
+            "kind": "VizConfig",
             "spec": {
-              "options": {
-                "dataLinks": [],
-                "legend": {
-                  "calcs": [
-                    "lastNotNull",
-                    "max"
-                  ],
-                  "displayMode": "table",
-                  "placement": "bottom",
-                  "showLegend": true
-                },
-                "tooltip": {
-                  "hideZeros": false,
-                  "mode": "multi",
-                  "sort": "none"
-                }
-              },
               "fieldConfig": {
                 "defaults": {
-                  "unit": "celsius",
-                  "decimals": 1,
-                  "thresholds": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "value": 0,
-                        "color": "green"
-                      },
-                      {
-                        "value": 80,
-                        "color": "red"
-                      }
-                    ]
-                  },
                   "color": {
                     "mode": "palette-classic"
                   },
@@ -166,7 +126,22 @@
                     "thresholdsStyle": {
                       "mode": "off"
                     }
-                  }
+                  },
+                  "decimals": 1,
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": 0
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "celsius"
                 },
                 "overrides": [
                   {
@@ -260,238 +235,12 @@
                     ]
                   }
                 ]
-              }
-            }
-          }
-        }
-      },
-      "panel-135": {
-        "kind": "Panel",
-        "spec": {
-          "id": 135,
-          "title": "Data Transfer",
-          "description": "Shows data transferred for selected switch ports.",
-          "links": [],
-          "data": {
-            "kind": "QueryGroup",
-            "spec": {
-              "queries": [
-                {
-                  "kind": "PanelQuery",
-                  "spec": {
-                    "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
-                      "datasource": {
-                        "name": "${ds_prometheus}"
-                      },
-                      "spec": {
-                        "expr": "rate(unpoller_device_port_transmit_bytes_total{site_name=~\"$Site\", name=~\"$Switch\", port_id=~\"$Port\"}[$__interval])",
-                        "interval": "$Smooth",
-                        "legendFormat": "{{port_id}} {{port_name}} Tx"
-                      }
-                    },
-                    "refId": "A",
-                    "hidden": false
-                  }
-                },
-                {
-                  "kind": "PanelQuery",
-                  "spec": {
-                    "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
-                      "datasource": {
-                        "name": "${ds_prometheus}"
-                      },
-                      "spec": {
-                        "expr": "rate(unpoller_device_port_receive_bytes_total{site_name=~\"$Site\", name=~\"$Switch\", port_id=~\"$Port\"}[$__interval])",
-                        "interval": "$Smooth",
-                        "legendFormat": "{{port_id}} {{port_name}} Rx"
-                      }
-                    },
-                    "refId": "B",
-                    "hidden": false
-                  }
-                }
-              ],
-              "transformations": [],
-              "queryOptions": {}
-            }
-          },
-          "vizConfig": {
-            "kind": "VizConfig",
-            "group": "timeseries",
-            "version": "",
-            "spec": {
-              "options": {
-                "dataLinks": []
               },
-              "fieldConfig": {
-                "defaults": {},
-                "overrides": []
-              }
-            }
-          },
-          "transparent": true
-        }
-      },
-      "panel-1396": {
-        "kind": "Panel",
-        "spec": {
-          "id": 1396,
-          "title": "Data Transfer: Switch $Port",
-          "description": "Shows data transfer rate per second for Switch $Port. TX on positive axis and RX on negative axis.",
-          "links": [],
-          "data": {
-            "kind": "QueryGroup",
-            "spec": {
-              "queries": [
-                {
-                  "kind": "PanelQuery",
-                  "spec": {
-                    "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
-                      "datasource": {
-                        "name": "${ds_prometheus}"
-                      },
-                      "spec": {
-                        "expr": "rate(unpoller_device_port_receive_bytes_total{site_name=~\"$Site\", port_id=~\"$Port\"}[$__interval])",
-                        "interval": "$Smooth",
-                        "legendFormat": " {{port_id}} ({{port_name}}) Rx"
-                      }
-                    },
-                    "refId": "A",
-                    "hidden": false
-                  }
-                },
-                {
-                  "kind": "PanelQuery",
-                  "spec": {
-                    "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
-                      "datasource": {
-                        "name": "${ds_prometheus}"
-                      },
-                      "spec": {
-                        "expr": "rate(unpoller_device_port_transmit_bytes_total{site_name=~\"$Site\", port_id=~\"$Port\"}[$__interval])",
-                        "interval": "$Smooth",
-                        "legendFormat": " {{port_id}} ({{port_name}}) Tx"
-                      }
-                    },
-                    "refId": "B",
-                    "hidden": false
-                  }
-                }
-              ],
-              "transformations": [],
-              "queryOptions": {}
-            }
-          },
-          "vizConfig": {
-            "kind": "VizConfig",
-            "group": "timeseries",
-            "version": "",
-            "spec": {
               "options": {
-                "dataLinks": []
-              },
-              "fieldConfig": {
-                "defaults": {},
-                "overrides": []
-              }
-            }
-          }
-        }
-      },
-      "panel-1857": {
-        "kind": "Panel",
-        "spec": {
-          "id": 1857,
-          "title": "Device Load Average",
-          "description": "",
-          "links": [],
-          "data": {
-            "kind": "QueryGroup",
-            "spec": {
-              "queries": [
-                {
-                  "kind": "PanelQuery",
-                  "spec": {
-                    "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
-                      "datasource": {
-                        "name": "${ds_prometheus}"
-                      },
-                      "spec": {
-                        "expr": "unpoller_device_load_average_1{site_name=~\"$Site\",name=~\"$Switch\"}",
-                        "interval": "$Smooth",
-                        "legendFormat": "{{name}} load1"
-                      }
-                    },
-                    "refId": "A",
-                    "hidden": false
-                  }
+                "annotations": {
+                  "clustering": -1,
+                  "multiLane": false
                 },
-                {
-                  "kind": "PanelQuery",
-                  "spec": {
-                    "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
-                      "datasource": {
-                        "name": "${ds_prometheus}"
-                      },
-                      "spec": {
-                        "expr": "unpoller_device_load_average_5{site_name=~\"$Site\",name=~\"$Switch\"}",
-                        "interval": "$Smooth",
-                        "legendFormat": "{{name}} load5"
-                      }
-                    },
-                    "refId": "B",
-                    "hidden": true
-                  }
-                },
-                {
-                  "kind": "PanelQuery",
-                  "spec": {
-                    "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
-                      "datasource": {
-                        "name": "${ds_prometheus}"
-                      },
-                      "spec": {
-                        "expr": "unpoller_device_load_average_15{site_name=~\"$Site\",name=~\"$Switch\"}",
-                        "interval": "$Smooth",
-                        "legendFormat": "{{name}} load15"
-                      }
-                    },
-                    "refId": "C",
-                    "hidden": false
-                  }
-                }
-              ],
-              "transformations": [],
-              "queryOptions": {}
-            }
-          },
-          "vizConfig": {
-            "kind": "VizConfig",
-            "group": "timeseries",
-            "version": "12.3.6+security-01",
-            "spec": {
-              "options": {
                 "dataLinks": [],
                 "legend": {
                   "calcs": [
@@ -505,25 +254,242 @@
                 "tooltip": {
                   "hideZeros": false,
                   "mode": "multi",
-                  "sort": "desc"
+                  "sort": "none"
                 }
+              }
+            },
+            "version": "13.0.2"
+          }
+        }
+      },
+      "panel-135": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "${ds_prometheus}"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "expr": "rate(unpoller_device_port_transmit_bytes_total{site_name=~\"$Site\", name=~\"$Switch\", port_id=~\"$Port\"}[$__interval])",
+                        "interval": "$Smooth",
+                        "legendFormat": "{{port_id}} {{port_name}} Tx"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "${ds_prometheus}"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "expr": "rate(unpoller_device_port_receive_bytes_total{site_name=~\"$Site\", name=~\"$Switch\", port_id=~\"$Port\"}[$__interval])",
+                        "interval": "$Smooth",
+                        "legendFormat": "{{port_id}} {{port_name}} Rx"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "B"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "Shows data transferred for selected switch ports.",
+          "id": 135,
+          "links": [],
+          "title": "Data Transfer",
+          "transparent": true,
+          "vizConfig": {
+            "group": "timeseries",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {},
+                "overrides": []
               },
+              "options": {
+                "dataLinks": []
+              }
+            },
+            "version": ""
+          }
+        }
+      },
+      "panel-1396": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "${ds_prometheus}"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "expr": "rate(unpoller_device_port_receive_bytes_total{site_name=~\"$Site\", port_id=~\"$Port\"}[$__interval])",
+                        "interval": "$Smooth",
+                        "legendFormat": " {{port_id}} ({{port_name}}) Rx"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "${ds_prometheus}"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "expr": "rate(unpoller_device_port_transmit_bytes_total{site_name=~\"$Site\", port_id=~\"$Port\"}[$__interval])",
+                        "interval": "$Smooth",
+                        "legendFormat": " {{port_id}} ({{port_name}}) Tx"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "B"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "Shows data transfer rate per second for Switch $Port. TX on positive axis and RX on negative axis.",
+          "id": 1396,
+          "links": [],
+          "title": "Data Transfer: Switch $Port",
+          "vizConfig": {
+            "group": "timeseries",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+              },
+              "options": {
+                "dataLinks": []
+              }
+            },
+            "version": ""
+          }
+        }
+      },
+      "panel-1857": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "${ds_prometheus}"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "expr": "unpoller_device_load_average_1{site_name=~\"$Site\",name=~\"$Switch\"}",
+                        "interval": "$Smooth",
+                        "legendFormat": "{{name}} load1"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": true,
+                    "query": {
+                      "datasource": {
+                        "name": "${ds_prometheus}"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "expr": "unpoller_device_load_average_5{site_name=~\"$Site\",name=~\"$Switch\"}",
+                        "interval": "$Smooth",
+                        "legendFormat": "{{name}} load5"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "B"
+                  }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "${ds_prometheus}"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "expr": "unpoller_device_load_average_15{site_name=~\"$Site\",name=~\"$Switch\"}",
+                        "interval": "$Smooth",
+                        "legendFormat": "{{name}} load15"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "C"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "",
+          "id": 1857,
+          "links": [],
+          "title": "Device Load Average",
+          "transparent": true,
+          "vizConfig": {
+            "group": "timeseries",
+            "kind": "VizConfig",
+            "spec": {
               "fieldConfig": {
                 "defaults": {
-                  "unit": "none",
-                  "thresholds": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "value": 0,
-                        "color": "green"
-                      },
-                      {
-                        "value": 80,
-                        "color": "red"
-                      }
-                    ]
-                  },
                   "color": {
                     "mode": "palette-classic"
                   },
@@ -560,7 +526,21 @@
                     "thresholdsStyle": {
                       "mode": "off"
                     }
-                  }
+                  },
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": 0
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "none"
                 },
                 "overrides": [
                   {
@@ -649,60 +629,19 @@
                     ]
                   }
                 ]
-              }
-            }
-          },
-          "transparent": true
-        }
-      },
-      "panel-1859": {
-        "kind": "Panel",
-        "spec": {
-          "id": 1859,
-          "title": "Memory",
-          "description": "",
-          "links": [],
-          "data": {
-            "kind": "QueryGroup",
-            "spec": {
-              "queries": [
-                {
-                  "kind": "PanelQuery",
-                  "spec": {
-                    "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
-                      "datasource": {
-                        "name": "${ds_prometheus}"
-                      },
-                      "spec": {
-                        "expr": "unpoller_device_memory_utilization_ratio{type=\"usw\", site_name=~\"$Site\",name=~\"$Switch\",type=~\"usw|udm|udmp\"}",
-                        "interval": "$Smooth",
-                        "legendFormat": "{{name}}"
-                      }
-                    },
-                    "refId": "A",
-                    "hidden": false
-                  }
-                }
-              ],
-              "transformations": [],
-              "queryOptions": {}
-            }
-          },
-          "vizConfig": {
-            "kind": "VizConfig",
-            "group": "timeseries",
-            "version": "12.3.6+security-01",
-            "spec": {
+              },
               "options": {
+                "annotations": {
+                  "clustering": -1,
+                  "multiLane": false
+                },
                 "dataLinks": [],
                 "legend": {
                   "calcs": [
+                    "lastNotNull",
                     "max"
                   ],
-                  "displayMode": "list",
+                  "displayMode": "table",
                   "placement": "bottom",
                   "showLegend": true
                 },
@@ -711,26 +650,54 @@
                   "mode": "multi",
                   "sort": "desc"
                 }
-              },
+              }
+            },
+            "version": "13.0.2"
+          }
+        }
+      },
+      "panel-1859": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "${ds_prometheus}"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "expr": "unpoller_device_memory_utilization_ratio{type=\"usw\", site_name=~\"$Site\",name=~\"$Switch\",type=~\"usw|udm|udmp\"}",
+                        "interval": "$Smooth",
+                        "legendFormat": "{{name}}"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "",
+          "id": 1859,
+          "links": [],
+          "title": "Memory",
+          "vizConfig": {
+            "group": "timeseries",
+            "kind": "VizConfig",
+            "spec": {
               "fieldConfig": {
                 "defaults": {
-                  "unit": "percentunit",
-                  "decimals": 1,
-                  "min": 0,
-                  "max": 1,
-                  "thresholds": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "value": 0,
-                        "color": "green"
-                      },
-                      {
-                        "value": 80,
-                        "color": "red"
-                      }
-                    ]
-                  },
                   "color": {
                     "mode": "palette-classic"
                   },
@@ -767,7 +734,24 @@
                     "thresholdsStyle": {
                       "mode": "off"
                     }
-                  }
+                  },
+                  "decimals": 1,
+                  "max": 1,
+                  "min": 0,
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": 0
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "percentunit"
                 },
                 "overrides": [
                   {
@@ -806,53 +790,12 @@
                     ]
                   }
                 ]
-              }
-            }
-          }
-        }
-      },
-      "panel-1861": {
-        "kind": "Panel",
-        "spec": {
-          "id": 1861,
-          "title": "CPU",
-          "description": "",
-          "links": [],
-          "data": {
-            "kind": "QueryGroup",
-            "spec": {
-              "queries": [
-                {
-                  "kind": "PanelQuery",
-                  "spec": {
-                    "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
-                      "datasource": {
-                        "name": "${ds_prometheus}"
-                      },
-                      "spec": {
-                        "expr": "unpoller_device_cpu_utilization_ratio{site_name=~\"$Site\",name=~\"$Switch\",type=~\"usw|udm|udmp\"}",
-                        "interval": "$Smooth",
-                        "legendFormat": "{{name}}"
-                      }
-                    },
-                    "refId": "A",
-                    "hidden": false
-                  }
-                }
-              ],
-              "transformations": [],
-              "queryOptions": {}
-            }
-          },
-          "vizConfig": {
-            "kind": "VizConfig",
-            "group": "timeseries",
-            "version": "12.3.6+security-01",
-            "spec": {
+              },
               "options": {
+                "annotations": {
+                  "clustering": -1,
+                  "multiLane": false
+                },
                 "dataLinks": [],
                 "legend": {
                   "calcs": [
@@ -867,26 +810,54 @@
                   "mode": "multi",
                   "sort": "desc"
                 }
-              },
+              }
+            },
+            "version": "13.0.2"
+          }
+        }
+      },
+      "panel-1861": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "${ds_prometheus}"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "expr": "unpoller_device_cpu_utilization_ratio{site_name=~\"$Site\",name=~\"$Switch\",type=~\"usw|udm|udmp\"}",
+                        "interval": "$Smooth",
+                        "legendFormat": "{{name}}"
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "",
+          "id": 1861,
+          "links": [],
+          "title": "CPU",
+          "vizConfig": {
+            "group": "timeseries",
+            "kind": "VizConfig",
+            "spec": {
               "fieldConfig": {
                 "defaults": {
-                  "unit": "percentunit",
-                  "decimals": 1,
-                  "min": 0,
-                  "max": 1,
-                  "thresholds": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "value": 0,
-                        "color": "green"
-                      },
-                      {
-                        "value": 80,
-                        "color": "red"
-                      }
-                    ]
-                  },
                   "color": {
                     "mode": "palette-classic"
                   },
@@ -923,7 +894,24 @@
                     "thresholdsStyle": {
                       "mode": "off"
                     }
-                  }
+                  },
+                  "decimals": 1,
+                  "max": 1,
+                  "min": 0,
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": 0
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
+                  },
+                  "unit": "percentunit"
                 },
                 "overrides": [
                   {
@@ -962,18 +950,35 @@
                     ]
                   }
                 ]
+              },
+              "options": {
+                "annotations": {
+                  "clustering": -1,
+                  "multiLane": false
+                },
+                "dataLinks": [],
+                "legend": {
+                  "calcs": [
+                    "max"
+                  ],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "multi",
+                  "sort": "desc"
+                }
               }
-            }
+            },
+            "version": "13.0.2"
           }
         }
       },
       "panel-214": {
         "kind": "Panel",
         "spec": {
-          "id": 214,
-          "title": "All Port Information",
-          "description": "This panel displays lifetime totals and current data as of now.",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -981,290 +986,290 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "sum by (name,port_num,port_name,site_name,source) (unpoller_device_port_receive_bytes_total{site_name=~\"$Site\",name=~\"$Switch\"})",
                         "format": "table",
                         "instant": true
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "A",
-                    "hidden": false
+                    "refId": "A"
                   }
                 },
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "sum by (name,port_num,port_name,site_name,source) (unpoller_device_port_transmit_bytes_total{site_name=~\"$Site\",name=~\"$Switch\"})",
                         "format": "table",
                         "instant": true
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "B",
-                    "hidden": false
+                    "refId": "B"
                   }
                 },
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "sum by (name,port_num,port_name,site_name,source) (unpoller_device_port_receive_dropped_total{site_name=~\"$Site\",name=~\"$Switch\"})",
                         "format": "table",
                         "instant": true
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "D",
-                    "hidden": false
+                    "refId": "D"
                   }
                 },
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "sum by (name,port_num,port_name,site_name,source) (unpoller_device_port_transmit_dropped_total{site_name=~\"$Site\",name=~\"$Switch\"})",
                         "format": "table",
                         "instant": true
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "C",
-                    "hidden": false
+                    "refId": "C"
                   }
                 },
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "sum by (name,port_num,port_name,site_name,source) (unpoller_device_port_receive_broadcast_total{site_name=~\"$Site\",name=~\"$Switch\"})",
                         "format": "table",
                         "instant": true
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "F",
-                    "hidden": false
+                    "refId": "F"
                   }
                 },
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "sum by (name,port_num,port_name,site_name,source) (unpoller_device_port_transmit_broadcast_total{site_name=~\"$Site\",name=~\"$Switch\"})",
                         "format": "table",
                         "instant": true
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "E",
-                    "hidden": false
+                    "refId": "E"
                   }
                 },
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "sum by (name,port_num,port_name,site_name,source) (unpoller_device_port_receive_errors_total{site_name=~\"$Site\",name=~\"$Switch\"})",
                         "format": "table",
                         "instant": true
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "H",
-                    "hidden": false
+                    "refId": "H"
                   }
                 },
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "sum by (name,port_num,port_name,site_name,source) (unpoller_device_port_transmit_errors_total{site_name=~\"$Site\",name=~\"$Switch\"})",
                         "format": "table",
                         "instant": true
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "G",
-                    "hidden": false
+                    "refId": "G"
                   }
                 },
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "sum by (name,port_num,port_name,site_name,source) (unpoller_device_port_receive_packets_total{site_name=~\"$Site\",name=~\"$Switch\"})",
                         "format": "table",
                         "instant": true
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "J",
-                    "hidden": false
+                    "refId": "J"
                   }
                 },
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "sum by (name,port_num,port_name,site_name,source) (unpoller_device_port_transmit_packets_total{site_name=~\"$Site\",name=~\"$Switch\"})",
                         "format": "table",
                         "instant": true
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "I",
-                    "hidden": false
+                    "refId": "I"
                   }
                 },
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "sum by (name,port_num,port_name,site_name,source) (unpoller_device_port_poe_amperes{site_name=~\"$Site\",name=~\"$Switch\"})",
                         "format": "table",
                         "instant": true
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "K",
-                    "hidden": false
+                    "refId": "K"
                   }
                 },
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "sum by (name,port_num,port_name,site_name,source) (unpoller_device_port_poe_volts{site_name=~\"$Site\",name=~\"$Switch\"})",
                         "format": "table",
                         "instant": true
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "L",
-                    "hidden": false
+                    "refId": "L"
                   }
                 },
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "sum by (name,port_num,port_name,site_name,source) (unpoller_device_port_poe_watts{site_name=~\"$Site\",name=~\"$Switch\"})",
                         "format": "table",
                         "instant": true
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "M",
-                    "hidden": false
+                    "refId": "M"
                   }
                 }
               ],
-              "transformations": [],
-              "queryOptions": {}
+              "queryOptions": {},
+              "transformations": []
             }
           },
+          "description": "This panel displays lifetime totals and current data as of now.",
+          "id": 214,
+          "links": [],
+          "title": "All Port Information",
+          "transparent": true,
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "table",
-            "version": "",
+            "kind": "VizConfig",
             "spec": {
-              "options": {},
               "fieldConfig": {
                 "defaults": {},
                 "overrides": []
-              }
-            }
-          },
-          "transparent": true
+              },
+              "options": {}
+            },
+            "version": ""
+          }
         }
       },
       "panel-2297": {
         "kind": "Panel",
         "spec": {
-          "id": 2297,
-          "title": "Switch Details",
-          "description": "If you have access points and gateways they will also show up here because they have switch ports.",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -1272,108 +1277,94 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "sum by (ip,mac,model,name,serial,site_name,type,version,source) (unpoller_device_info{site_name=~\"$Site\", name=~\"$Switch\"})",
                         "format": "table",
                         "instant": true,
                         "interval": "",
                         "legendFormat": ""
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "A",
-                    "hidden": false
+                    "refId": "A"
                   }
                 },
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "sum by (ip,mac,model,name,serial,site_name,type,version,source) (unpoller_device_uptime_seconds{site_name=~\"$Site\", name=~\"$Switch\"})",
                         "format": "table",
                         "instant": true,
                         "interval": "",
                         "legendFormat": ""
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "B",
-                    "hidden": false
+                    "refId": "B"
                   }
                 },
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "sum by (ip,mac,model,name,serial,site_name,type,version,source) (unpoller_device_bytes_total{site_name=~\"$Site\", name=~\"$Switch\"})",
                         "format": "table",
                         "instant": true,
                         "interval": "",
                         "legendFormat": ""
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "C",
-                    "hidden": false
+                    "refId": "C"
                   }
                 }
               ],
+              "queryOptions": {},
               "transformations": [
                 {
-                  "kind": "Transformation",
                   "group": "merge",
+                  "kind": "Transformation",
                   "spec": {
                     "options": {
                       "reducers": []
                     }
                   }
                 }
-              ],
-              "queryOptions": {}
+              ]
             }
           },
+          "description": "If you have access points and gateways they will also show up here because they have switch ports.",
+          "id": 2297,
+          "links": [],
+          "title": "Switch Details",
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "table",
-            "version": "12.3.6+security-01",
+            "kind": "VizConfig",
             "spec": {
-              "options": {
-                "cellHeight": "sm",
-                "showHeader": true
-              },
               "fieldConfig": {
                 "defaults": {
-                  "thresholds": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "value": 0,
-                        "color": "green"
-                      },
-                      {
-                        "value": 80,
-                        "color": "red"
-                      }
-                    ]
-                  },
                   "custom": {
                     "align": "auto",
                     "cellOptions": {
@@ -1383,6 +1374,19 @@
                       "reducers": []
                     },
                     "inspect": false
+                  },
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": 0
+                      },
+                      {
+                        "color": "red",
+                        "value": 80
+                      }
+                    ]
                   }
                 },
                 "overrides": [
@@ -1690,18 +1694,19 @@
                     ]
                   }
                 ]
+              },
+              "options": {
+                "cellHeight": "sm",
+                "showHeader": true
               }
-            }
+            },
+            "version": "13.0.2"
           }
         }
       },
       "panel-291": {
         "kind": "Panel",
         "spec": {
-          "id": 291,
-          "title": "Switch $Port Information",
-          "description": "These are total \"lifetime\" counters.",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -1709,337 +1714,337 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "unpoller_device_port_port_speed_bps{port_id=\"$Port\", site_name=~\"$Site\"}",
                         "format": "time_series",
                         "instant": true,
                         "interval": "$Smooth",
                         "legendFormat": "Speed"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "A",
-                    "hidden": false
+                    "refId": "A"
                   }
                 },
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "unpoller_device_port_poe_amperes{port_id=\"$Port\", site_name=~\"$Site\"}",
                         "format": "time_series",
                         "instant": true,
                         "interval": "$Smooth",
                         "legendFormat": "Amps"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "B",
-                    "hidden": false
+                    "refId": "B"
                   }
                 },
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "unpoller_device_port_poe_volts{port_id=\"$Port\", site_name=~\"$Site\"}",
                         "format": "time_series",
                         "instant": true,
                         "interval": "$Smooth",
                         "legendFormat": "Volts"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "C",
-                    "hidden": false
+                    "refId": "C"
                   }
                 },
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "unpoller_device_port_poe_watts{port_id=\"$Port\", site_name=~\"$Site\"}",
                         "format": "time_series",
                         "instant": true,
                         "interval": "$Smooth",
                         "legendFormat": "Watts"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "D",
-                    "hidden": false
+                    "refId": "D"
                   }
                 },
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "unpoller_device_port_transmit_broadcast_total{port_id=\"$Port\", site_name=~\"$Site\"}",
                         "format": "time_series",
                         "instant": true,
                         "interval": "$Smooth",
                         "legendFormat": "Tx Broadcast"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "E",
-                    "hidden": false
+                    "refId": "E"
                   }
                 },
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "unpoller_device_port_transmit_multicast_total{port_id=\"$Port\", site_name=~\"$Site\"}",
                         "format": "time_series",
                         "instant": true,
                         "interval": "$Smooth",
                         "legendFormat": "Rx Multicast"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "F",
-                    "hidden": false
+                    "refId": "F"
                   }
                 },
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "unpoller_device_port_receive_dropped_total{port_id=\"$Port\", site_name=~\"$Site\"}",
                         "format": "time_series",
                         "instant": true,
                         "interval": "$Smooth",
                         "legendFormat": "Rx Drops"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "G",
-                    "hidden": false
+                    "refId": "G"
                   }
                 },
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "unpoller_device_port_transmit_dropped_total{port_id=\"$Port\", site_name=~\"$Site\"}",
                         "format": "time_series",
                         "instant": true,
                         "interval": "$Smooth",
                         "legendFormat": "Tx Drops"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "N",
-                    "hidden": false
+                    "refId": "N"
                   }
                 },
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "unpoller_device_port_transmit_errors_total+unpoller_device_port_receive_errors_total{port_id=\"$Port\", site_name=~\"$Site\"}",
                         "format": "time_series",
                         "instant": true,
                         "interval": "$Smooth",
                         "legendFormat": "Rx+Tx Errors"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "H",
-                    "hidden": false
+                    "refId": "H"
                   }
                 },
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "unpoller_device_port_receive_packets_total{port_id=\"$Port\", site_name=~\"$Site\"}",
                         "format": "time_series",
                         "instant": true,
                         "interval": "$Smooth",
                         "legendFormat": "Rx Packets"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "I",
-                    "hidden": false
+                    "refId": "I"
                   }
                 },
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "unpoller_device_port_transmit_packets_total{port_id=\"$Port\", site_name=~\"$Site\"}",
                         "format": "time_series",
                         "instant": true,
                         "interval": "$Smooth",
                         "legendFormat": "Tx Packets"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "J",
-                    "hidden": false
+                    "refId": "J"
                   }
                 },
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "unpoller_device_port_receive_bytes_total{port_id=\"$Port\", site_name=~\"$Site\"}",
                         "format": "time_series",
                         "instant": true,
                         "interval": "$Smooth",
                         "legendFormat": "Bytes Rx"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "K",
-                    "hidden": false
+                    "refId": "K"
                   }
                 },
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "unpoller_device_port_transmit_bytes_total{port_id=\"$Port\", site_name=~\"$Site\"}",
                         "format": "time_series",
                         "instant": true,
                         "interval": "$Smooth",
                         "legendFormat": "Bytes Tx"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "L",
-                    "hidden": false
+                    "refId": "L"
                   }
                 },
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "unpoller_device_port_satisfaction_percent{port_id=\"$Port\", site_name=~\"$Site\"}",
                         "format": "time_series",
                         "instant": true,
                         "interval": "$Smooth",
                         "legendFormat": "Satisfaction"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "M",
-                    "hidden": false
+                    "refId": "M"
                   }
                 }
               ],
-              "transformations": [],
-              "queryOptions": {}
+              "queryOptions": {},
+              "transformations": []
             }
           },
+          "description": "These are total \"lifetime\" counters.",
+          "id": 291,
+          "links": [],
+          "title": "Switch $Port Information",
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "table",
-            "version": "",
+            "kind": "VizConfig",
             "spec": {
-              "options": {},
               "fieldConfig": {
                 "defaults": {},
                 "overrides": []
-              }
-            }
+              },
+              "options": {}
+            },
+            "version": ""
           }
         }
       },
       "panel-367": {
         "kind": "Panel",
         "spec": {
-          "id": 367,
-          "title": "Errors and Drops: Switch $Port",
-          "description": "Shows errors and dropped packets for Switch $Port. RX on negative axis.",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -2047,111 +2052,111 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "rate(unpoller_device_port_receive_dropped_total{site_name=~\"$Site\", port_id=~\"$Port\"}[$__interval])",
                         "interval": "$Smooth",
                         "legendFormat": "{{port_id}} ({{port_name}}) Drops Rx"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "A",
-                    "hidden": false
+                    "refId": "A"
                   }
                 },
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "rate(unpoller_device_port_transmit_dropped_total{site_name=~\"$Site\", port_id=~\"$Port\"}[$__interval])",
                         "interval": "$Smooth",
                         "legendFormat": "{{port_id}} ({{port_name}}) Drops Tx"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "B",
-                    "hidden": false
+                    "refId": "B"
                   }
                 },
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "rate(unpoller_device_port_transmit_errors_total{site_name=~\"$Site\", port_id=~\"$Port\"}[$__interval])",
                         "interval": "$Smooth",
                         "legendFormat": "{{port_id}} ({{port_name}}) Errors Tx"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "C",
-                    "hidden": false
+                    "refId": "C"
                   }
                 },
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "rate(unpoller_device_port_receive_errors_total{site_name=~\"$Site\", port_id=~\"$Port\"}[$__interval])",
                         "interval": "$Smooth",
                         "legendFormat": "{{port_id}} ({{port_name}}) Errors Rx"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "D",
-                    "hidden": false
+                    "refId": "D"
                   }
                 }
               ],
-              "transformations": [],
-              "queryOptions": {}
+              "queryOptions": {},
+              "transformations": []
             }
           },
+          "description": "Shows errors and dropped packets for Switch $Port. RX on negative axis.",
+          "id": 367,
+          "links": [],
+          "title": "Errors and Drops: Switch $Port",
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "timeseries",
-            "version": "",
+            "kind": "VizConfig",
             "spec": {
-              "options": {
-                "dataLinks": []
-              },
               "fieldConfig": {
                 "defaults": {},
                 "overrides": []
+              },
+              "options": {
+                "dataLinks": []
               }
-            }
+            },
+            "version": ""
           }
         }
       },
       "panel-468": {
         "kind": "Panel",
         "spec": {
-          "id": 468,
-          "title": "Packets Per Second: Switch $Port",
-          "description": "Shows packet counters for Switch $Port. TX on positive axis and RX on negative axis.",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -2159,71 +2164,71 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "rate(unpoller_device_port_receive_packets_total{site_name=~\"$Site\", port_id=~\"$Port\"}[$__interval])",
                         "interval": "$Smooth",
                         "legendFormat": "{{port_id}} ({{port_name}}) Rx"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "A",
-                    "hidden": false
+                    "refId": "A"
                   }
                 },
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "rate(unpoller_device_port_transmit_packets_total{site_name=~\"$Site\", port_id=~\"$Port\"}[$__interval])",
                         "interval": "$Smooth",
                         "legendFormat": "{{port_id}} ({{port_name}}) Tx"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "B",
-                    "hidden": false
+                    "refId": "B"
                   }
                 }
               ],
-              "transformations": [],
-              "queryOptions": {}
+              "queryOptions": {},
+              "transformations": []
             }
           },
+          "description": "Shows packet counters for Switch $Port. TX on positive axis and RX on negative axis.",
+          "id": 468,
+          "links": [],
+          "title": "Packets Per Second: Switch $Port",
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "timeseries",
-            "version": "",
+            "kind": "VizConfig",
             "spec": {
-              "options": {
-                "dataLinks": []
-              },
               "fieldConfig": {
                 "defaults": {},
                 "overrides": []
+              },
+              "options": {
+                "dataLinks": []
               }
-            }
+            },
+            "version": ""
           }
         }
       },
       "panel-594": {
         "kind": "Panel",
         "spec": {
-          "id": 594,
-          "title": "Multicast & Broadcast: Switch $Port",
-          "description": "Shows broadcast and multicast packets per second for Switch $Port. TX on positive axis and RX on negative axis.",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -2231,111 +2236,111 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "rate(unpoller_device_port_receive_broadcast_total{site_name=~\"$Site\", port_id=~\"$Port\"}[$__interval])",
                         "interval": "$Smooth",
                         "legendFormat": "{{port_id}} ({{port_name}}) Broadcast Rx"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "A",
-                    "hidden": false
+                    "refId": "A"
                   }
                 },
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "rate(unpoller_device_port_transmit_broadcast_total{site_name=~\"$Site\", port_id=~\"$Port\"}[$__interval])",
                         "interval": "$Smooth",
                         "legendFormat": "{{port_id}} ({{port_name}}) Broadcast Tx"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "B",
-                    "hidden": false
+                    "refId": "B"
                   }
                 },
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "rate(unpoller_device_port_receive_multicast_total{site_name=~\"$Site\", port_id=~\"$Port\"}[$__interval])",
                         "interval": "$Smooth",
                         "legendFormat": "{{port_id}} ({{port_name}}) Multicast Rx"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "C",
-                    "hidden": false
+                    "refId": "C"
                   }
                 },
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "rate(unpoller_device_port_transmit_multicast_total{site_name=~\"$Site\", port_id=~\"$Port\"}[$__interval])",
                         "interval": "$Smooth",
                         "legendFormat": "{{port_id}} ({{port_name}}) Multicast Tx"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "D",
-                    "hidden": false
+                    "refId": "D"
                   }
                 }
               ],
-              "transformations": [],
-              "queryOptions": {}
+              "queryOptions": {},
+              "transformations": []
             }
           },
+          "description": "Shows broadcast and multicast packets per second for Switch $Port. TX on positive axis and RX on negative axis.",
+          "id": 594,
+          "links": [],
+          "title": "Multicast \u0026 Broadcast: Switch $Port",
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "timeseries",
-            "version": "",
+            "kind": "VizConfig",
             "spec": {
-              "options": {
-                "dataLinks": []
-              },
               "fieldConfig": {
                 "defaults": {},
                 "overrides": []
+              },
+              "options": {
+                "dataLinks": []
               }
-            }
+            },
+            "version": ""
           }
         }
       },
       "panel-745": {
         "kind": "Panel",
         "spec": {
-          "id": 745,
-          "title": "POE Power: Switch $Port",
-          "description": "Display POE Power for Switch $Port.",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -2343,51 +2348,51 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "unpoller_device_port_poe_watts{site_name=~\"$Site\", port_id=~\"$Port\"}",
                         "interval": "$Smooth",
                         "legendFormat": "{{port_id}}  Watts"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "A",
-                    "hidden": false
+                    "refId": "A"
                   }
                 }
               ],
-              "transformations": [],
-              "queryOptions": {}
+              "queryOptions": {},
+              "transformations": []
             }
           },
+          "description": "Display POE Power for Switch $Port.",
+          "id": 745,
+          "links": [],
+          "title": "POE Power: Switch $Port",
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "timeseries",
-            "version": "",
+            "kind": "VizConfig",
             "spec": {
-              "options": {
-                "dataLinks": []
-              },
               "fieldConfig": {
                 "defaults": {},
                 "overrides": []
+              },
+              "options": {
+                "dataLinks": []
               }
-            }
+            },
+            "version": ""
           }
         }
       },
       "panel-921": {
         "kind": "Panel",
         "spec": {
-          "id": 921,
-          "title": "POE Voltage: Switch $Port",
-          "description": "Display POE Voltage for Switch $Port.",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -2395,51 +2400,51 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "unpoller_device_port_poe_volts{site_name=~\"$Site\", port_id=~\"$Port\"}",
                         "interval": "$Smooth",
                         "legendFormat": "{{port_id}} Volts"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "A",
-                    "hidden": false
+                    "refId": "A"
                   }
                 }
               ],
-              "transformations": [],
-              "queryOptions": {}
+              "queryOptions": {},
+              "transformations": []
             }
           },
+          "description": "Display POE Voltage for Switch $Port.",
+          "id": 921,
+          "links": [],
+          "title": "POE Voltage: Switch $Port",
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "timeseries",
-            "version": "",
+            "kind": "VizConfig",
             "spec": {
-              "options": {
-                "dataLinks": []
-              },
               "fieldConfig": {
                 "defaults": {},
                 "overrides": []
+              },
+              "options": {
+                "dataLinks": []
               }
-            }
+            },
+            "version": ""
           }
         }
       },
       "panel-922": {
         "kind": "Panel",
         "spec": {
-          "id": 922,
-          "title": "POE Current: Switch $Port",
-          "description": "Display POE Current for Switch $Port.",
-          "links": [],
           "data": {
             "kind": "QueryGroup",
             "spec": {
@@ -2447,41 +2452,45 @@
                 {
                   "kind": "PanelQuery",
                   "spec": {
+                    "hidden": false,
                     "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
                       "datasource": {
                         "name": "${ds_prometheus}"
                       },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
                       "spec": {
                         "expr": "unpoller_device_port_poe_amperes{site_name=~\"$Site\", port_id=~\"$Port\"}",
                         "interval": "$Smooth",
                         "legendFormat": "{{port_id}} Amps"
-                      }
+                      },
+                      "version": "v0"
                     },
-                    "refId": "A",
-                    "hidden": false
+                    "refId": "A"
                   }
                 }
               ],
-              "transformations": [],
-              "queryOptions": {}
+              "queryOptions": {},
+              "transformations": []
             }
           },
+          "description": "Display POE Current for Switch $Port.",
+          "id": 922,
+          "links": [],
+          "title": "POE Current: Switch $Port",
           "vizConfig": {
-            "kind": "VizConfig",
             "group": "timeseries",
-            "version": "",
+            "kind": "VizConfig",
             "spec": {
-              "options": {
-                "dataLinks": []
-              },
               "fieldConfig": {
                 "defaults": {},
                 "overrides": []
+              },
+              "options": {
+                "dataLinks": []
               }
-            }
+            },
+            "version": ""
           }
         }
       }
@@ -2493,7 +2502,6 @@
           {
             "kind": "RowsLayoutRow",
             "spec": {
-              "title": "Aggregate Graphs",
               "collapse": false,
               "layout": {
                 "kind": "GridLayout",
@@ -2502,108 +2510,104 @@
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
-                        "x": 0,
-                        "y": 0,
-                        "width": 24,
-                        "height": 6,
                         "element": {
                           "kind": "ElementReference",
                           "name": "panel-2297"
-                        }
+                        },
+                        "height": 6,
+                        "width": 24,
+                        "x": 0,
+                        "y": 0
                       }
                     },
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
-                        "x": 0,
-                        "y": 6,
-                        "width": 16,
-                        "height": 7,
                         "element": {
                           "kind": "ElementReference",
                           "name": "panel-1149"
-                        }
+                        },
+                        "height": 7,
+                        "width": 16,
+                        "x": 0,
+                        "y": 6
                       }
                     },
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
-                        "x": 16,
-                        "y": 6,
-                        "width": 8,
-                        "height": 7,
                         "element": {
                           "kind": "ElementReference",
                           "name": "panel-1859"
-                        }
+                        },
+                        "height": 7,
+                        "width": 8,
+                        "x": 16,
+                        "y": 6
                       }
                     },
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
-                        "x": 0,
-                        "y": 13,
-                        "width": 16,
-                        "height": 8,
                         "element": {
                           "kind": "ElementReference",
                           "name": "panel-1857"
-                        }
+                        },
+                        "height": 8,
+                        "width": 16,
+                        "x": 0,
+                        "y": 13
                       }
                     },
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
-                        "x": 16,
-                        "y": 13,
-                        "width": 8,
-                        "height": 8,
                         "element": {
                           "kind": "ElementReference",
                           "name": "panel-1861"
-                        }
+                        },
+                        "height": 8,
+                        "width": 8,
+                        "x": 16,
+                        "y": 13
                       }
                     },
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
-                        "x": 0,
-                        "y": 21,
-                        "width": 24,
-                        "height": 17,
                         "element": {
                           "kind": "ElementReference",
                           "name": "panel-135"
-                        }
+                        },
+                        "height": 17,
+                        "width": 24,
+                        "x": 0,
+                        "y": 21
                       }
                     },
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
-                        "x": 0,
-                        "y": 38,
-                        "width": 24,
-                        "height": 21,
                         "element": {
                           "kind": "ElementReference",
                           "name": "panel-214"
-                        }
+                        },
+                        "height": 21,
+                        "width": 24,
+                        "x": 0,
+                        "y": 38
                       }
                     }
                   ]
                 }
-              }
+              },
+              "title": "Aggregate Graphs"
             }
           },
           {
             "kind": "RowsLayoutRow",
             "spec": {
-              "title": "Switch $Port",
               "collapse": true,
-              "repeat": {
-                "mode": "variable",
-                "value": "Port"
-              },
               "layout": {
                 "kind": "GridLayout",
                 "spec": {
@@ -2611,123 +2615,128 @@
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
-                        "x": 0,
-                        "y": 0,
-                        "width": 24,
-                        "height": 3,
                         "element": {
                           "kind": "ElementReference",
                           "name": "panel-291"
-                        }
+                        },
+                        "height": 3,
+                        "width": 24,
+                        "x": 0,
+                        "y": 0
                       }
                     },
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
-                        "x": 0,
-                        "y": 3,
-                        "width": 24,
-                        "height": 9,
                         "element": {
                           "kind": "ElementReference",
                           "name": "panel-1396"
-                        }
+                        },
+                        "height": 9,
+                        "width": 24,
+                        "x": 0,
+                        "y": 3
                       }
                     },
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
-                        "x": 0,
-                        "y": 12,
-                        "width": 12,
-                        "height": 7,
                         "element": {
                           "kind": "ElementReference",
                           "name": "panel-594"
-                        }
+                        },
+                        "height": 7,
+                        "width": 12,
+                        "x": 0,
+                        "y": 12
                       }
                     },
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
-                        "x": 12,
-                        "y": 12,
-                        "width": 12,
-                        "height": 7,
                         "element": {
                           "kind": "ElementReference",
                           "name": "panel-367"
-                        }
+                        },
+                        "height": 7,
+                        "width": 12,
+                        "x": 12,
+                        "y": 12
                       }
                     },
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
-                        "x": 0,
-                        "y": 19,
-                        "width": 12,
-                        "height": 7,
                         "element": {
                           "kind": "ElementReference",
                           "name": "panel-468"
-                        }
+                        },
+                        "height": 7,
+                        "width": 12,
+                        "x": 0,
+                        "y": 19
                       }
                     },
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
-                        "x": 12,
-                        "y": 19,
-                        "width": 4,
-                        "height": 7,
                         "element": {
                           "kind": "ElementReference",
                           "name": "panel-745"
-                        }
+                        },
+                        "height": 7,
+                        "width": 4,
+                        "x": 12,
+                        "y": 19
                       }
                     },
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
-                        "x": 16,
-                        "y": 19,
-                        "width": 4,
-                        "height": 7,
                         "element": {
                           "kind": "ElementReference",
                           "name": "panel-921"
-                        }
+                        },
+                        "height": 7,
+                        "width": 4,
+                        "x": 16,
+                        "y": 19
                       }
                     },
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
-                        "x": 20,
-                        "y": 19,
-                        "width": 4,
-                        "height": 7,
                         "element": {
                           "kind": "ElementReference",
                           "name": "panel-922"
-                        }
+                        },
+                        "height": 7,
+                        "width": 4,
+                        "x": 20,
+                        "y": 19
                       }
                     }
                   ]
                 }
-              }
+              },
+              "repeat": {
+                "mode": "variable",
+                "value": "Port"
+              },
+              "title": "Switch $Port"
             }
           },
           {
             "kind": "RowsLayoutRow",
             "spec": {
-              "title": "Purposely Empty Row",
               "collapse": true,
               "layout": {
                 "kind": "GridLayout",
                 "spec": {
                   "items": []
                 }
-              }
+              },
+              "title": "Purposely Empty Row"
             }
           }
         ]
@@ -2735,53 +2744,65 @@
     },
     "links": [
       {
-        "title": "UniFi Poller",
-        "type": "dashboards",
+        "asDropdown": false,
         "icon": "external link",
-        "tooltip": "",
+        "includeVars": false,
+        "keepTime": false,
+        "tags": [],
+        "targetBlank": true,
+        "title": "Source (GitHub)",
+        "tooltip": "View source file in repository",
+        "type": "link",
+        "url": "https://github.com/Daniel-W-Innes/grafana/blob/main/unpoller/usw.json"
+      },
+      {
+        "asDropdown": true,
+        "icon": "external link",
+        "includeVars": false,
+        "keepTime": true,
         "tags": [
           "unifi-poller"
         ],
-        "asDropdown": true,
         "targetBlank": false,
-        "includeVars": false,
-        "keepTime": true
+        "title": "UniFi Poller",
+        "tooltip": "",
+        "type": "dashboards"
       },
       {
-        "title": "Help",
-        "type": "link",
+        "asDropdown": false,
         "icon": "question",
-        "tooltip": "",
-        "url": "https://golift.io/unifi-poller/issues",
-        "tags": [],
-        "asDropdown": false,
-        "targetBlank": false,
         "includeVars": false,
-        "keepTime": false
+        "keepTime": false,
+        "tags": [],
+        "targetBlank": false,
+        "title": "Help",
+        "tooltip": "",
+        "type": "link",
+        "url": "https://golift.io/unifi-poller/issues"
       },
       {
-        "title": "Wiki",
-        "type": "link",
+        "asDropdown": false,
         "icon": "doc",
-        "tooltip": "",
-        "url": "https://golift.io/unifi-poller/wiki",
-        "tags": [],
-        "asDropdown": false,
-        "targetBlank": false,
         "includeVars": false,
-        "keepTime": false
+        "keepTime": false,
+        "tags": [],
+        "targetBlank": false,
+        "title": "Wiki",
+        "tooltip": "",
+        "type": "link",
+        "url": "https://golift.io/unifi-poller/wiki"
       },
       {
-        "title": "Discord",
-        "type": "link",
-        "icon": "bolt",
-        "tooltip": "",
-        "url": "https://discord.gg/KnyKYt2",
-        "tags": [],
         "asDropdown": false,
-        "targetBlank": false,
+        "icon": "bolt",
         "includeVars": false,
-        "keepTime": false
+        "keepTime": false,
+        "tags": [],
+        "targetBlank": false,
+        "title": "Discord",
+        "tooltip": "",
+        "type": "link",
+        "url": "https://discord.gg/KnyKYt2"
       }
     ],
     "liveNow": false,
@@ -2792,9 +2813,6 @@
       "usw"
     ],
     "timeSettings": {
-      "timezone": "browser",
-      "from": "now-3h",
-      "to": "now",
       "autoRefresh": "1m",
       "autoRefreshIntervals": [
         "30s",
@@ -2805,252 +2823,219 @@
         "1h",
         "2h"
       ],
+      "fiscalYearStartMonth": 0,
+      "from": "now-3h",
       "hideTimepicker": false,
-      "fiscalYearStartMonth": 0
+      "timezone": "browser",
+      "to": "now"
     },
     "title": "UniFi-Poller: USW Insights - Prometheus",
     "variables": [
       {
         "kind": "DatasourceVariable",
         "spec": {
+          "allowCustomValue": true,
+          "current": {
+            "text": "Prometheus",
+            "value": "PBFA97CFB590B2093"
+          },
+          "hide": "dontHide",
+          "includeAll": false,
+          "label": "Datasource",
+          "multi": false,
           "name": "ds_prometheus",
+          "options": [],
           "pluginId": "prometheus",
           "refresh": "onDashboardLoad",
           "regex": "",
-          "current": {
-            "text": "",
-            "value": ""
-          },
-          "options": [],
-          "multi": false,
-          "includeAll": false,
-          "label": "Datasource",
-          "hide": "dontHide",
-          "skipUrlSync": false,
-          "allowCustomValue": true
+          "skipUrlSync": false
         }
       },
       {
         "kind": "QueryVariable",
         "spec": {
-          "name": "Controller",
+          "allValue": ".*",
+          "allowCustomValue": true,
           "current": {
-            "text": "",
-            "value": ""
+            "text": [
+              "All"
+            ],
+            "value": [
+              "$__all"
+            ]
           },
+          "definition": "label_values(unpoller_device_info,source)",
           "hide": "hideVariable",
-          "refresh": "onDashboardLoad",
-          "skipUrlSync": false,
+          "includeAll": true,
+          "multi": true,
+          "name": "Controller",
+          "options": [],
           "query": {
-            "kind": "DataQuery",
-            "group": "prometheus",
-            "version": "v0",
             "datasource": {
               "name": "${ds_prometheus}"
             },
+            "group": "prometheus",
+            "kind": "DataQuery",
             "spec": {
               "__legacyStringValue": "label_values(unpoller_device_info,source)"
-            }
+            },
+            "version": "v0"
           },
+          "refresh": "onDashboardLoad",
           "regex": "",
-          "sort": "alphabeticalAsc",
-          "definition": "label_values(unpoller_device_info,source)",
-          "options": [],
-          "multi": true,
-          "includeAll": true,
-          "allValue": ".*",
-          "allowCustomValue": true
+          "regexApplyTo": "value",
+          "skipUrlSync": false,
+          "sort": "alphabeticalAsc"
         }
       },
       {
         "kind": "CustomVariable",
         "spec": {
-          "name": "Devices",
-          "query": "udm,usw,uap",
+          "allowCustomValue": true,
           "current": {
             "text": "All",
             "value": [
               "$__all"
             ]
           },
-          "options": [
-            {
-              "selected": true,
-              "text": "All",
-              "value": "$__all"
-            },
-            {
-              "selected": false,
-              "text": "udm",
-              "value": "udm"
-            },
-            {
-              "selected": false,
-              "text": "usw",
-              "value": "usw"
-            },
-            {
-              "selected": false,
-              "text": "uap",
-              "value": "uap"
-            }
-          ],
-          "multi": true,
-          "includeAll": true,
           "hide": "dontHide",
+          "includeAll": true,
+          "multi": true,
+          "name": "Devices",
+          "options": [],
+          "query": "udm,usw,uap",
           "skipUrlSync": false,
-          "allowCustomValue": true
+          "valuesFormat": "csv"
         }
       },
       {
         "kind": "QueryVariable",
         "spec": {
-          "name": "Site",
+          "allValue": ".*",
+          "allowCustomValue": true,
           "current": {
-            "text": "",
-            "value": ""
+            "text": [
+              "All"
+            ],
+            "value": [
+              "$__all"
+            ]
           },
+          "definition": "label_values(unpoller_device_info{source=~\"$Controller\"},site_name)",
           "hide": "dontHide",
-          "refresh": "onDashboardLoad",
-          "skipUrlSync": false,
+          "includeAll": true,
+          "multi": true,
+          "name": "Site",
+          "options": [],
           "query": {
-            "kind": "DataQuery",
-            "group": "prometheus",
-            "version": "v0",
             "datasource": {
               "name": "${ds_prometheus}"
             },
+            "group": "prometheus",
+            "kind": "DataQuery",
             "spec": {
               "__legacyStringValue": "label_values(unpoller_device_info{source=~\"$Controller\"},site_name)"
-            }
+            },
+            "version": "v0"
           },
+          "refresh": "onDashboardLoad",
           "regex": "",
-          "sort": "alphabeticalAsc",
-          "definition": "label_values(unpoller_device_info{source=~\"$Controller\"},site_name)",
-          "options": [],
-          "multi": true,
-          "includeAll": true,
-          "allValue": ".*",
-          "allowCustomValue": true
+          "regexApplyTo": "value",
+          "skipUrlSync": false,
+          "sort": "alphabeticalAsc"
         }
       },
       {
         "kind": "QueryVariable",
         "spec": {
-          "name": "Switch",
+          "allowCustomValue": true,
           "current": {
-            "text": "",
-            "value": ""
+            "text": [
+              "All"
+            ],
+            "value": [
+              "$__all"
+            ]
           },
+          "definition": "label_values(unpoller_device_info{site_name=~\"$Site\", type=~\"$Devices\"},name)",
           "hide": "dontHide",
-          "refresh": "onDashboardLoad",
-          "skipUrlSync": false,
+          "includeAll": true,
+          "multi": true,
+          "name": "Switch",
+          "options": [],
           "query": {
-            "kind": "DataQuery",
-            "group": "prometheus",
-            "version": "v0",
             "datasource": {
               "name": "${ds_prometheus}"
             },
+            "group": "prometheus",
+            "kind": "DataQuery",
             "spec": {
               "__legacyStringValue": "label_values(unpoller_device_info{site_name=~\"$Site\", type=~\"$Devices\"},name)"
-            }
+            },
+            "version": "v0"
           },
+          "refresh": "onDashboardLoad",
           "regex": "",
-          "sort": "alphabeticalAsc",
-          "definition": "label_values(unpoller_device_info{site_name=~\"$Site\", type=~\"$Devices\"},name)",
-          "options": [],
-          "multi": true,
-          "includeAll": true,
-          "allowCustomValue": true
+          "regexApplyTo": "value",
+          "skipUrlSync": false,
+          "sort": "alphabeticalAsc"
         }
       },
       {
         "kind": "QueryVariable",
         "spec": {
-          "name": "Port",
+          "allValue": ".*",
+          "allowCustomValue": true,
           "current": {
-            "text": "",
-            "value": ""
+            "text": [
+              "All"
+            ],
+            "value": [
+              "$__all"
+            ]
           },
+          "definition": "label_values(unpoller_device_port_port_speed_bps{site_name=~\"$Site\", name=~\"$Switch\"},port_id)",
           "hide": "dontHide",
-          "refresh": "onDashboardLoad",
-          "skipUrlSync": false,
+          "includeAll": true,
+          "multi": true,
+          "name": "Port",
+          "options": [],
           "query": {
-            "kind": "DataQuery",
-            "group": "prometheus",
-            "version": "v0",
             "datasource": {
               "name": "${ds_prometheus}"
             },
+            "group": "prometheus",
+            "kind": "DataQuery",
             "spec": {
               "__legacyStringValue": "label_values(unpoller_device_port_port_speed_bps{site_name=~\"$Site\", name=~\"$Switch\"},port_id)"
-            }
+            },
+            "version": "v0"
           },
+          "refresh": "onDashboardLoad",
           "regex": "",
-          "sort": "numericalAsc",
-          "definition": "label_values(unpoller_device_port_port_speed_bps{site_name=~\"$Site\", name=~\"$Switch\"},port_id)",
-          "options": [],
-          "multi": true,
-          "includeAll": true,
-          "allValue": ".*",
-          "allowCustomValue": true
+          "regexApplyTo": "value",
+          "skipUrlSync": false,
+          "sort": "numericalAsc"
         }
       },
       {
         "kind": "CustomVariable",
         "spec": {
-          "name": "Smooth",
-          "query": "30s,1m,2m,5m,10m,15m,30m",
+          "allowCustomValue": true,
           "current": {
             "text": "2m",
             "value": "2m"
           },
-          "options": [
-            {
-              "selected": false,
-              "text": "30s",
-              "value": "30s"
-            },
-            {
-              "selected": false,
-              "text": "1m",
-              "value": "1m"
-            },
-            {
-              "selected": true,
-              "text": "2m",
-              "value": "2m"
-            },
-            {
-              "selected": false,
-              "text": "5m",
-              "value": "5m"
-            },
-            {
-              "selected": false,
-              "text": "10m",
-              "value": "10m"
-            },
-            {
-              "selected": false,
-              "text": "15m",
-              "value": "15m"
-            },
-            {
-              "selected": false,
-              "text": "30m",
-              "value": "30m"
-            }
-          ],
-          "multi": false,
-          "includeAll": false,
           "hide": "dontHide",
+          "includeAll": false,
+          "multi": false,
+          "name": "Smooth",
+          "options": [],
+          "query": "30s,1m,2m,5m,10m,15m,30m",
           "skipUrlSync": false,
-          "allowCustomValue": true
+          "valuesFormat": "csv"
         }
       }
     ]
   }
 }
-
