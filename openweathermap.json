@@ -581,7 +581,10 @@
                 },
                 "legend": {
                   "calcs": [
-                    "lastNotNull"
+                    "mean",
+                    "stdDev",
+                    "max",
+                    "min"
                   ],
                   "displayMode": "list",
                   "placement": "bottom",
@@ -719,7 +722,10 @@
                 },
                 "legend": {
                   "calcs": [
-                    "lastNotNull"
+                    "mean",
+                    "stdDev",
+                    "max",
+                    "min"
                   ],
                   "displayMode": "list",
                   "placement": "bottom",
@@ -836,7 +842,10 @@
                 },
                 "legend": {
                   "calcs": [
-                    "lastNotNull"
+                    "mean",
+                    "stdDev",
+                    "max",
+                    "min"
                   ],
                   "displayMode": "list",
                   "placement": "bottom",
@@ -974,7 +983,10 @@
                 },
                 "legend": {
                   "calcs": [
-                    "lastNotNull"
+                    "mean",
+                    "stdDev",
+                    "max",
+                    "min"
                   ],
                   "displayMode": "list",
                   "placement": "bottom",
@@ -2911,7 +2923,10 @@
                 },
                 "legend": {
                   "calcs": [
-                    "lastNotNull"
+                    "mean",
+                    "stdDev",
+                    "max",
+                    "min"
                   ],
                   "displayMode": "list",
                   "placement": "bottom",
