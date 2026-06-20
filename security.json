@@ -928,6 +928,47 @@
       "to": "now"
     },
     "title": "Security",
-    "variables": []
+    "variables": [
+      {
+        "kind": "DatasourceVariable",
+        "spec": {
+          "allowCustomValue": true,
+          "current": {
+            "text": "Prometheus",
+            "value": "PBFA97CFB590B2093"
+          },
+          "hide": "dontHide",
+          "includeAll": false,
+          "label": "Prometheus",
+          "multi": false,
+          "name": "ds_prometheus",
+          "options": [],
+          "pluginId": "prometheus",
+          "refresh": "onDashboardLoad",
+          "regex": "",
+          "skipUrlSync": false
+        }
+      },
+      {
+        "kind": "DatasourceVariable",
+        "spec": {
+          "allowCustomValue": true,
+          "current": {
+            "text": "InfluxDB",
+            "value": "P951FEA4DE68E13C5"
+          },
+          "hide": "dontHide",
+          "includeAll": false,
+          "label": "InfluxDB",
+          "multi": false,
+          "name": "ds_influxdb",
+          "options": [],
+          "pluginId": "influxdb",
+          "refresh": "onDashboardLoad",
+          "regex": "",
+          "skipUrlSync": false
+        }
+      }
+    ]
   }
 }
