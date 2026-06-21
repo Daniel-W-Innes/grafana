@@ -646,7 +646,7 @@
                 "defaults": {
                   "color": {
                     "fixedColor": "blue",
-                    "mode": "continuous-RdYlGr"
+                    "mode": "continuous-GrYlRd"
                   },
                   "thresholds": {
                     "mode": "absolute",
