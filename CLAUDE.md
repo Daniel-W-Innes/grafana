@@ -4,36 +4,62 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this repository is
 
-This is **not the Grafana codebase** — it is a git mirror of dashboards from a personal Grafana instance, hosted on a private Forgejo (`ssh://forgejo@git.lc.brotherwolf.ca/Daniel-W-Innes/grafana.git`). It contains only exported dashboard resources, folder metadata, and a LICENSE. There is no code, build system, test suite, or CI.
+This is **not the Grafana codebase** — it is a git mirror of dashboards from a personal Grafana instance. It contains only exported dashboard resources, folder metadata, and a LICENSE. There is no code, build system, test suite, or CI.
 
-## How files get here
+Two git remotes exist:
+- `origin` — private Forgejo: `ssh://forgejo@git.lc.brotherwolf.ca/Daniel-W-Innes/grafana.git`
+- GitHub mirror — `github.com/Daniel-W-Innes/grafana` (branch `main`) — this is what Grafana's provisioning git-sync actually watches (repo slug `repository-1cefc62`)
 
-The Grafana instance itself is a committer, via its built-in dashboard git integration. It commits changes as:
+## How dashboards flow (source of truth = the live Grafana)
 
-- author: `Grafana <noreply@grafana.com>`
-- message: `Save dashboard: <dashboard title>`
+Grafana's provisioning git-sync imports dashboards **from the repo**, and Grafana's dashboard git integration commits **UI saves back** to the repo (author `Grafana <noreply@grafana.com>`, message `Save dashboard: <title>`). Which direction a change travels in depends on whether the dashboard already exists in Grafana:
 
-Grafana is the source of truth: dashboards are edited in Grafana (UI or via MCP, see below) and this repo mirrors them. Hand-editing a file that Grafana may later rewrite risks conflicts — if a local edit is needed, verify no newer Grafana-side version exists and preserve the resource format exactly.
+| Situation | Editing path |
+|---|---|
+| Update an **existing** dashboard | MCP `update_dashboard` patch ops, applied directly to the live dashboard. Do not edit the file first — the file lags. |
+| **Create a new** dashboard | Grafana refuses API-created resources in the git-synced folder (HTTP 403: "folder is managed by repo:repository-1cefc62, but the resource is not managed"). Dashboards may only *enter* from the repo: write the file here, the human commits and pushes, git-sync imports it, and only then is it editable via MCP. |
 
-## Live Grafana access (MCP)
+Important reality check: **MCP/API edits do not reliably trigger Grafana's write-back commit** (observed 2026-09: borgmatic v2–v5 applied via API never produced a git commit). UI saves do. So after MCP edits the repo file stays stale until the user saves the dashboard once in the UI (which commits it) — or until the user re-commits a locally reconciled file. Always compare against the live dashboard (`git fetch` + check `origin/main`, and the k8s API) before trusting a repo file or hand-editing one.
 
-The `mcp-grafana` MCP server (defined in `.mcp.json`) connects to the live Grafana instance at `http://127.0.0.1:8000/mcp`. Prefer MCP tools over editing JSON files when the task involves live state: read dashboards/datasources/alerts, run queries, and apply dashboard changes directly in Grafana. Grafana then commits those changes to this repo itself — `git pull` afterwards to sync.
+## Working with the live dashboard (MCP)
 
-Repo files can lag behind the live instance. Before editing a dashboard file directly, check the live version via MCP.
+`mcp-grafana` (defined in `.mcp.json`) connects to the live instance at `http://127.0.0.1:8000/mcp`. Dashboards are v2 Kubernetes-style resources under `/apis/dashboard.grafana.app/v2/namespaces/default/dashboards/<uid>` (readable with `grafana_api_request` + a `jq` filter).
 
-## File format
+### Patch updates (targeted edits)
 
-Files are Grafana's new dashboard-as-code resource format (new dashboard architecture), **not** the classic export schema (`title`, `panels[]` at the top level). Each file is a Kubernetes-style resource:
+`update_dashboard` takes JSON-Patch-style `operations`. **Paths are relative to the dashboard `spec`** — do NOT prefix with `$.spec` (that errors with "field 'spec' is not an object"):
 
-- Dashboard: `apiVersion: dashboard.grafana.app/v2`, `kind: Dashboard`
-  - `metadata.name` — the dashboard UID
-  - `metadata.generation` — managed by Grafana
-  - `spec.title`, `spec.tags`, `spec.variables`, `spec.description`, ...
-  - `spec.elements` — every panel, keyed by element id like `panel-111`
-  - `spec.layout` — a `RowsLayout`/`GridLayout` tree; panel placement lives here, referencing elements by name (`{"kind": "ElementReference", "name": "panel-111"}`). Repeating rows use `spec.repeat: {"mode": "variable", "value": "<var>"}`.
-- Folder marker: `_folder.json` in a subdirectory, e.g. `{"kind": "Folder", "apiVersion": "folder.grafana.app/v1", "metadata": {"name": "<folder UID>"}, "spec": {"title": "<folder name>"}}` (compact single-line JSON).
+```jsonc
+{"op": "replace", "path": "$.elements.panel-13.spec.description", "value": "..."}
+{"op": "replace", "path": "$.elements.panel-13.spec.vizConfig.spec.fieldConfig.defaults", "value": {...}}
+{"op": "replace", "path": "$.elements.panel-13.spec.vizConfig.group", "value": "gauge"}   // stat|gauge|timeseries
+{"op": "add",     "path": "$.elements.panel-17", "value": {<full Panel element JSON>}}
+{"op": "add",     "path": "$.layout.spec.rows/-", "value": {<full RowsLayoutRow JSON>}}
+{"op": "remove",  "path": "$.elements.panel-5"}                                          // also delete its GridLayoutItem
+```
 
-Repository layout mirrors Grafana's folder structure: top-level JSON files are dashboards in the General folder; `unpoller/` is a Grafana folder (UniFi-Poller dashboards). Dashboards are pretty-printed JSON with 2-space indent; `_folder.json` is compact.
+Rules: numeric array indices only — no wildcards, no `[?(@...)]` filters; append with `/-`. Pass `uid` + a short `message` (becomes the version note).
+
+### Panel JSON conventions (new dashboard architecture)
+
+Read the live JSON before assembling panels — copy shapes verbatim rather than reconstructing from memory (e.g. `grafana_api_request` GET on the dashboard with `jq: '.spec.elements["panel-11"].spec.vizConfig'`).
+
+- `metadata.name` = dashboard UID; the file name matches (`borgmatic.json` ↔ UID `borgmatic`).
+- Every panel is `spec.elements["panel-<id>"]`, element key **must equal** `spec.id`. Layout `RowsLayout → RowsLayoutRow → GridLayout items` reference elements via `{"kind": "ElementReference", "name": "panel-<id>"}` — every reference must resolve (keep in sync when adding/removing panels). Do not hand-set `metadata.generation`.
+- Panel data: `spec.data.spec.queries[]` are `PanelQuery`s. Queries carry `spec.query` = DataQuery with `datasource: {"name": "<datasource UID>"}` (the UID lives in the name field — current Prometheus UID is `PBFA97CFB590B2093`), `group: "prometheus"`, `editorMode: "code"`, `range: true`.
+- **Never set both `"range": true` and `"instant": true`** — that is Grafana's "Both" mode and every query returns two frames, duplicating every series in the panel. House style: `range: true` only (no `instant` key at all).
+- Viz groups: `stat`, `gauge`, `timeseries` (each `VizConfig` carries `version`, currently `"13.0.2"`). Gauges put `min`/`max` and absolute `thresholds.steps` in `fieldConfig.defaults`; markers on (`showThresholdMarkers: true`). House thresholds: named colors `green`/`orange`/`red` (or amber `#EAB839`), units `bytes`/`percent`/`percentunit`/`s`/`dateTimeAsIso`, `decimals: 1` for bytes.
+- Selectors must pin the target explicitly, e.g. `{job="node_exporter", instance="onion.lc.brotherwolf.ca:9100", mountpoint="/run/media/daniel/stb"}`.
+
+### Payload hygiene
+
+Do not hand-type large JSON inline — long tool inputs get truncated and fail validation. Instead: write a small Python generator to `/tmp` (run with `nix shell nixpkgs#python3 -c python3 gen.py`), have it emit a compact single-line JSON file with structural self-checks (refs == elements, unique ids), `Read` the file, and pass its contents verbatim as typed tool parameters. Keep the generator around for regeneration.
+
+### Verifying changes
+
+- Read back after every save: `grafana_api_request` GET + `jq` on the elements/layout you touched.
+- Sanity-run panel expressions with `query_prometheus` (instant queries) to confirm they return one series per query and sensible values.
+- No image-renderer plugin is installed, so `get_panel_image` fails (HTTP 500) — visual confirmation has to come from the user in the Grafana UI.
 
 ## Commands
 
@@ -54,8 +80,9 @@ Notes:
 - `nix-shell -p <pkg> --run '<cmd>'` also works; `, <cmd>` (comma) is for interactive humans only — don't use it in scripts.
 - These resolve against the unstable nixpkgs channel — fine for scratch tooling, but not where versions must match a flake's pinned closure.
 
-## Conventions for local edits
+## Conventions
 
-- Prefer making dashboard changes via MCP (applied live in Grafana, then mirrored here by Grafana's own commit) over editing JSON directly.
-- If editing JSON directly: keep `spec.elements` and `spec.layout` consistent (every `ElementReference` must resolve to an element); do not hand-set `metadata.generation`.
+- Prefer MCP over direct file edits for anything touching a dashboard that exists in Grafana (see the flow table above). When a file edit is genuinely needed (new dashboards, reconciliation), preserve the resource format exactly and keep `spec.elements`/`spec.layout` consistent.
+- Repo layout mirrors Grafana folders: top-level `*.json` files are dashboards (pretty-printed JSON, 2-space indent); a folder is a subdirectory with a compact single-line `_folder.json` marker (`{"kind": "Folder", "apiVersion": "folder.grafana.app/v1", "metadata": {"name": "<folder UID>"}, "spec": {"title": "<folder name>"}}`).
+- Do not run `git commit`/`git push` unless the user asks: the human commits, and Grafana makes its own write-back commits. `git pull` to sync is fine.
 - Commit messages: follow the existing patterns — `Save dashboard: <title>` for dashboard updates, or a short lowercase name for a manual import (see commit `uptime`).
