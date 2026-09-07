@@ -6,9 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is **not the Grafana codebase** — it is a git mirror of dashboards from a personal Grafana instance. It contains only exported dashboard resources, folder metadata, and a LICENSE. There is no code, build system, test suite, or CI.
 
-Two git remotes exist:
-- `origin` — private Forgejo: `ssh://forgejo@git.lc.brotherwolf.ca/Daniel-W-Innes/grafana.git`
-- GitHub mirror — `github.com/Daniel-W-Innes/grafana` (branch `main`) — this is what Grafana's provisioning git-sync actually watches (repo slug `repository-1cefc62`)
+Single remote: `origin` — `git@github.com:Daniel-W-Innes/grafana.git` (branch `main`). This is the repo Grafana's provisioning git-sync watches (slug `repository-1cefc62`), and the only repo in the loop: user commits and Grafana write-back commits both land here. (A private Forgejo used to mirror to GitHub one-way and hid Grafana's commits from local checkouts; removed 2026-09.)
 
 ## How dashboards flow (source of truth = the live Grafana)
 
@@ -19,7 +17,7 @@ Grafana's provisioning git-sync imports dashboards **from the repo**, and Grafan
 | Update an **existing** dashboard | MCP `update_dashboard` patch ops, applied directly to the live dashboard. Do not edit the file first — the file lags. |
 | **Create a new** dashboard | Grafana refuses API-created resources in the git-synced folder (HTTP 403: "folder is managed by repo:repository-1cefc62, but the resource is not managed"). Dashboards may only *enter* from the repo: write the file here, the human commits and pushes, git-sync imports it, and only then is it editable via MCP. |
 
-Important reality check: **MCP/API edits do not reliably trigger Grafana's write-back commit** (observed 2026-09: borgmatic v2–v5 applied via API never produced a git commit). UI saves do. So after MCP edits the repo file stays stale until the user saves the dashboard once in the UI (which commits it) — or until the user re-commits a locally reconciled file. Always compare against the live dashboard (`git fetch` + check `origin/main`, and the k8s API) before trusting a repo file or hand-editing one.
+Write-back: Grafana's git integration commits dashboard saves — UI and MCP/API alike — back to `origin/main` as `Grafana <noreply@grafana.com>` commits (commit message mirrors the save/update note). Write-backs can lag or batch (observed 2026-09: a day of API edits produced no commit for hours, then a three-commit batch minutes apart). Treat a missing commit as lag, not as absence: after MCP edits, `git pull` before trusting the repo file, and compare against the live dashboard (k8s API) before hand-editing a file.
 
 ## Working with the live dashboard (MCP)
 
