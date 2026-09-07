@@ -13,7 +13,7 @@
           "enable": true,
           "hide": true,
           "iconColor": "rgba(0, 211, 255, 1)",
-          "name": "Annotations & Alerts",
+          "name": "Annotations \u0026 Alerts",
           "query": {
             "group": "grafana",
             "kind": "DataQuery",
@@ -53,8 +53,7 @@
                         "editorMode": "code",
                         "expr": "borgmatic_last_success{job=\"node_exporter\", instance=\"onion.lc.brotherwolf.ca:9100\"}",
                         "legendFormat": "__auto",
-                        "range": true,
-                        "instant": true
+                        "range": true
                       },
                       "version": "v0"
                     },
@@ -79,16 +78,6 @@
                   "color": {
                     "mode": "thresholds"
                   },
-                  "thresholds": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "color": "green",
-                        "value": 0
-                      }
-                    ]
-                  },
-                  "unit": "dateTimeAsIso",
                   "mappings": [
                     {
                       "options": {
@@ -100,7 +89,17 @@
                       },
                       "type": "value"
                     }
-                  ]
+                  ],
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": 0
+                      }
+                    ]
+                  },
+                  "unit": "dateTimeAsIso"
                 },
                 "overrides": []
               },
@@ -119,706 +118,6 @@
                 },
                 "showPercentChange": false,
                 "textMode": "auto",
-                "wideLayout": true
-              }
-            },
-            "version": "13.0.2"
-          }
-        }
-      },
-      "panel-2": {
-        "kind": "Panel",
-        "spec": {
-          "data": {
-            "kind": "QueryGroup",
-            "spec": {
-              "queries": [
-                {
-                  "kind": "PanelQuery",
-                  "spec": {
-                    "hidden": false,
-                    "query": {
-                      "datasource": {
-                        "name": "PBFA97CFB590B2093"
-                      },
-                      "group": "prometheus",
-                      "kind": "DataQuery",
-                      "spec": {
-                        "editorMode": "code",
-                        "expr": "time() - borgmatic_last_success{job=\"node_exporter\", instance=\"onion.lc.brotherwolf.ca:9100\"}",
-                        "legendFormat": "__auto",
-                        "range": true,
-                        "instant": true
-                      },
-                      "version": "v0"
-                    },
-                    "refId": "A"
-                  }
-                }
-              ],
-              "queryOptions": {},
-              "transformations": []
-            }
-          },
-          "description": "Freshness of the last successful backup (0 if none yet). Colours: green fresh, orange >26h, red >3d.",
-          "id": 2,
-          "links": [],
-          "title": "Time since last backup",
-          "vizConfig": {
-            "group": "stat",
-            "kind": "VizConfig",
-            "spec": {
-              "fieldConfig": {
-                "defaults": {
-                  "color": {
-                    "mode": "thresholds"
-                  },
-                  "thresholds": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "color": "green",
-                        "value": 0
-                      },
-                      {
-                        "color": "orange",
-                        "value": 93600
-                      },
-                      {
-                        "color": "red",
-                        "value": 259200
-                      }
-                    ]
-                  },
-                  "unit": "s",
-                  "decimals": 0
-                },
-                "overrides": []
-              },
-              "options": {
-                "colorMode": "value",
-                "graphMode": "none",
-                "justifyMode": "auto",
-                "orientation": "auto",
-                "percentChangeColorMode": "standard",
-                "reduceOptions": {
-                  "calcs": [
-                    "lastNotNull"
-                  ],
-                  "fields": "",
-                  "values": false
-                },
-                "showPercentChange": false,
-                "textMode": "value",
-                "wideLayout": true
-              }
-            },
-            "version": "13.0.2"
-          }
-        }
-      },
-      "panel-3": {
-        "kind": "Panel",
-        "spec": {
-          "data": {
-            "kind": "QueryGroup",
-            "spec": {
-              "queries": [
-                {
-                  "kind": "PanelQuery",
-                  "spec": {
-                    "hidden": false,
-                    "query": {
-                      "datasource": {
-                        "name": "PBFA97CFB590B2093"
-                      },
-                      "group": "prometheus",
-                      "kind": "DataQuery",
-                      "spec": {
-                        "editorMode": "code",
-                        "expr": "borgmatic_last_backup_duration_seconds{job=\"node_exporter\", instance=\"onion.lc.brotherwolf.ca:9100\"}",
-                        "legendFormat": "__auto",
-                        "range": true,
-                        "instant": true
-                      },
-                      "version": "v0"
-                    },
-                    "refId": "A"
-                  }
-                }
-              ],
-              "queryOptions": {},
-              "transformations": []
-            }
-          },
-          "description": "Wall-clock duration of the most recent archive.",
-          "id": 3,
-          "links": [],
-          "title": "Duration of last backup",
-          "vizConfig": {
-            "group": "stat",
-            "kind": "VizConfig",
-            "spec": {
-              "fieldConfig": {
-                "defaults": {
-                  "color": {
-                    "mode": "thresholds"
-                  },
-                  "thresholds": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "color": "green",
-                        "value": 0
-                      }
-                    ]
-                  },
-                  "unit": "s",
-                  "decimals": 0
-                },
-                "overrides": []
-              },
-              "options": {
-                "colorMode": "value",
-                "graphMode": "none",
-                "justifyMode": "auto",
-                "orientation": "auto",
-                "percentChangeColorMode": "standard",
-                "reduceOptions": {
-                  "calcs": [
-                    "lastNotNull"
-                  ],
-                  "fields": "",
-                  "values": false
-                },
-                "showPercentChange": false,
-                "textMode": "value",
-                "wideLayout": true
-              }
-            },
-            "version": "13.0.2"
-          }
-        }
-      },
-      "panel-4": {
-        "kind": "Panel",
-        "spec": {
-          "data": {
-            "kind": "QueryGroup",
-            "spec": {
-              "queries": [
-                {
-                  "kind": "PanelQuery",
-                  "spec": {
-                    "hidden": false,
-                    "query": {
-                      "datasource": {
-                        "name": "PBFA97CFB590B2093"
-                      },
-                      "group": "prometheus",
-                      "kind": "DataQuery",
-                      "spec": {
-                        "editorMode": "code",
-                        "expr": "borgmatic_archives{job=\"node_exporter\", instance=\"onion.lc.brotherwolf.ca:9100\"}",
-                        "legendFormat": "__auto",
-                        "range": true,
-                        "instant": true
-                      },
-                      "version": "v0"
-                    },
-                    "refId": "A"
-                  }
-                }
-              ],
-              "queryOptions": {},
-              "transformations": []
-            }
-          },
-          "description": "Archives created by borgmatic (borgmatic_<hostname>_* prefix).",
-          "id": 4,
-          "links": [],
-          "title": "borgmatic archives",
-          "vizConfig": {
-            "group": "stat",
-            "kind": "VizConfig",
-            "spec": {
-              "fieldConfig": {
-                "defaults": {
-                  "color": {
-                    "mode": "thresholds"
-                  },
-                  "thresholds": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "color": "green",
-                        "value": 0
-                      }
-                    ]
-                  }
-                },
-                "overrides": []
-              },
-              "options": {
-                "colorMode": "value",
-                "graphMode": "none",
-                "justifyMode": "auto",
-                "orientation": "auto",
-                "percentChangeColorMode": "standard",
-                "reduceOptions": {
-                  "calcs": [
-                    "lastNotNull"
-                  ],
-                  "fields": "",
-                  "values": false
-                },
-                "showPercentChange": false,
-                "textMode": "value",
-                "wideLayout": true
-              }
-            },
-            "version": "13.0.2"
-          }
-        }
-      },
-      "panel-5": {
-        "kind": "Panel",
-        "spec": {
-          "data": {
-            "kind": "QueryGroup",
-            "spec": {
-              "queries": [
-                {
-                  "kind": "PanelQuery",
-                  "spec": {
-                    "hidden": false,
-                    "query": {
-                      "datasource": {
-                        "name": "PBFA97CFB590B2093"
-                      },
-                      "group": "prometheus",
-                      "kind": "DataQuery",
-                      "spec": {
-                        "editorMode": "code",
-                        "expr": "borgmatic_repository_archives{job=\"node_exporter\", instance=\"onion.lc.brotherwolf.ca:9100\"}",
-                        "legendFormat": "__auto",
-                        "range": true,
-                        "instant": true
-                      },
-                      "version": "v0"
-                    },
-                    "refId": "A"
-                  }
-                }
-              ],
-              "queryOptions": {},
-              "transformations": []
-            }
-          },
-          "description": "All archives in the repository, including non-borgmatic prefixes.",
-          "id": 5,
-          "links": [],
-          "title": "Repository archives",
-          "vizConfig": {
-            "group": "stat",
-            "kind": "VizConfig",
-            "spec": {
-              "fieldConfig": {
-                "defaults": {
-                  "color": {
-                    "mode": "thresholds"
-                  },
-                  "thresholds": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "color": "green",
-                        "value": 0
-                      }
-                    ]
-                  }
-                },
-                "overrides": []
-              },
-              "options": {
-                "colorMode": "value",
-                "graphMode": "none",
-                "justifyMode": "auto",
-                "orientation": "auto",
-                "percentChangeColorMode": "standard",
-                "reduceOptions": {
-                  "calcs": [
-                    "lastNotNull"
-                  ],
-                  "fields": "",
-                  "values": false
-                },
-                "showPercentChange": false,
-                "textMode": "value",
-                "wideLayout": true
-              }
-            },
-            "version": "13.0.2"
-          }
-        }
-      },
-      "panel-6": {
-        "kind": "Panel",
-        "spec": {
-          "data": {
-            "kind": "QueryGroup",
-            "spec": {
-              "queries": [
-                {
-                  "kind": "PanelQuery",
-                  "spec": {
-                    "hidden": false,
-                    "query": {
-                      "datasource": {
-                        "name": "PBFA97CFB590B2093"
-                      },
-                      "group": "prometheus",
-                      "kind": "DataQuery",
-                      "spec": {
-                        "editorMode": "code",
-                        "expr": "time() - borgmatic_check_last_success{check=\"archives\", job=\"node_exporter\", instance=\"onion.lc.brotherwolf.ca:9100\"}",
-                        "legendFormat": "__auto",
-                        "range": true,
-                        "instant": true
-                      },
-                      "version": "v0"
-                    },
-                    "refId": "A"
-                  }
-                }
-              ],
-              "queryOptions": {},
-              "transformations": []
-            }
-          },
-          "description": "Time since check \"archives\" last passed. borgmatic.nix: frequency 1 day.",
-          "id": 6,
-          "links": [],
-          "title": "Archives check",
-          "vizConfig": {
-            "group": "stat",
-            "kind": "VizConfig",
-            "spec": {
-              "fieldConfig": {
-                "defaults": {
-                  "color": {
-                    "mode": "thresholds"
-                  },
-                  "thresholds": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "color": "green",
-                        "value": 0
-                      },
-                      {
-                        "color": "orange",
-                        "value": 172800
-                      },
-                      {
-                        "color": "red",
-                        "value": 432000
-                      }
-                    ]
-                  },
-                  "unit": "s",
-                  "decimals": 0
-                },
-                "overrides": []
-              },
-              "options": {
-                "colorMode": "value",
-                "graphMode": "none",
-                "justifyMode": "auto",
-                "orientation": "auto",
-                "percentChangeColorMode": "standard",
-                "reduceOptions": {
-                  "calcs": [
-                    "lastNotNull"
-                  ],
-                  "fields": "",
-                  "values": false
-                },
-                "showPercentChange": false,
-                "textMode": "value",
-                "wideLayout": true
-              }
-            },
-            "version": "13.0.2"
-          }
-        }
-      },
-      "panel-7": {
-        "kind": "Panel",
-        "spec": {
-          "data": {
-            "kind": "QueryGroup",
-            "spec": {
-              "queries": [
-                {
-                  "kind": "PanelQuery",
-                  "spec": {
-                    "hidden": false,
-                    "query": {
-                      "datasource": {
-                        "name": "PBFA97CFB590B2093"
-                      },
-                      "group": "prometheus",
-                      "kind": "DataQuery",
-                      "spec": {
-                        "editorMode": "code",
-                        "expr": "time() - borgmatic_check_last_success{check=\"repository\", job=\"node_exporter\", instance=\"onion.lc.brotherwolf.ca:9100\"}",
-                        "legendFormat": "__auto",
-                        "range": true,
-                        "instant": true
-                      },
-                      "version": "v0"
-                    },
-                    "refId": "A"
-                  }
-                }
-              ],
-              "queryOptions": {},
-              "transformations": []
-            }
-          },
-          "description": "Time since check \"repository\" last passed. borgmatic.nix: frequency 1 month, Saturdays.",
-          "id": 7,
-          "links": [],
-          "title": "Repository check",
-          "vizConfig": {
-            "group": "stat",
-            "kind": "VizConfig",
-            "spec": {
-              "fieldConfig": {
-                "defaults": {
-                  "color": {
-                    "mode": "thresholds"
-                  },
-                  "thresholds": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "color": "green",
-                        "value": 0
-                      },
-                      {
-                        "color": "orange",
-                        "value": 3888000
-                      },
-                      {
-                        "color": "red",
-                        "value": 6912000
-                      }
-                    ]
-                  },
-                  "unit": "s",
-                  "decimals": 0
-                },
-                "overrides": []
-              },
-              "options": {
-                "colorMode": "value",
-                "graphMode": "none",
-                "justifyMode": "auto",
-                "orientation": "auto",
-                "percentChangeColorMode": "standard",
-                "reduceOptions": {
-                  "calcs": [
-                    "lastNotNull"
-                  ],
-                  "fields": "",
-                  "values": false
-                },
-                "showPercentChange": false,
-                "textMode": "value",
-                "wideLayout": true
-              }
-            },
-            "version": "13.0.2"
-          }
-        }
-      },
-      "panel-8": {
-        "kind": "Panel",
-        "spec": {
-          "data": {
-            "kind": "QueryGroup",
-            "spec": {
-              "queries": [
-                {
-                  "kind": "PanelQuery",
-                  "spec": {
-                    "hidden": false,
-                    "query": {
-                      "datasource": {
-                        "name": "PBFA97CFB590B2093"
-                      },
-                      "group": "prometheus",
-                      "kind": "DataQuery",
-                      "spec": {
-                        "editorMode": "code",
-                        "expr": "time() - borgmatic_check_last_success{check=\"spot\", job=\"node_exporter\", instance=\"onion.lc.brotherwolf.ca:9100\"}",
-                        "legendFormat": "__auto",
-                        "range": true,
-                        "instant": true
-                      },
-                      "version": "v0"
-                    },
-                    "refId": "A"
-                  }
-                }
-              ],
-              "queryOptions": {},
-              "transformations": []
-            }
-          },
-          "description": "Time since check \"spot\" last passed. borgmatic.nix: frequency 2 months, Sundays (0.1% count / 1% data tolerance).",
-          "id": 8,
-          "links": [],
-          "title": "Spot check",
-          "vizConfig": {
-            "group": "stat",
-            "kind": "VizConfig",
-            "spec": {
-              "fieldConfig": {
-                "defaults": {
-                  "color": {
-                    "mode": "thresholds"
-                  },
-                  "thresholds": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "color": "green",
-                        "value": 0
-                      },
-                      {
-                        "color": "orange",
-                        "value": 6912000
-                      },
-                      {
-                        "color": "red",
-                        "value": 12096000
-                      }
-                    ]
-                  },
-                  "unit": "s",
-                  "decimals": 0
-                },
-                "overrides": []
-              },
-              "options": {
-                "colorMode": "value",
-                "graphMode": "none",
-                "justifyMode": "auto",
-                "orientation": "auto",
-                "percentChangeColorMode": "standard",
-                "reduceOptions": {
-                  "calcs": [
-                    "lastNotNull"
-                  ],
-                  "fields": "",
-                  "values": false
-                },
-                "showPercentChange": false,
-                "textMode": "value",
-                "wideLayout": true
-              }
-            },
-            "version": "13.0.2"
-          }
-        }
-      },
-      "panel-9": {
-        "kind": "Panel",
-        "spec": {
-          "data": {
-            "kind": "QueryGroup",
-            "spec": {
-              "queries": [
-                {
-                  "kind": "PanelQuery",
-                  "spec": {
-                    "hidden": false,
-                    "query": {
-                      "datasource": {
-                        "name": "PBFA97CFB590B2093"
-                      },
-                      "group": "prometheus",
-                      "kind": "DataQuery",
-                      "spec": {
-                        "editorMode": "code",
-                        "expr": "time() - borgmatic_check_last_success{check=\"extract\", job=\"node_exporter\", instance=\"onion.lc.brotherwolf.ca:9100\"}",
-                        "legendFormat": "__auto",
-                        "range": true,
-                        "instant": true
-                      },
-                      "version": "v0"
-                    },
-                    "refId": "A"
-                  }
-                }
-              ],
-              "queryOptions": {},
-              "transformations": []
-            }
-          },
-          "description": "Time since check \"extract\" last passed. borgmatic.nix: frequency 1 year, Sundays.",
-          "id": 9,
-          "links": [],
-          "title": "Extract check",
-          "vizConfig": {
-            "group": "stat",
-            "kind": "VizConfig",
-            "spec": {
-              "fieldConfig": {
-                "defaults": {
-                  "color": {
-                    "mode": "thresholds"
-                  },
-                  "thresholds": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "color": "green",
-                        "value": 0
-                      },
-                      {
-                        "color": "orange",
-                        "value": 34560000
-                      },
-                      {
-                        "color": "red",
-                        "value": 63072000
-                      }
-                    ]
-                  },
-                  "unit": "s",
-                  "decimals": 0
-                },
-                "overrides": []
-              },
-              "options": {
-                "colorMode": "value",
-                "graphMode": "none",
-                "justifyMode": "auto",
-                "orientation": "auto",
-                "percentChangeColorMode": "standard",
-                "reduceOptions": {
-                  "calcs": [
-                    "lastNotNull"
-                  ],
-                  "fields": "",
-                  "values": false
-                },
-                "showPercentChange": false,
-                "textMode": "value",
                 "wideLayout": true
               }
             },
@@ -847,8 +146,7 @@
                         "editorMode": "code",
                         "expr": "time() - borgmatic_check_last_success{check=\"data\", job=\"node_exporter\", instance=\"onion.lc.brotherwolf.ca:9100\"}",
                         "legendFormat": "__auto",
-                        "range": true,
-                        "instant": true
+                        "range": true
                       },
                       "version": "v0"
                     },
@@ -873,6 +171,7 @@
                   "color": {
                     "mode": "thresholds"
                   },
+                  "decimals": 0,
                   "thresholds": {
                     "mode": "absolute",
                     "steps": [
@@ -890,8 +189,7 @@
                       }
                     ]
                   },
-                  "unit": "s",
-                  "decimals": 0
+                  "unit": "s"
                 },
                 "overrides": []
               },
@@ -1039,6 +337,7 @@
                       "mode": "off"
                     }
                   },
+                  "decimals": 1,
                   "thresholds": {
                     "mode": "absolute",
                     "steps": [
@@ -1048,8 +347,7 @@
                       }
                     ]
                   },
-                  "unit": "bytes",
-                  "decimals": 1
+                  "unit": "bytes"
                 },
                 "overrides": []
               },
@@ -1097,7 +395,7 @@
                       "spec": {
                         "editorMode": "code",
                         "expr": "borgmatic_repository_total_size_bytes{job=\"node_exporter\", instance=\"onion.lc.brotherwolf.ca:9100\"} / borgmatic_repository_deduplicated_size_bytes{job=\"node_exporter\", instance=\"onion.lc.brotherwolf.ca:9100\"}",
-                        "legendFormat": "deduplication (total \u00f7 deduped)",
+                        "legendFormat": "deduplication (total ÷ deduped)",
                         "range": true
                       },
                       "version": "v0"
@@ -1118,7 +416,7 @@
                       "spec": {
                         "editorMode": "code",
                         "expr": "borgmatic_repository_total_uncompressed_size_bytes{job=\"node_exporter\", instance=\"onion.lc.brotherwolf.ca:9100\"} / borgmatic_repository_total_size_bytes{job=\"node_exporter\", instance=\"onion.lc.brotherwolf.ca:9100\"}",
-                        "legendFormat": "compression (uncompressed \u00f7 compressed)",
+                        "legendFormat": "compression (uncompressed ÷ compressed)",
                         "range": true
                       },
                       "version": "v0"
@@ -1134,7 +432,7 @@
           "description": "How much space is saved by deduplication and compression.",
           "id": 12,
           "links": [],
-          "title": "Deduplication & compression ratio",
+          "title": "Deduplication \u0026 compression ratio",
           "vizConfig": {
             "group": "timeseries",
             "kind": "VizConfig",
@@ -1178,6 +476,7 @@
                       "mode": "off"
                     }
                   },
+                  "decimals": 2,
                   "thresholds": {
                     "mode": "absolute",
                     "steps": [
@@ -1186,8 +485,7 @@
                         "value": 0
                       }
                     ]
-                  },
-                  "decimals": 2
+                  }
                 },
                 "overrides": []
               },
@@ -1236,8 +534,7 @@
                         "editorMode": "code",
                         "expr": "borgmatic_archive_days{job=\"node_exporter\", instance=\"onion.lc.brotherwolf.ca:9100\"}",
                         "legendFormat": "__auto",
-                        "range": true,
-                        "instant": true
+                        "range": true
                       },
                       "version": "v0"
                     },
@@ -1317,8 +614,7 @@
                         "editorMode": "code",
                         "expr": "borgmatic_archive_weeks{job=\"node_exporter\", instance=\"onion.lc.brotherwolf.ca:9100\"}",
                         "legendFormat": "__auto",
-                        "range": true,
-                        "instant": true
+                        "range": true
                       },
                       "version": "v0"
                     },
@@ -1398,8 +694,7 @@
                         "editorMode": "code",
                         "expr": "borgmatic_archive_years{job=\"node_exporter\", instance=\"onion.lc.brotherwolf.ca:9100\"}",
                         "legendFormat": "__auto",
-                        "range": true,
-                        "instant": true
+                        "range": true
                       },
                       "version": "v0"
                     },
@@ -1479,8 +774,7 @@
                         "editorMode": "code",
                         "expr": "1 - (borgmatic_repository_deduplicated_size_bytes{job=\"node_exporter\", instance=\"onion.lc.brotherwolf.ca:9100\"} / borgmatic_repository_total_size_bytes{job=\"node_exporter\", instance=\"onion.lc.brotherwolf.ca:9100\"})",
                         "legendFormat": "__auto",
-                        "range": true,
-                        "instant": true
+                        "range": true
                       },
                       "version": "v0"
                     },
@@ -1492,10 +786,264 @@
               "transformations": []
             }
           },
-          "description": "Share of the repository that deduplication eliminates (1 \u2212 deduped/total).",
+          "description": "Share of the repository that deduplication eliminates (1 − deduped/total).",
           "id": 16,
           "links": [],
           "title": "Space saved by deduplication",
+          "vizConfig": {
+            "group": "stat",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "thresholds"
+                  },
+                  "decimals": 1,
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": 0
+                      }
+                    ]
+                  },
+                  "unit": "percentunit"
+                },
+                "overrides": []
+              },
+              "options": {
+                "colorMode": "value",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "percentChangeColorMode": "standard",
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
+                "showPercentChange": false,
+                "textMode": "value",
+                "wideLayout": true
+              }
+            },
+            "version": "13.0.2"
+          }
+        }
+      },
+      "panel-2": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "PBFA97CFB590B2093"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "editorMode": "code",
+                        "expr": "time() - borgmatic_last_success{job=\"node_exporter\", instance=\"onion.lc.brotherwolf.ca:9100\"}",
+                        "legendFormat": "__auto",
+                        "range": true
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "Freshness of the last successful backup (0 if none yet). Colours: green fresh, orange \u003e26h, red \u003e3d.",
+          "id": 2,
+          "links": [],
+          "title": "Time since last backup",
+          "vizConfig": {
+            "group": "stat",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "thresholds"
+                  },
+                  "decimals": 0,
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": 0
+                      },
+                      {
+                        "color": "orange",
+                        "value": 93600
+                      },
+                      {
+                        "color": "red",
+                        "value": 259200
+                      }
+                    ]
+                  },
+                  "unit": "s"
+                },
+                "overrides": []
+              },
+              "options": {
+                "colorMode": "value",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "percentChangeColorMode": "standard",
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
+                "showPercentChange": false,
+                "textMode": "value",
+                "wideLayout": true
+              }
+            },
+            "version": "13.0.2"
+          }
+        }
+      },
+      "panel-3": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "PBFA97CFB590B2093"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "editorMode": "code",
+                        "expr": "borgmatic_last_backup_duration_seconds{job=\"node_exporter\", instance=\"onion.lc.brotherwolf.ca:9100\"}",
+                        "legendFormat": "__auto",
+                        "range": true
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "Wall-clock duration of the most recent archive.",
+          "id": 3,
+          "links": [],
+          "title": "Duration of last backup",
+          "vizConfig": {
+            "group": "stat",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "thresholds"
+                  },
+                  "decimals": 0,
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": 0
+                      }
+                    ]
+                  },
+                  "unit": "s"
+                },
+                "overrides": []
+              },
+              "options": {
+                "colorMode": "value",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "percentChangeColorMode": "standard",
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
+                "showPercentChange": false,
+                "textMode": "value",
+                "wideLayout": true
+              }
+            },
+            "version": "13.0.2"
+          }
+        }
+      },
+      "panel-4": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "PBFA97CFB590B2093"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "editorMode": "code",
+                        "expr": "borgmatic_archives{job=\"node_exporter\", instance=\"onion.lc.brotherwolf.ca:9100\"}",
+                        "legendFormat": "__auto",
+                        "range": true
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "Archives created by borgmatic (borgmatic_\u003chostname\u003e_* prefix).",
+          "id": 4,
+          "links": [],
+          "title": "borgmatic archives",
           "vizConfig": {
             "group": "stat",
             "kind": "VizConfig",
@@ -1513,9 +1061,447 @@
                         "value": 0
                       }
                     ]
+                  }
+                },
+                "overrides": []
+              },
+              "options": {
+                "colorMode": "value",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "percentChangeColorMode": "standard",
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
+                "showPercentChange": false,
+                "textMode": "value",
+                "wideLayout": true
+              }
+            },
+            "version": "13.0.2"
+          }
+        }
+      },
+      "panel-5": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "PBFA97CFB590B2093"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "editorMode": "code",
+                        "expr": "borgmatic_repository_archives{job=\"node_exporter\", instance=\"onion.lc.brotherwolf.ca:9100\"}",
+                        "legendFormat": "__auto",
+                        "range": true
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "All archives in the repository, including non-borgmatic prefixes.",
+          "id": 5,
+          "links": [],
+          "title": "Repository archives",
+          "vizConfig": {
+            "group": "stat",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "thresholds"
                   },
-                  "unit": "percentunit",
-                  "decimals": 1
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": 0
+                      }
+                    ]
+                  }
+                },
+                "overrides": []
+              },
+              "options": {
+                "colorMode": "value",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "percentChangeColorMode": "standard",
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
+                "showPercentChange": false,
+                "textMode": "value",
+                "wideLayout": true
+              }
+            },
+            "version": "13.0.2"
+          }
+        }
+      },
+      "panel-6": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "PBFA97CFB590B2093"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "editorMode": "code",
+                        "expr": "time() - borgmatic_check_last_success{check=\"archives\", job=\"node_exporter\", instance=\"onion.lc.brotherwolf.ca:9100\"}",
+                        "legendFormat": "__auto",
+                        "range": true
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "Time since check \"archives\" last passed. borgmatic.nix: frequency 1 day.",
+          "id": 6,
+          "links": [],
+          "title": "Archives check",
+          "vizConfig": {
+            "group": "stat",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "thresholds"
+                  },
+                  "decimals": 0,
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": 0
+                      },
+                      {
+                        "color": "orange",
+                        "value": 172800
+                      },
+                      {
+                        "color": "red",
+                        "value": 432000
+                      }
+                    ]
+                  },
+                  "unit": "s"
+                },
+                "overrides": []
+              },
+              "options": {
+                "colorMode": "value",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "percentChangeColorMode": "standard",
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
+                "showPercentChange": false,
+                "textMode": "value",
+                "wideLayout": true
+              }
+            },
+            "version": "13.0.2"
+          }
+        }
+      },
+      "panel-7": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "PBFA97CFB590B2093"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "editorMode": "code",
+                        "expr": "time() - borgmatic_check_last_success{check=\"repository\", job=\"node_exporter\", instance=\"onion.lc.brotherwolf.ca:9100\"}",
+                        "legendFormat": "__auto",
+                        "range": true
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "Time since check \"repository\" last passed. borgmatic.nix: frequency 1 month, Saturdays.",
+          "id": 7,
+          "links": [],
+          "title": "Repository check",
+          "vizConfig": {
+            "group": "stat",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "thresholds"
+                  },
+                  "decimals": 0,
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": 0
+                      },
+                      {
+                        "color": "orange",
+                        "value": 3888000
+                      },
+                      {
+                        "color": "red",
+                        "value": 6912000
+                      }
+                    ]
+                  },
+                  "unit": "s"
+                },
+                "overrides": []
+              },
+              "options": {
+                "colorMode": "value",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "percentChangeColorMode": "standard",
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
+                "showPercentChange": false,
+                "textMode": "value",
+                "wideLayout": true
+              }
+            },
+            "version": "13.0.2"
+          }
+        }
+      },
+      "panel-8": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "PBFA97CFB590B2093"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "editorMode": "code",
+                        "expr": "time() - borgmatic_check_last_success{check=\"spot\", job=\"node_exporter\", instance=\"onion.lc.brotherwolf.ca:9100\"}",
+                        "legendFormat": "__auto",
+                        "range": true
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "Time since check \"spot\" last passed. borgmatic.nix: frequency 2 months, Sundays (0.1% count / 1% data tolerance).",
+          "id": 8,
+          "links": [],
+          "title": "Spot check",
+          "vizConfig": {
+            "group": "stat",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "thresholds"
+                  },
+                  "decimals": 0,
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": 0
+                      },
+                      {
+                        "color": "orange",
+                        "value": 6912000
+                      },
+                      {
+                        "color": "red",
+                        "value": 12096000
+                      }
+                    ]
+                  },
+                  "unit": "s"
+                },
+                "overrides": []
+              },
+              "options": {
+                "colorMode": "value",
+                "graphMode": "none",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "percentChangeColorMode": "standard",
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
+                "showPercentChange": false,
+                "textMode": "value",
+                "wideLayout": true
+              }
+            },
+            "version": "13.0.2"
+          }
+        }
+      },
+      "panel-9": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "PBFA97CFB590B2093"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "editorMode": "code",
+                        "expr": "time() - borgmatic_check_last_success{check=\"extract\", job=\"node_exporter\", instance=\"onion.lc.brotherwolf.ca:9100\"}",
+                        "legendFormat": "__auto",
+                        "range": true
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "Time since check \"extract\" last passed. borgmatic.nix: frequency 1 year, Sundays.",
+          "id": 9,
+          "links": [],
+          "title": "Extract check",
+          "vizConfig": {
+            "group": "stat",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "thresholds"
+                  },
+                  "decimals": 0,
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": 0
+                      },
+                      {
+                        "color": "orange",
+                        "value": 34560000
+                      },
+                      {
+                        "color": "red",
+                        "value": 63072000
+                      }
+                    ]
+                  },
+                  "unit": "s"
                 },
                 "overrides": []
               },
@@ -1701,7 +1687,7 @@
                   ]
                 }
               },
-              "title": "Checks \u2014 time since each check type last passed"
+              "title": "Checks — time since each check type last passed"
             }
           },
           {
@@ -1807,7 +1793,7 @@
                   ]
                 }
               },
-              "title": "Retention & space"
+              "title": "Retention \u0026 space"
             }
           }
         ]
