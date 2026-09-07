@@ -158,12 +158,12 @@
               "transformations": []
             }
           },
-          "description": "Time since check \"data\" last passed. borgmatic.nix: frequency 1 year, Saturdays.",
+          "description": "Time since check \"data\" last passed. Runs yearly on Saturdays (borgmatic.nix frequency 1 year). Gauge scale = 3 cycles: green \u003c1y, orange 1-2y, red \u003e=2y; beyond 3y pegs at full red.",
           "id": 10,
           "links": [],
           "title": "Data check",
           "vizConfig": {
-            "group": "stat",
+            "group": "gauge",
             "kind": "VizConfig",
             "spec": {
               "fieldConfig": {
@@ -172,6 +172,8 @@
                     "mode": "thresholds"
                   },
                   "decimals": 0,
+                  "max": 94608000,
+                  "min": 0,
                   "thresholds": {
                     "mode": "absolute",
                     "steps": [
@@ -181,7 +183,7 @@
                       },
                       {
                         "color": "orange",
-                        "value": 34560000
+                        "value": 31536000
                       },
                       {
                         "color": "red",
@@ -194,11 +196,17 @@
                 "overrides": []
               },
               "options": {
-                "colorMode": "value",
-                "graphMode": "none",
-                "justifyMode": "auto",
+                "barShape": "flat",
+                "barWidthFactor": 0.5,
+                "effects": {
+                  "barGlow": false,
+                  "centerGlow": false,
+                  "gradient": false
+                },
+                "endpointMarker": "point",
+                "minVizHeight": 75,
+                "minVizWidth": 75,
                 "orientation": "auto",
-                "percentChangeColorMode": "standard",
                 "reduceOptions": {
                   "calcs": [
                     "lastNotNull"
@@ -206,9 +214,14 @@
                   "fields": "",
                   "values": false
                 },
-                "showPercentChange": false,
-                "textMode": "value",
-                "wideLayout": true
+                "segmentCount": 1,
+                "segmentSpacing": 0.3,
+                "shape": "gauge",
+                "showThresholdLabels": false,
+                "showThresholdMarkers": true,
+                "sizing": "auto",
+                "sparkline": false,
+                "textMode": "auto"
               }
             },
             "version": "13.0.2"
@@ -1619,12 +1632,12 @@
               "transformations": []
             }
           },
-          "description": "Time since check \"archives\" last passed. borgmatic.nix: frequency 1 day.",
+          "description": "Time since check \"archives\" last passed. Runs daily (borgmatic.nix frequency 1 day). Gauge scale = 3 cycles: green \u003c1d, orange 1-2d, red \u003e=2d; beyond 3d pegs at full red.",
           "id": 6,
           "links": [],
           "title": "Archives check",
           "vizConfig": {
-            "group": "stat",
+            "group": "gauge",
             "kind": "VizConfig",
             "spec": {
               "fieldConfig": {
@@ -1633,6 +1646,8 @@
                     "mode": "thresholds"
                   },
                   "decimals": 0,
+                  "max": 259200,
+                  "min": 0,
                   "thresholds": {
                     "mode": "absolute",
                     "steps": [
@@ -1642,11 +1657,11 @@
                       },
                       {
                         "color": "orange",
-                        "value": 172800
+                        "value": 86400
                       },
                       {
                         "color": "red",
-                        "value": 432000
+                        "value": 172800
                       }
                     ]
                   },
@@ -1655,11 +1670,17 @@
                 "overrides": []
               },
               "options": {
-                "colorMode": "value",
-                "graphMode": "none",
-                "justifyMode": "auto",
+                "barShape": "flat",
+                "barWidthFactor": 0.5,
+                "effects": {
+                  "barGlow": false,
+                  "centerGlow": false,
+                  "gradient": false
+                },
+                "endpointMarker": "point",
+                "minVizHeight": 75,
+                "minVizWidth": 75,
                 "orientation": "auto",
-                "percentChangeColorMode": "standard",
                 "reduceOptions": {
                   "calcs": [
                     "lastNotNull"
@@ -1667,9 +1688,14 @@
                   "fields": "",
                   "values": false
                 },
-                "showPercentChange": false,
-                "textMode": "value",
-                "wideLayout": true
+                "segmentCount": 1,
+                "segmentSpacing": 0.3,
+                "shape": "gauge",
+                "showThresholdLabels": false,
+                "showThresholdMarkers": true,
+                "sizing": "auto",
+                "sparkline": false,
+                "textMode": "auto"
               }
             },
             "version": "13.0.2"
@@ -1709,12 +1735,12 @@
               "transformations": []
             }
           },
-          "description": "Time since check \"repository\" last passed. borgmatic.nix: frequency 1 month, Saturdays.",
+          "description": "Time since check \"repository\" last passed. Runs monthly on Saturdays (borgmatic.nix frequency 1 month). Gauge scale = 3 cycles: green \u003c30d, orange 30-60d, red \u003e=60d; beyond 90d pegs at full red.",
           "id": 7,
           "links": [],
           "title": "Repository check",
           "vizConfig": {
-            "group": "stat",
+            "group": "gauge",
             "kind": "VizConfig",
             "spec": {
               "fieldConfig": {
@@ -1723,6 +1749,8 @@
                     "mode": "thresholds"
                   },
                   "decimals": 0,
+                  "max": 7776000,
+                  "min": 0,
                   "thresholds": {
                     "mode": "absolute",
                     "steps": [
@@ -1732,11 +1760,11 @@
                       },
                       {
                         "color": "orange",
-                        "value": 3888000
+                        "value": 2592000
                       },
                       {
                         "color": "red",
-                        "value": 6912000
+                        "value": 5184000
                       }
                     ]
                   },
@@ -1745,11 +1773,17 @@
                 "overrides": []
               },
               "options": {
-                "colorMode": "value",
-                "graphMode": "none",
-                "justifyMode": "auto",
+                "barShape": "flat",
+                "barWidthFactor": 0.5,
+                "effects": {
+                  "barGlow": false,
+                  "centerGlow": false,
+                  "gradient": false
+                },
+                "endpointMarker": "point",
+                "minVizHeight": 75,
+                "minVizWidth": 75,
                 "orientation": "auto",
-                "percentChangeColorMode": "standard",
                 "reduceOptions": {
                   "calcs": [
                     "lastNotNull"
@@ -1757,9 +1791,14 @@
                   "fields": "",
                   "values": false
                 },
-                "showPercentChange": false,
-                "textMode": "value",
-                "wideLayout": true
+                "segmentCount": 1,
+                "segmentSpacing": 0.3,
+                "shape": "gauge",
+                "showThresholdLabels": false,
+                "showThresholdMarkers": true,
+                "sizing": "auto",
+                "sparkline": false,
+                "textMode": "auto"
               }
             },
             "version": "13.0.2"
@@ -1799,12 +1838,12 @@
               "transformations": []
             }
           },
-          "description": "Time since check \"spot\" last passed. borgmatic.nix: frequency 2 months, Sundays (0.1% count / 1% data tolerance).",
+          "description": "Time since check \"spot\" last passed. Runs every 2 months on Sundays (0.1% count / 1% data tolerance). Gauge scale = 3 cycles: green \u003c60d, orange 60-120d, red \u003e=120d; beyond 180d pegs at full red.",
           "id": 8,
           "links": [],
           "title": "Spot check",
           "vizConfig": {
-            "group": "stat",
+            "group": "gauge",
             "kind": "VizConfig",
             "spec": {
               "fieldConfig": {
@@ -1813,6 +1852,8 @@
                     "mode": "thresholds"
                   },
                   "decimals": 0,
+                  "max": 15552000,
+                  "min": 0,
                   "thresholds": {
                     "mode": "absolute",
                     "steps": [
@@ -1822,11 +1863,11 @@
                       },
                       {
                         "color": "orange",
-                        "value": 6912000
+                        "value": 5184000
                       },
                       {
                         "color": "red",
-                        "value": 12096000
+                        "value": 10368000
                       }
                     ]
                   },
@@ -1835,11 +1876,17 @@
                 "overrides": []
               },
               "options": {
-                "colorMode": "value",
-                "graphMode": "none",
-                "justifyMode": "auto",
+                "barShape": "flat",
+                "barWidthFactor": 0.5,
+                "effects": {
+                  "barGlow": false,
+                  "centerGlow": false,
+                  "gradient": false
+                },
+                "endpointMarker": "point",
+                "minVizHeight": 75,
+                "minVizWidth": 75,
                 "orientation": "auto",
-                "percentChangeColorMode": "standard",
                 "reduceOptions": {
                   "calcs": [
                     "lastNotNull"
@@ -1847,9 +1894,14 @@
                   "fields": "",
                   "values": false
                 },
-                "showPercentChange": false,
-                "textMode": "value",
-                "wideLayout": true
+                "segmentCount": 1,
+                "segmentSpacing": 0.3,
+                "shape": "gauge",
+                "showThresholdLabels": false,
+                "showThresholdMarkers": true,
+                "sizing": "auto",
+                "sparkline": false,
+                "textMode": "auto"
               }
             },
             "version": "13.0.2"
@@ -1889,12 +1941,12 @@
               "transformations": []
             }
           },
-          "description": "Time since check \"extract\" last passed. borgmatic.nix: frequency 1 year, Sundays.",
+          "description": "Time since check \"extract\" last passed. Runs yearly on Sundays (borgmatic.nix frequency 1 year). Gauge scale = 3 cycles: green \u003c1y, orange 1-2y, red \u003e=2y; beyond 3y pegs at full red.",
           "id": 9,
           "links": [],
           "title": "Extract check",
           "vizConfig": {
-            "group": "stat",
+            "group": "gauge",
             "kind": "VizConfig",
             "spec": {
               "fieldConfig": {
@@ -1903,6 +1955,8 @@
                     "mode": "thresholds"
                   },
                   "decimals": 0,
+                  "max": 94608000,
+                  "min": 0,
                   "thresholds": {
                     "mode": "absolute",
                     "steps": [
@@ -1912,7 +1966,7 @@
                       },
                       {
                         "color": "orange",
-                        "value": 34560000
+                        "value": 31536000
                       },
                       {
                         "color": "red",
@@ -1925,11 +1979,17 @@
                 "overrides": []
               },
               "options": {
-                "colorMode": "value",
-                "graphMode": "none",
-                "justifyMode": "auto",
+                "barShape": "flat",
+                "barWidthFactor": 0.5,
+                "effects": {
+                  "barGlow": false,
+                  "centerGlow": false,
+                  "gradient": false
+                },
+                "endpointMarker": "point",
+                "minVizHeight": 75,
+                "minVizWidth": 75,
                 "orientation": "auto",
-                "percentChangeColorMode": "standard",
                 "reduceOptions": {
                   "calcs": [
                     "lastNotNull"
@@ -1937,9 +1997,14 @@
                   "fields": "",
                   "values": false
                 },
-                "showPercentChange": false,
-                "textMode": "value",
-                "wideLayout": true
+                "segmentCount": 1,
+                "segmentSpacing": 0.3,
+                "shape": "gauge",
+                "showThresholdLabels": false,
+                "showThresholdMarkers": true,
+                "sizing": "auto",
+                "sparkline": false,
+                "textMode": "auto"
               }
             },
             "version": "13.0.2"
