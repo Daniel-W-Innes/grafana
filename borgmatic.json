@@ -51,7 +51,7 @@
                       "kind": "DataQuery",
                       "spec": {
                         "editorMode": "code",
-                        "expr": "borgmatic_last_success{job=\"node_exporter\", instance=\"onion.lc.brotherwolf.ca:9100\"}",
+                        "expr": "borgmatic_last_success{job=\"node_exporter\", instance=\"onion.lc.brotherwolf.ca:9100\"}*1000",
                         "legendFormat": "__auto",
                         "range": true
                       },
