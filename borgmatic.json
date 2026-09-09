@@ -121,7 +121,7 @@
                 "wideLayout": true
               }
             },
-            "version": "13.0.2"
+            "version": "13.0.6"
           }
         }
       },
@@ -224,7 +224,7 @@
                 "textMode": "auto"
               }
             },
-            "version": "13.0.2"
+            "version": "13.0.6"
           }
         }
       },
@@ -384,7 +384,7 @@
                 }
               }
             },
-            "version": "13.0.2"
+            "version": "13.0.6"
           }
         }
       },
@@ -522,7 +522,7 @@
                 }
               }
             },
-            "version": "13.0.2"
+            "version": "13.0.6"
           }
         }
       },
@@ -624,7 +624,7 @@
                 "textMode": "auto"
               }
             },
-            "version": "13.0.2"
+            "version": "13.0.6"
           }
         }
       },
@@ -726,7 +726,7 @@
                 "textMode": "auto"
               }
             },
-            "version": "13.0.2"
+            "version": "13.0.6"
           }
         }
       },
@@ -828,7 +828,7 @@
                 "textMode": "auto"
               }
             },
-            "version": "13.0.2"
+            "version": "13.0.6"
           }
         }
       },
@@ -910,7 +910,7 @@
                 "wideLayout": true
               }
             },
-            "version": "13.0.2"
+            "version": "13.0.6"
           }
         }
       },
@@ -1070,7 +1070,7 @@
                 }
               }
             },
-            "version": "13.0.2"
+            "version": "13.0.6"
           }
         }
       },
@@ -1173,7 +1173,7 @@
                 "textMode": "auto"
               }
             },
-            "version": "13.0.2"
+            "version": "13.0.6"
           }
         }
       },
@@ -1263,7 +1263,7 @@
                 "wideLayout": true
               }
             },
-            "version": "13.0.2"
+            "version": "13.0.6"
           }
         }
       },
@@ -1353,7 +1353,7 @@
                 "wideLayout": true
               }
             },
-            "version": "13.0.2"
+            "version": "13.0.6"
           }
         }
       },
@@ -1435,7 +1435,7 @@
                 "wideLayout": true
               }
             },
-            "version": "13.0.2"
+            "version": "13.0.6"
           }
         }
       },
@@ -1515,7 +1515,7 @@
                 "wideLayout": true
               }
             },
-            "version": "13.0.2"
+            "version": "13.0.6"
           }
         }
       },
@@ -1595,7 +1595,7 @@
                 "wideLayout": true
               }
             },
-            "version": "13.0.2"
+            "version": "13.0.6"
           }
         }
       },
@@ -1698,7 +1698,7 @@
                 "textMode": "auto"
               }
             },
-            "version": "13.0.2"
+            "version": "13.0.6"
           }
         }
       },
@@ -1801,7 +1801,7 @@
                 "textMode": "auto"
               }
             },
-            "version": "13.0.2"
+            "version": "13.0.6"
           }
         }
       },
@@ -1904,7 +1904,7 @@
                 "textMode": "auto"
               }
             },
-            "version": "13.0.2"
+            "version": "13.0.6"
           }
         }
       },
@@ -2007,7 +2007,7 @@
                 "textMode": "auto"
               }
             },
-            "version": "13.0.2"
+            "version": "13.0.6"
           }
         }
       }
@@ -2336,7 +2336,20 @@
         ]
       }
     },
-    "links": [],
+    "links": [
+      {
+        "asDropdown": false,
+        "icon": "external link",
+        "includeVars": false,
+        "keepTime": false,
+        "tags": [],
+        "targetBlank": true,
+        "title": "Source (GitHub)",
+        "tooltip": "View source file in repository",
+        "type": "link",
+        "url": "https://github.com/Daniel-W-Innes/grafana/blob/main/borgmatic.json"
+      }
+    ],
     "liveNow": false,
     "preload": false,
     "tags": [
