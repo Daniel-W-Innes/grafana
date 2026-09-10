@@ -562,7 +562,7 @@
           "description": "Distinct days holding borgmatic archives, of the keep_daily = 14 target in borgmatic.nix. Full gauge = retention target; red \u003c5, orange 5-9, green \u003e=10.",
           "id": 13,
           "links": [],
-          "title": "Archive days",
+          "title": "Days",
           "vizConfig": {
             "group": "gauge",
             "kind": "VizConfig",
@@ -664,7 +664,7 @@
           "description": "Distinct ISO weeks holding borgmatic archives, of the keep_weekly = 10 target in borgmatic.nix. Full gauge = retention target; red \u003c3, orange 3-6, green \u003e=7.",
           "id": 14,
           "links": [],
-          "title": "Archive weeks",
+          "title": "Weeks",
           "vizConfig": {
             "group": "gauge",
             "kind": "VizConfig",
@@ -763,10 +763,10 @@
               "transformations": []
             }
           },
-          "description": "Distinct years holding borgmatic archives, of the keep_yearly = 3 target in borgmatic.nix. Full gauge = retention target; red 0, orange 1, green \u003e=2.",
+          "description": "Distinct years holding borgmatic archives, of the keep_yearly = 4 target in borgmatic.nix. Full gauge = retention target; red 0, orange 1, green \u003e=2.",
           "id": 15,
           "links": [],
-          "title": "Archive years",
+          "title": "Years",
           "vizConfig": {
             "group": "gauge",
             "kind": "VizConfig",
@@ -777,7 +777,7 @@
                     "mode": "thresholds"
                   },
                   "decimals": 0,
-                  "max": 3,
+                  "max": 4,
                   "min": 0,
                   "thresholds": {
                     "mode": "absolute",
@@ -1351,6 +1351,108 @@
                 "showPercentChange": false,
                 "textMode": "value",
                 "wideLayout": true
+              }
+            },
+            "version": "13.0.6"
+          }
+        }
+      },
+      "panel-20": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "PBFA97CFB590B2093"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "editorMode": "code",
+                        "expr": "borgmatic_archive_months{job=\"node_exporter\", instance=\"onion.lc.brotherwolf.ca:9100\"}",
+                        "legendFormat": "__auto",
+                        "range": true
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "Distinct months holding borgmatic archives, of the keep_monthly = 12 target in borgmatic.nix. Full gauge = retention target; red \u003c3, orange 3-6, green \u003e=8.",
+          "id": 20,
+          "links": [],
+          "title": "Months",
+          "vizConfig": {
+            "group": "gauge",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "thresholds"
+                  },
+                  "decimals": 0,
+                  "max": 12,
+                  "min": 0,
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "red",
+                        "value": 0
+                      },
+                      {
+                        "color": "orange",
+                        "value": 3
+                      },
+                      {
+                        "color": "green",
+                        "value": 8
+                      }
+                    ]
+                  }
+                },
+                "overrides": []
+              },
+              "options": {
+                "barShape": "flat",
+                "barWidthFactor": 0.5,
+                "effects": {
+                  "barGlow": false,
+                  "centerGlow": false,
+                  "gradient": false
+                },
+                "endpointMarker": "point",
+                "minVizHeight": 75,
+                "minVizWidth": 75,
+                "orientation": "auto",
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
+                "segmentCount": 1,
+                "segmentSpacing": 0.3,
+                "shape": "gauge",
+                "showThresholdLabels": false,
+                "showThresholdMarkers": true,
+                "sizing": "auto",
+                "sparkline": false,
+                "textMode": "auto"
               }
             },
             "version": "13.0.6"
@@ -2230,7 +2332,7 @@
                           "name": "panel-13"
                         },
                         "height": 5,
-                        "width": 6,
+                        "width": 5,
                         "x": 0,
                         "y": 0
                       }
@@ -2243,8 +2345,21 @@
                           "name": "panel-14"
                         },
                         "height": 5,
-                        "width": 6,
-                        "x": 6,
+                        "width": 5,
+                        "x": 5,
+                        "y": 0
+                      }
+                    },
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-20"
+                        },
+                        "height": 5,
+                        "width": 5,
+                        "x": 10,
                         "y": 0
                       }
                     },
@@ -2256,8 +2371,8 @@
                           "name": "panel-15"
                         },
                         "height": 5,
-                        "width": 6,
-                        "x": 12,
+                        "width": 5,
+                        "x": 15,
                         "y": 0
                       }
                     },
@@ -2269,8 +2384,8 @@
                           "name": "panel-16"
                         },
                         "height": 5,
-                        "width": 6,
-                        "x": 18,
+                        "width": 4,
+                        "x": 20,
                         "y": 0
                       }
                     }
@@ -2369,10 +2484,10 @@
         "2h"
       ],
       "fiscalYearStartMonth": 0,
-      "from": "now-7d",
+      "from": "2026-08-30T13:27:50.467Z",
       "hideTimepicker": false,
       "timezone": "browser",
-      "to": "now"
+      "to": "2026-09-13T13:27:50.467Z"
     },
     "title": "Borgmatic",
     "variables": []
