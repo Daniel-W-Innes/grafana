@@ -1158,7 +1158,7 @@
                       "spec": {
                         "editorMode": "code",
                         "exemplar": false,
-                        "expr": "sum_over_time(((sum by (job, instance) (openweathermap_current_rain_depth_meters + openweathermap_current_snow_depth_meters) \u003e bool 0) * on(job, instance) (sum by (job, instance) (openweathermap_forecast_rain_depth_meters{forecast_type=\"hourly\", offset_hours=\"$forecast_lead\"} offset ${forecast_lead}h + openweathermap_forecast_snow_depth_meters{forecast_type=\"hourly\", offset_hours=\"$forecast_lead\"} offset ${forecast_lead}h) \u003e bool 0))[$__range:1h])",
+                        "expr": "sum_over_time(((sum by (job, instance) (openweathermap_current_rain_depth_meters + openweathermap_current_snow_depth_meters) \u003e= bool 0.0001) * on(job, instance) (sum by (job, instance) (openweathermap_forecast_rain_depth_meters{forecast_type=\"hourly\", offset_hours=\"$forecast_lead\"} offset ${forecast_lead}h + openweathermap_forecast_snow_depth_meters{forecast_type=\"hourly\", offset_hours=\"$forecast_lead\"} offset ${forecast_lead}h) \u003e= bool 0.0001))[$__range:1h])",
                         "instant": true,
                         "legendFormat": "__auto",
                         "range": false
@@ -1173,7 +1173,7 @@
               "transformations": []
             }
           },
-          "description": "Confusion matrix for any precipitation (rain or snow) at the selected lead over the selected range: rows are actual, columns are forecast. This cell: precipitation in both.",
+          "description": "Confusion matrix for precipitation of at least 0.1 mm/h (rain or snow) at the selected lead over the selected range: rows are actual, columns are forecast. This cell: precipitation in both.",
           "id": 17,
           "links": [],
           "title": "Precipitation Hit",
@@ -1234,7 +1234,7 @@
                       "spec": {
                         "editorMode": "code",
                         "exemplar": false,
-                        "expr": "sum_over_time(((sum by (job, instance) (openweathermap_current_rain_depth_meters + openweathermap_current_snow_depth_meters) \u003e bool 0) * on(job, instance) (sum by (job, instance) (openweathermap_forecast_rain_depth_meters{forecast_type=\"hourly\", offset_hours=\"$forecast_lead\"} offset ${forecast_lead}h + openweathermap_forecast_snow_depth_meters{forecast_type=\"hourly\", offset_hours=\"$forecast_lead\"} offset ${forecast_lead}h) \u003c= bool 0))[$__range:1h])",
+                        "expr": "sum_over_time(((sum by (job, instance) (openweathermap_current_rain_depth_meters + openweathermap_current_snow_depth_meters) \u003e= bool 0.0001) * on(job, instance) (sum by (job, instance) (openweathermap_forecast_rain_depth_meters{forecast_type=\"hourly\", offset_hours=\"$forecast_lead\"} offset ${forecast_lead}h + openweathermap_forecast_snow_depth_meters{forecast_type=\"hourly\", offset_hours=\"$forecast_lead\"} offset ${forecast_lead}h) \u003c bool 0.0001))[$__range:1h])",
                         "instant": true,
                         "legendFormat": "__auto",
                         "range": false
@@ -1249,7 +1249,7 @@
               "transformations": []
             }
           },
-          "description": "Hours with actual precipitation that the forecast at the selected lead called dry.",
+          "description": "Hours with actual precipitation (0.1 mm/h or more) that the forecast at the selected lead called dry.",
           "id": 18,
           "links": [],
           "title": "Precipitation Miss",
@@ -1322,7 +1322,7 @@
                       "spec": {
                         "editorMode": "code",
                         "exemplar": false,
-                        "expr": "sum_over_time(((sum by (job, instance) (openweathermap_current_rain_depth_meters + openweathermap_current_snow_depth_meters) \u003c= bool 0) * on(job, instance) (sum by (job, instance) (openweathermap_forecast_rain_depth_meters{forecast_type=\"hourly\", offset_hours=\"$forecast_lead\"} offset ${forecast_lead}h + openweathermap_forecast_snow_depth_meters{forecast_type=\"hourly\", offset_hours=\"$forecast_lead\"} offset ${forecast_lead}h) \u003e bool 0))[$__range:1h])",
+                        "expr": "sum_over_time(((sum by (job, instance) (openweathermap_current_rain_depth_meters + openweathermap_current_snow_depth_meters) \u003c bool 0.0001) * on(job, instance) (sum by (job, instance) (openweathermap_forecast_rain_depth_meters{forecast_type=\"hourly\", offset_hours=\"$forecast_lead\"} offset ${forecast_lead}h + openweathermap_forecast_snow_depth_meters{forecast_type=\"hourly\", offset_hours=\"$forecast_lead\"} offset ${forecast_lead}h) \u003e= bool 0.0001))[$__range:1h])",
                         "instant": true,
                         "legendFormat": "__auto",
                         "range": false
@@ -1337,7 +1337,7 @@
               "transformations": []
             }
           },
-          "description": "Hours the forecast at the selected lead called wet but no precipitation fell.",
+          "description": "Hours the forecast at the selected lead called wet (0.1 mm/h or more) but the actual stayed under 0.1 mm/h.",
           "id": 19,
           "links": [],
           "title": "Precipitation False Alarm",
@@ -1410,7 +1410,7 @@
                       "spec": {
                         "editorMode": "code",
                         "exemplar": false,
-                        "expr": "sum_over_time(((sum by (job, instance) (openweathermap_current_rain_depth_meters + openweathermap_current_snow_depth_meters) \u003c= bool 0) * on(job, instance) (sum by (job, instance) (openweathermap_forecast_rain_depth_meters{forecast_type=\"hourly\", offset_hours=\"$forecast_lead\"} offset ${forecast_lead}h + openweathermap_forecast_snow_depth_meters{forecast_type=\"hourly\", offset_hours=\"$forecast_lead\"} offset ${forecast_lead}h) \u003c= bool 0))[$__range:1h])",
+                        "expr": "sum_over_time(((sum by (job, instance) (openweathermap_current_rain_depth_meters + openweathermap_current_snow_depth_meters) \u003c bool 0.0001) * on(job, instance) (sum by (job, instance) (openweathermap_forecast_rain_depth_meters{forecast_type=\"hourly\", offset_hours=\"$forecast_lead\"} offset ${forecast_lead}h + openweathermap_forecast_snow_depth_meters{forecast_type=\"hourly\", offset_hours=\"$forecast_lead\"} offset ${forecast_lead}h) \u003c bool 0.0001))[$__range:1h])",
                         "instant": true,
                         "legendFormat": "__auto",
                         "range": false
@@ -1425,7 +1425,7 @@
               "transformations": []
             }
           },
-          "description": "Hours with no precipitation in the forecast or the actual.",
+          "description": "Hours with both forecast and actual under 0.1 mm/h.",
           "id": 20,
           "links": [],
           "title": "Correct Dry Hours",
