@@ -233,7 +233,7 @@
           "description": "Forecast minus actual by lead time. Positive episodes mean forecasts ran warm; the gray line is zero.",
           "id": 10,
           "links": [],
-          "title": "Forecast Error by Lead Time",
+          "title": "Temperature Forecast Error by Lead Time",
           "vizConfig": {
             "group": "timeseries",
             "kind": "VizConfig",
@@ -1677,7 +1677,7 @@
           "description": "How RMSE grows with lead time. Forecasts target hour boundaries while actuals are instantaneous, so sub-hour alignment noise slightly inflates short leads.",
           "id": 7,
           "links": [],
-          "title": "RMSE by Lead Time",
+          "title": "Temperature RMSE by Lead Time",
           "vizConfig": {
             "group": "bargauge",
             "kind": "VizConfig",
@@ -1819,7 +1819,7 @@
           "description": "Bias and RMSE per lead time over the selected range.",
           "id": 8,
           "links": [],
-          "title": "Error by Lead Time",
+          "title": "Temperature Error by Lead Time",
           "vizConfig": {
             "group": "table",
             "kind": "VizConfig",
@@ -2203,21 +2203,7 @@
                         "x": 12,
                         "y": 0
                       }
-                    }
-                  ]
-                }
-              },
-              "title": "Accuracy by Lead Time"
-            }
-          },
-          {
-            "kind": "RowsLayoutRow",
-            "spec": {
-              "collapse": false,
-              "layout": {
-                "kind": "GridLayout",
-                "spec": {
-                  "items": [
+                    },
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
@@ -2228,23 +2214,9 @@
                         "height": 8,
                         "width": 24,
                         "x": 0,
-                        "y": 0
+                        "y": 8
                       }
-                    }
-                  ]
-                }
-              },
-              "title": "Forecast vs Actual"
-            }
-          },
-          {
-            "kind": "RowsLayoutRow",
-            "spec": {
-              "collapse": false,
-              "layout": {
-                "kind": "GridLayout",
-                "spec": {
-                  "items": [
+                    },
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
@@ -2255,13 +2227,13 @@
                         "height": 9,
                         "width": 24,
                         "x": 0,
-                        "y": 0
+                        "y": 16
                       }
                     }
                   ]
                 }
               },
-              "title": "Error Over Time"
+              "title": "Temperature"
             }
           },
           {
