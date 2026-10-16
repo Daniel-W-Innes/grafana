@@ -1810,7 +1810,7 @@
             "text": "Prometheus",
             "value": "PBFA97CFB590B2093"
           },
-          "hide": "variable",
+          "hide": "dontHide",
           "includeAll": false,
           "label": "Datasource",
           "multi": false,
