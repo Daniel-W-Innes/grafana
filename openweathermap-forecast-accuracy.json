@@ -13,7 +13,7 @@
           "enable": true,
           "hide": true,
           "iconColor": "rgba(0, 211, 255, 1)",
-          "name": "Annotations & Alerts",
+          "name": "Annotations \u0026 Alerts",
           "query": {
             "group": "grafana",
             "kind": "DataQuery",
@@ -29,7 +29,7 @@
       }
     ],
     "cursorSync": "Off",
-    "description": "How accurate past hourly temperature forecasts have been: forecast-minus-actual error by lead time over the selected range (melon location, openweathermap exporter). Normal: RMSE ~2-2.5 \u00b0C at 6-24 h lead and ~1.5 \u00b0C at 47 h; mean error within \u00b10.6 \u00b0C.",
+    "description": "How accurate past hourly temperature and precipitation (rain plus snow) forecasts have been: forecast-minus-actual error by lead time over the selected range (melon location, openweathermap exporter). Normal: temperature RMSE ~2-2.5 °C at 6-24 h lead and ~1.5 °C at 47 h; mean error within ±0.6 °C. Precipitation RMSE ~1-1.5 mm at 3-47 h lead (event-driven; dominated by rain hours).",
     "editable": true,
     "elements": {
       "panel-1": {
@@ -107,6 +107,1300 @@
                 "showPercentChange": false,
                 "textMode": "auto",
                 "wideLayout": true
+              }
+            },
+            "version": "13.0.2"
+          }
+        }
+      },
+      "panel-10": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "${ds_prometheus}"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "editorMode": "code",
+                        "expr": "(openweathermap_forecast_temperature_celsius{forecast_type=\"hourly\", offset_hours=\"6\"} offset 6h) - on(job, instance) openweathermap_current_temperature_celsius",
+                        "legendFormat": "±6 h",
+                        "range": true
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "${ds_prometheus}"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "editorMode": "code",
+                        "expr": "(openweathermap_forecast_temperature_celsius{forecast_type=\"hourly\", offset_hours=\"12\"} offset 12h) - on(job, instance) openweathermap_current_temperature_celsius",
+                        "legendFormat": "±12 h",
+                        "range": true
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "B"
+                  }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "${ds_prometheus}"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "editorMode": "code",
+                        "expr": "(openweathermap_forecast_temperature_celsius{forecast_type=\"hourly\", offset_hours=\"24\"} offset 24h) - on(job, instance) openweathermap_current_temperature_celsius",
+                        "legendFormat": "±24 h",
+                        "range": true
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "C"
+                  }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "${ds_prometheus}"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "editorMode": "code",
+                        "expr": "(openweathermap_forecast_temperature_celsius{forecast_type=\"hourly\", offset_hours=\"47\"} offset 47h) - on(job, instance) openweathermap_current_temperature_celsius",
+                        "legendFormat": "±47 h",
+                        "range": true
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "D"
+                  }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "${ds_prometheus}"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "editorMode": "code",
+                        "expr": "vector(0)",
+                        "legendFormat": "zero",
+                        "range": true
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "E"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "Forecast minus actual by lead time. Positive episodes mean forecasts ran warm; the gray line is zero.",
+          "id": 10,
+          "links": [],
+          "title": "Forecast Error by Lead Time",
+          "vizConfig": {
+            "group": "timeseries",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
+                    "drawStyle": "line",
+                    "fillOpacity": 0,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 2,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "never",
+                    "showValues": false,
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "decimals": 1,
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": 0
+                      }
+                    ]
+                  },
+                  "unit": "celsius"
+                },
+                "overrides": [
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "±6 h"
+                    },
+                    "properties": [
+                      {
+                        "id": "color",
+                        "value": {
+                          "fixedColor": "#3987e5",
+                          "mode": "fixed"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "±12 h"
+                    },
+                    "properties": [
+                      {
+                        "id": "color",
+                        "value": {
+                          "fixedColor": "#d95926",
+                          "mode": "fixed"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "±24 h"
+                    },
+                    "properties": [
+                      {
+                        "id": "color",
+                        "value": {
+                          "fixedColor": "#199e70",
+                          "mode": "fixed"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "±47 h"
+                    },
+                    "properties": [
+                      {
+                        "id": "color",
+                        "value": {
+                          "fixedColor": "#c98500",
+                          "mode": "fixed"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "zero"
+                    },
+                    "properties": [
+                      {
+                        "id": "color",
+                        "value": {
+                          "fixedColor": "#898781",
+                          "mode": "fixed"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              "options": {
+                "annotations": {
+                  "clustering": -1,
+                  "multiLane": false
+                },
+                "legend": {
+                  "calcs": [
+                    "mean",
+                    "stdDev",
+                    "max",
+                    "min"
+                  ],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "multi",
+                  "sort": "none"
+                }
+              }
+            },
+            "version": "13.0.2"
+          }
+        }
+      },
+      "panel-11": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "${ds_prometheus}"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "editorMode": "code",
+                        "expr": "openweathermap_current_temperature_celsius",
+                        "legendFormat": "Actual",
+                        "range": true
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "${ds_prometheus}"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "editorMode": "code",
+                        "expr": "(openweathermap_forecast_temperature_celsius{forecast_type=\"hourly\", offset_hours=\"47\"} offset 47h) - on(job, instance) (openweathermap_current_temperature_celsius * 0)",
+                        "legendFormat": "47 h ahead",
+                        "range": true
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "B"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "What the forecast issued 47 h earlier predicted for each hour, shifted to the target hour, against the actual temperature.",
+          "id": 11,
+          "links": [],
+          "title": "47 h Ahead Forecast vs Actual Temperature",
+          "vizConfig": {
+            "group": "timeseries",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
+                    "drawStyle": "line",
+                    "fillOpacity": 0,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 2,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "never",
+                    "showValues": false,
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "decimals": 1,
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": 0
+                      }
+                    ]
+                  },
+                  "unit": "celsius"
+                },
+                "overrides": [
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "Actual"
+                    },
+                    "properties": [
+                      {
+                        "id": "color",
+                        "value": {
+                          "fixedColor": "#3987e5",
+                          "mode": "fixed"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "47 h ahead"
+                    },
+                    "properties": [
+                      {
+                        "id": "color",
+                        "value": {
+                          "fixedColor": "#c98500",
+                          "mode": "fixed"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              "options": {
+                "annotations": {
+                  "clustering": -1,
+                  "multiLane": false
+                },
+                "legend": {
+                  "calcs": [
+                    "mean",
+                    "stdDev",
+                    "max",
+                    "min"
+                  ],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "multi",
+                  "sort": "none"
+                }
+              }
+            },
+            "version": "13.0.2"
+          }
+        }
+      },
+      "panel-12": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "${ds_prometheus}"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "editorMode": "code",
+                        "exemplar": false,
+                        "expr": "avg by (absolute_hours) (avg_over_time((openweathermap_forecast_temperature_celsius{forecast_type=\"hourly\", offset_hours=\"24\"} offset 24h - on(job, instance) group_left openweathermap_current_temperature_celsius)[$__range:1h]))",
+                        "format": "table",
+                        "instant": true,
+                        "legendFormat": "__auto",
+                        "range": false
+                      },
+                      "version": "v0"
+                    },
+                    "refId": "A"
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": [
+                {
+                  "group": "organize",
+                  "kind": "Transformation",
+                  "spec": {
+                    "options": {
+                      "excludeByName": {
+                        "Time": true
+                      },
+                      "renameByName": {
+                        "Value": "Mean Error",
+                        "absolute_hours": "Hour"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "description": "Mean forecast-minus-actual per target hour of day at 24 h lead; the hours with the most systematic bias sort first.",
+          "id": 12,
+          "links": [],
+          "title": "24 h Lead Mean Error by Hour of Day",
+          "vizConfig": {
+            "group": "table",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "thresholds"
+                  },
+                  "custom": {
+                    "align": "auto",
+                    "cellOptions": {
+                      "type": "auto"
+                    },
+                    "inspect": false
+                  },
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": null
+                      }
+                    ]
+                  }
+                },
+                "overrides": [
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "Mean Error"
+                    },
+                    "properties": [
+                      {
+                        "id": "unit",
+                        "value": "celsius"
+                      },
+                      {
+                        "id": "decimals",
+                        "value": 1
+                      }
+                    ]
+                  }
+                ]
+              },
+              "options": {
+                "cellHeight": "sm",
+                "footer": {
+                  "countRows": false,
+                  "fields": "",
+                  "reducer": [
+                    "sum"
+                  ],
+                  "show": false
+                },
+                "frameIndex": 0,
+                "showHeader": true,
+                "sortBy": [
+                  {
+                    "desc": true,
+                    "displayName": "Mean Error"
+                  }
+                ]
+              }
+            },
+            "version": "9.5.2"
+          }
+        }
+      },
+      "panel-13": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "${ds_prometheus}"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "editorMode": "code",
+                        "exemplar": false,
+                        "expr": "label_replace(sqrt(avg by (job, instance) (avg_over_time(((sum by (job, instance) (openweathermap_forecast_rain_depth_meters{forecast_type=\"hourly\", offset_hours=\"1\"} offset 1h + openweathermap_forecast_snow_depth_meters{forecast_type=\"hourly\", offset_hours=\"1\"} offset 1h) - on(job, instance) group_left sum by (job, instance) (openweathermap_current_rain_depth_meters + openweathermap_current_snow_depth_meters))^2)[$__range:1h]))) * 1000, \"lead\", \"1 h\", \"job\", \".+\") or label_replace(sqrt(avg by (job, instance) (avg_over_time(((sum by (job, instance) (openweathermap_forecast_rain_depth_meters{forecast_type=\"hourly\", offset_hours=\"3\"} offset 3h + openweathermap_forecast_snow_depth_meters{forecast_type=\"hourly\", offset_hours=\"3\"} offset 3h) - on(job, instance) group_left sum by (job, instance) (openweathermap_current_rain_depth_meters + openweathermap_current_snow_depth_meters))^2)[$__range:1h]))) * 1000, \"lead\", \"3 h\", \"job\", \".+\") or label_replace(sqrt(avg by (job, instance) (avg_over_time(((sum by (job, instance) (openweathermap_forecast_rain_depth_meters{forecast_type=\"hourly\", offset_hours=\"6\"} offset 6h + openweathermap_forecast_snow_depth_meters{forecast_type=\"hourly\", offset_hours=\"6\"} offset 6h) - on(job, instance) group_left sum by (job, instance) (openweathermap_current_rain_depth_meters + openweathermap_current_snow_depth_meters))^2)[$__range:1h]))) * 1000, \"lead\", \"6 h\", \"job\", \".+\") or label_replace(sqrt(avg by (job, instance) (avg_over_time(((sum by (job, instance) (openweathermap_forecast_rain_depth_meters{forecast_type=\"hourly\", offset_hours=\"12\"} offset 12h + openweathermap_forecast_snow_depth_meters{forecast_type=\"hourly\", offset_hours=\"12\"} offset 12h) - on(job, instance) group_left sum by (job, instance) (openweathermap_current_rain_depth_meters + openweathermap_current_snow_depth_meters))^2)[$__range:1h]))) * 1000, \"lead\", \"12 h\", \"job\", \".+\") or label_replace(sqrt(avg by (job, instance) (avg_over_time(((sum by (job, instance) (openweathermap_forecast_rain_depth_meters{forecast_type=\"hourly\", offset_hours=\"24\"} offset 24h + openweathermap_forecast_snow_depth_meters{forecast_type=\"hourly\", offset_hours=\"24\"} offset 24h) - on(job, instance) group_left sum by (job, instance) (openweathermap_current_rain_depth_meters + openweathermap_current_snow_depth_meters))^2)[$__range:1h]))) * 1000, \"lead\", \"24 h\", \"job\", \".+\") or label_replace(sqrt(avg by (job, instance) (avg_over_time(((sum by (job, instance) (openweathermap_forecast_rain_depth_meters{forecast_type=\"hourly\", offset_hours=\"36\"} offset 36h + openweathermap_forecast_snow_depth_meters{forecast_type=\"hourly\", offset_hours=\"36\"} offset 36h) - on(job, instance) group_left sum by (job, instance) (openweathermap_current_rain_depth_meters + openweathermap_current_snow_depth_meters))^2)[$__range:1h]))) * 1000, \"lead\", \"36 h\", \"job\", \".+\") or label_replace(sqrt(avg by (job, instance) (avg_over_time(((sum by (job, instance) (openweathermap_forecast_rain_depth_meters{forecast_type=\"hourly\", offset_hours=\"47\"} offset 47h + openweathermap_forecast_snow_depth_meters{forecast_type=\"hourly\", offset_hours=\"47\"} offset 47h) - on(job, instance) group_left sum by (job, instance) (openweathermap_current_rain_depth_meters + openweathermap_current_snow_depth_meters))^2)[$__range:1h]))) * 1000, \"lead\", \"47 h\", \"job\", \".+\")",
+                        "instant": true,
+                        "legendFormat": "{{lead}}",
+                        "range": false
+                      },
+                      "version": "v0"
+                    },
+                    "refId": ""
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "How precipitation RMSE (rain plus snow, liquid-equivalent mm) grows with lead time over the selected range. Sparse dry hours keep values small; the 1 h lead is inflated by the hour-boundary misalignment between the trailing-hour actual and the forward-hour forecast.",
+          "id": 13,
+          "links": [],
+          "title": "Precipitation RMSE by Lead Time",
+          "vizConfig": {
+            "group": "bargauge",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "thresholds"
+                  },
+                  "decimals": 1,
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "blue",
+                        "value": 0
+                      }
+                    ]
+                  },
+                  "unit": "lengthmm"
+                },
+                "overrides": []
+              },
+              "options": {
+                "displayMode": "gradient",
+                "legend": {
+                  "calcs": [],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": false
+                },
+                "maxVizHeight": 300,
+                "minVizHeight": 16,
+                "minVizWidth": 8,
+                "namePlacement": "auto",
+                "orientation": "vertical",
+                "reduceOptions": {
+                  "calcs": [
+                    "last"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
+                "showUnfilled": true,
+                "sizing": "auto",
+                "text": {},
+                "valueMode": "color"
+              }
+            },
+            "version": "13.0.2"
+          }
+        }
+      },
+      "panel-14": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "${ds_prometheus}"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "editorMode": "code",
+                        "exemplar": false,
+                        "expr": "label_replace(avg by (job, instance) (avg_over_time((sum by (job, instance) (openweathermap_forecast_rain_depth_meters{forecast_type=\"hourly\", offset_hours=\"1\"} offset 1h + openweathermap_forecast_snow_depth_meters{forecast_type=\"hourly\", offset_hours=\"1\"} offset 1h) - on(job, instance) group_left sum by (job, instance) (openweathermap_current_rain_depth_meters + openweathermap_current_snow_depth_meters))[$__range:1h])) * 1000, \"lead\", \"1 h\", \"job\", \".+\") or label_replace(avg by (job, instance) (avg_over_time((sum by (job, instance) (openweathermap_forecast_rain_depth_meters{forecast_type=\"hourly\", offset_hours=\"3\"} offset 3h + openweathermap_forecast_snow_depth_meters{forecast_type=\"hourly\", offset_hours=\"3\"} offset 3h) - on(job, instance) group_left sum by (job, instance) (openweathermap_current_rain_depth_meters + openweathermap_current_snow_depth_meters))[$__range:1h])) * 1000, \"lead\", \"3 h\", \"job\", \".+\") or label_replace(avg by (job, instance) (avg_over_time((sum by (job, instance) (openweathermap_forecast_rain_depth_meters{forecast_type=\"hourly\", offset_hours=\"6\"} offset 6h + openweathermap_forecast_snow_depth_meters{forecast_type=\"hourly\", offset_hours=\"6\"} offset 6h) - on(job, instance) group_left sum by (job, instance) (openweathermap_current_rain_depth_meters + openweathermap_current_snow_depth_meters))[$__range:1h])) * 1000, \"lead\", \"6 h\", \"job\", \".+\") or label_replace(avg by (job, instance) (avg_over_time((sum by (job, instance) (openweathermap_forecast_rain_depth_meters{forecast_type=\"hourly\", offset_hours=\"12\"} offset 12h + openweathermap_forecast_snow_depth_meters{forecast_type=\"hourly\", offset_hours=\"12\"} offset 12h) - on(job, instance) group_left sum by (job, instance) (openweathermap_current_rain_depth_meters + openweathermap_current_snow_depth_meters))[$__range:1h])) * 1000, \"lead\", \"12 h\", \"job\", \".+\") or label_replace(avg by (job, instance) (avg_over_time((sum by (job, instance) (openweathermap_forecast_rain_depth_meters{forecast_type=\"hourly\", offset_hours=\"24\"} offset 24h + openweathermap_forecast_snow_depth_meters{forecast_type=\"hourly\", offset_hours=\"24\"} offset 24h) - on(job, instance) group_left sum by (job, instance) (openweathermap_current_rain_depth_meters + openweathermap_current_snow_depth_meters))[$__range:1h])) * 1000, \"lead\", \"24 h\", \"job\", \".+\") or label_replace(avg by (job, instance) (avg_over_time((sum by (job, instance) (openweathermap_forecast_rain_depth_meters{forecast_type=\"hourly\", offset_hours=\"36\"} offset 36h + openweathermap_forecast_snow_depth_meters{forecast_type=\"hourly\", offset_hours=\"36\"} offset 36h) - on(job, instance) group_left sum by (job, instance) (openweathermap_current_rain_depth_meters + openweathermap_current_snow_depth_meters))[$__range:1h])) * 1000, \"lead\", \"36 h\", \"job\", \".+\") or label_replace(avg by (job, instance) (avg_over_time((sum by (job, instance) (openweathermap_forecast_rain_depth_meters{forecast_type=\"hourly\", offset_hours=\"47\"} offset 47h + openweathermap_forecast_snow_depth_meters{forecast_type=\"hourly\", offset_hours=\"47\"} offset 47h) - on(job, instance) group_left sum by (job, instance) (openweathermap_current_rain_depth_meters + openweathermap_current_snow_depth_meters))[$__range:1h])) * 1000, \"lead\", \"47 h\", \"job\", \".+\")",
+                        "format": "table",
+                        "instant": true,
+                        "legendFormat": "{{lead}}",
+                        "range": false
+                      },
+                      "version": "v0"
+                    },
+                    "refId": ""
+                  }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "${ds_prometheus}"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "editorMode": "code",
+                        "exemplar": false,
+                        "expr": "label_replace(sqrt(avg by (job, instance) (avg_over_time(((sum by (job, instance) (openweathermap_forecast_rain_depth_meters{forecast_type=\"hourly\", offset_hours=\"1\"} offset 1h + openweathermap_forecast_snow_depth_meters{forecast_type=\"hourly\", offset_hours=\"1\"} offset 1h) - on(job, instance) group_left sum by (job, instance) (openweathermap_current_rain_depth_meters + openweathermap_current_snow_depth_meters))^2)[$__range:1h]))) * 1000, \"lead\", \"1 h\", \"job\", \".+\") or label_replace(sqrt(avg by (job, instance) (avg_over_time(((sum by (job, instance) (openweathermap_forecast_rain_depth_meters{forecast_type=\"hourly\", offset_hours=\"3\"} offset 3h + openweathermap_forecast_snow_depth_meters{forecast_type=\"hourly\", offset_hours=\"3\"} offset 3h) - on(job, instance) group_left sum by (job, instance) (openweathermap_current_rain_depth_meters + openweathermap_current_snow_depth_meters))^2)[$__range:1h]))) * 1000, \"lead\", \"3 h\", \"job\", \".+\") or label_replace(sqrt(avg by (job, instance) (avg_over_time(((sum by (job, instance) (openweathermap_forecast_rain_depth_meters{forecast_type=\"hourly\", offset_hours=\"6\"} offset 6h + openweathermap_forecast_snow_depth_meters{forecast_type=\"hourly\", offset_hours=\"6\"} offset 6h) - on(job, instance) group_left sum by (job, instance) (openweathermap_current_rain_depth_meters + openweathermap_current_snow_depth_meters))^2)[$__range:1h]))) * 1000, \"lead\", \"6 h\", \"job\", \".+\") or label_replace(sqrt(avg by (job, instance) (avg_over_time(((sum by (job, instance) (openweathermap_forecast_rain_depth_meters{forecast_type=\"hourly\", offset_hours=\"12\"} offset 12h + openweathermap_forecast_snow_depth_meters{forecast_type=\"hourly\", offset_hours=\"12\"} offset 12h) - on(job, instance) group_left sum by (job, instance) (openweathermap_current_rain_depth_meters + openweathermap_current_snow_depth_meters))^2)[$__range:1h]))) * 1000, \"lead\", \"12 h\", \"job\", \".+\") or label_replace(sqrt(avg by (job, instance) (avg_over_time(((sum by (job, instance) (openweathermap_forecast_rain_depth_meters{forecast_type=\"hourly\", offset_hours=\"24\"} offset 24h + openweathermap_forecast_snow_depth_meters{forecast_type=\"hourly\", offset_hours=\"24\"} offset 24h) - on(job, instance) group_left sum by (job, instance) (openweathermap_current_rain_depth_meters + openweathermap_current_snow_depth_meters))^2)[$__range:1h]))) * 1000, \"lead\", \"24 h\", \"job\", \".+\") or label_replace(sqrt(avg by (job, instance) (avg_over_time(((sum by (job, instance) (openweathermap_forecast_rain_depth_meters{forecast_type=\"hourly\", offset_hours=\"36\"} offset 36h + openweathermap_forecast_snow_depth_meters{forecast_type=\"hourly\", offset_hours=\"36\"} offset 36h) - on(job, instance) group_left sum by (job, instance) (openweathermap_current_rain_depth_meters + openweathermap_current_snow_depth_meters))^2)[$__range:1h]))) * 1000, \"lead\", \"36 h\", \"job\", \".+\") or label_replace(sqrt(avg by (job, instance) (avg_over_time(((sum by (job, instance) (openweathermap_forecast_rain_depth_meters{forecast_type=\"hourly\", offset_hours=\"47\"} offset 47h + openweathermap_forecast_snow_depth_meters{forecast_type=\"hourly\", offset_hours=\"47\"} offset 47h) - on(job, instance) group_left sum by (job, instance) (openweathermap_current_rain_depth_meters + openweathermap_current_snow_depth_meters))^2)[$__range:1h]))) * 1000, \"lead\", \"47 h\", \"job\", \".+\")",
+                        "format": "table",
+                        "instant": true,
+                        "legendFormat": "{{lead}}",
+                        "range": false
+                      },
+                      "version": "v0"
+                    },
+                    "refId": ""
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": [
+                {
+                  "group": "concatenate",
+                  "kind": "Transformation",
+                  "spec": {
+                    "options": {}
+                  }
+                },
+                {
+                  "group": "organize",
+                  "kind": "Transformation",
+                  "spec": {
+                    "options": {
+                      "excludeByName": {
+                        "Time": true,
+                        "instance": true,
+                        "job": true
+                      },
+                      "renameByName": {
+                        "Value #A": "Mean Error",
+                        "Value #B": "RMSE"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "description": "Bias and RMSE per lead time over the selected range for rain plus snow (liquid-equivalent mm).",
+          "id": 14,
+          "links": [],
+          "title": "Precipitation Error by Lead Time",
+          "vizConfig": {
+            "group": "table",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "thresholds"
+                  },
+                  "custom": {
+                    "align": "auto",
+                    "cellOptions": {
+                      "type": "auto"
+                    },
+                    "inspect": false
+                  },
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": null
+                      }
+                    ]
+                  }
+                },
+                "overrides": [
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "Mean Error"
+                    },
+                    "properties": [
+                      {
+                        "id": "unit",
+                        "value": "lengthmm"
+                      },
+                      {
+                        "id": "decimals",
+                        "value": 2
+                      }
+                    ]
+                  },
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "RMSE"
+                    },
+                    "properties": [
+                      {
+                        "id": "unit",
+                        "value": "lengthmm"
+                      },
+                      {
+                        "id": "decimals",
+                        "value": 2
+                      }
+                    ]
+                  }
+                ]
+              },
+              "options": {
+                "cellHeight": "sm",
+                "footer": {
+                  "countRows": false,
+                  "fields": "",
+                  "reducer": [
+                    "sum"
+                  ],
+                  "show": false
+                },
+                "frameIndex": 0,
+                "showHeader": true,
+                "sortBy": []
+              }
+            },
+            "version": "9.5.2"
+          }
+        }
+      },
+      "panel-15": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "${ds_prometheus}"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "editorMode": "code",
+                        "expr": "(openweathermap_current_rain_depth_meters + openweathermap_current_snow_depth_meters) * 1000",
+                        "legendFormat": "Actual",
+                        "range": true
+                      },
+                      "version": "v0"
+                    },
+                    "refId": ""
+                  }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "${ds_prometheus}"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "editorMode": "code",
+                        "expr": "(sum by (job, instance) (openweathermap_forecast_rain_depth_meters{forecast_type=\"hourly\", offset_hours=\"24\"} offset 24h + openweathermap_forecast_snow_depth_meters{forecast_type=\"hourly\", offset_hours=\"24\"} offset 24h) - on(job, instance) (sum by (job, instance) (openweathermap_current_rain_depth_meters + openweathermap_current_snow_depth_meters) * 0)) * 1000",
+                        "legendFormat": "24 h ahead",
+                        "range": true
+                      },
+                      "version": "v0"
+                    },
+                    "refId": ""
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "What the forecast issued 24 h earlier predicted for each hour, shifted to the target hour, against measured rain plus snow. Actuals are trailing-hour accumulations, so hour-boundary events can shift by up to an hour.",
+          "id": 15,
+          "links": [],
+          "title": "24 h Ahead Forecast vs Actual Precipitation",
+          "vizConfig": {
+            "group": "timeseries",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
+                    "drawStyle": "line",
+                    "fillOpacity": 0,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 2,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "never",
+                    "showValues": false,
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "decimals": 1,
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": 0
+                      }
+                    ]
+                  },
+                  "unit": "lengthmm"
+                },
+                "overrides": [
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "Actual"
+                    },
+                    "properties": [
+                      {
+                        "id": "color",
+                        "value": {
+                          "fixedColor": "#3987e5",
+                          "mode": "fixed"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "24 h ahead"
+                    },
+                    "properties": [
+                      {
+                        "id": "color",
+                        "value": {
+                          "fixedColor": "#199e70",
+                          "mode": "fixed"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              "options": {
+                "annotations": {
+                  "clustering": -1,
+                  "multiLane": false
+                },
+                "legend": {
+                  "calcs": [
+                    "mean",
+                    "stdDev",
+                    "max",
+                    "min"
+                  ],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "multi",
+                  "sort": "none"
+                }
+              }
+            },
+            "version": "13.0.2"
+          }
+        }
+      },
+      "panel-16": {
+        "kind": "Panel",
+        "spec": {
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "${ds_prometheus}"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "editorMode": "code",
+                        "expr": "(sum by (job, instance) (openweathermap_forecast_rain_depth_meters{forecast_type=\"hourly\", offset_hours=\"6\"} offset 6h + openweathermap_forecast_snow_depth_meters{forecast_type=\"hourly\", offset_hours=\"6\"} offset 6h) - on(job, instance) sum by (job, instance) (openweathermap_current_rain_depth_meters + openweathermap_current_snow_depth_meters)) * 1000",
+                        "legendFormat": "±6 h",
+                        "range": true
+                      },
+                      "version": "v0"
+                    },
+                    "refId": ""
+                  }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "${ds_prometheus}"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "editorMode": "code",
+                        "expr": "(sum by (job, instance) (openweathermap_forecast_rain_depth_meters{forecast_type=\"hourly\", offset_hours=\"12\"} offset 12h + openweathermap_forecast_snow_depth_meters{forecast_type=\"hourly\", offset_hours=\"12\"} offset 12h) - on(job, instance) sum by (job, instance) (openweathermap_current_rain_depth_meters + openweathermap_current_snow_depth_meters)) * 1000",
+                        "legendFormat": "±12 h",
+                        "range": true
+                      },
+                      "version": "v0"
+                    },
+                    "refId": ""
+                  }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "${ds_prometheus}"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "editorMode": "code",
+                        "expr": "(sum by (job, instance) (openweathermap_forecast_rain_depth_meters{forecast_type=\"hourly\", offset_hours=\"24\"} offset 24h + openweathermap_forecast_snow_depth_meters{forecast_type=\"hourly\", offset_hours=\"24\"} offset 24h) - on(job, instance) sum by (job, instance) (openweathermap_current_rain_depth_meters + openweathermap_current_snow_depth_meters)) * 1000",
+                        "legendFormat": "±24 h",
+                        "range": true
+                      },
+                      "version": "v0"
+                    },
+                    "refId": ""
+                  }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "${ds_prometheus}"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "editorMode": "code",
+                        "expr": "(sum by (job, instance) (openweathermap_forecast_rain_depth_meters{forecast_type=\"hourly\", offset_hours=\"47\"} offset 47h + openweathermap_forecast_snow_depth_meters{forecast_type=\"hourly\", offset_hours=\"47\"} offset 47h) - on(job, instance) sum by (job, instance) (openweathermap_current_rain_depth_meters + openweathermap_current_snow_depth_meters)) * 1000",
+                        "legendFormat": "±47 h",
+                        "range": true
+                      },
+                      "version": "v0"
+                    },
+                    "refId": ""
+                  }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "hidden": false,
+                    "query": {
+                      "datasource": {
+                        "name": "${ds_prometheus}"
+                      },
+                      "group": "prometheus",
+                      "kind": "DataQuery",
+                      "spec": {
+                        "editorMode": "code",
+                        "expr": "vector(0)",
+                        "legendFormat": "zero",
+                        "range": true
+                      },
+                      "version": "v0"
+                    },
+                    "refId": ""
+                  }
+                }
+              ],
+              "queryOptions": {},
+              "transformations": []
+            }
+          },
+          "description": "Forecast minus actual precipitation by lead time. Positive episodes mean the forecast over-predicted rain; the gray line is zero.",
+          "id": 16,
+          "links": [],
+          "title": "Precipitation Forecast Error by Lead Time",
+          "vizConfig": {
+            "group": "timeseries",
+            "kind": "VizConfig",
+            "spec": {
+              "fieldConfig": {
+                "defaults": {
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
+                    "drawStyle": "line",
+                    "fillOpacity": 0,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 2,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "never",
+                    "showValues": false,
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  },
+                  "decimals": 1,
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": 0
+                      }
+                    ]
+                  },
+                  "unit": "lengthmm"
+                },
+                "overrides": [
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "±6 h"
+                    },
+                    "properties": [
+                      {
+                        "id": "color",
+                        "value": {
+                          "fixedColor": "#3987e5",
+                          "mode": "fixed"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "±12 h"
+                    },
+                    "properties": [
+                      {
+                        "id": "color",
+                        "value": {
+                          "fixedColor": "#d95926",
+                          "mode": "fixed"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "±24 h"
+                    },
+                    "properties": [
+                      {
+                        "id": "color",
+                        "value": {
+                          "fixedColor": "#199e70",
+                          "mode": "fixed"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "±47 h"
+                    },
+                    "properties": [
+                      {
+                        "id": "color",
+                        "value": {
+                          "fixedColor": "#c98500",
+                          "mode": "fixed"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "zero"
+                    },
+                    "properties": [
+                      {
+                        "id": "color",
+                        "value": {
+                          "fixedColor": "#898781",
+                          "mode": "fixed"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              "options": {
+                "annotations": {
+                  "clustering": -1,
+                  "multiLane": false
+                },
+                "legend": {
+                  "calcs": [
+                    "mean",
+                    "stdDev",
+                    "max",
+                    "min"
+                  ],
+                  "displayMode": "list",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "multi",
+                  "sort": "none"
+                }
               }
             },
             "version": "13.0.2"
@@ -631,10 +1925,10 @@
                         "editorMode": "code",
                         "exemplar": false,
                         "expr": "label_replace(avg by (job, instance) (avg_over_time((openweathermap_forecast_temperature_celsius{forecast_type=\"hourly\", offset_hours=\"1\"} offset 1h - on(job, instance) group_left openweathermap_current_temperature_celsius)[$__range:1h])), \"lead\", \"1 h\", \"job\", \".+\") or label_replace(avg by (job, instance) (avg_over_time((openweathermap_forecast_temperature_celsius{forecast_type=\"hourly\", offset_hours=\"3\"} offset 3h - on(job, instance) group_left openweathermap_current_temperature_celsius)[$__range:1h])), \"lead\", \"3 h\", \"job\", \".+\") or label_replace(avg by (job, instance) (avg_over_time((openweathermap_forecast_temperature_celsius{forecast_type=\"hourly\", offset_hours=\"6\"} offset 6h - on(job, instance) group_left openweathermap_current_temperature_celsius)[$__range:1h])), \"lead\", \"6 h\", \"job\", \".+\") or label_replace(avg by (job, instance) (avg_over_time((openweathermap_forecast_temperature_celsius{forecast_type=\"hourly\", offset_hours=\"12\"} offset 12h - on(job, instance) group_left openweathermap_current_temperature_celsius)[$__range:1h])), \"lead\", \"12 h\", \"job\", \".+\") or label_replace(avg by (job, instance) (avg_over_time((openweathermap_forecast_temperature_celsius{forecast_type=\"hourly\", offset_hours=\"24\"} offset 24h - on(job, instance) group_left openweathermap_current_temperature_celsius)[$__range:1h])), \"lead\", \"24 h\", \"job\", \".+\") or label_replace(avg by (job, instance) (avg_over_time((openweathermap_forecast_temperature_celsius{forecast_type=\"hourly\", offset_hours=\"36\"} offset 36h - on(job, instance) group_left openweathermap_current_temperature_celsius)[$__range:1h])), \"lead\", \"36 h\", \"job\", \".+\") or label_replace(avg by (job, instance) (avg_over_time((openweathermap_forecast_temperature_celsius{forecast_type=\"hourly\", offset_hours=\"47\"} offset 47h - on(job, instance) group_left openweathermap_current_temperature_celsius)[$__range:1h])), \"lead\", \"47 h\", \"job\", \".+\")",
+                        "format": "table",
                         "instant": true,
                         "legendFormat": "{{lead}}",
-                        "range": false,
-                        "format": "table"
+                        "range": false
                       },
                       "version": "v0"
                     },
@@ -655,10 +1949,10 @@
                         "editorMode": "code",
                         "exemplar": false,
                         "expr": "label_replace(sqrt(avg by (job, instance) (avg_over_time(((openweathermap_forecast_temperature_celsius{forecast_type=\"hourly\", offset_hours=\"1\"} offset 1h - on(job, instance) group_left openweathermap_current_temperature_celsius)^2)[$__range:1h]))), \"lead\", \"1 h\", \"job\", \".+\") or label_replace(sqrt(avg by (job, instance) (avg_over_time(((openweathermap_forecast_temperature_celsius{forecast_type=\"hourly\", offset_hours=\"3\"} offset 3h - on(job, instance) group_left openweathermap_current_temperature_celsius)^2)[$__range:1h]))), \"lead\", \"3 h\", \"job\", \".+\") or label_replace(sqrt(avg by (job, instance) (avg_over_time(((openweathermap_forecast_temperature_celsius{forecast_type=\"hourly\", offset_hours=\"6\"} offset 6h - on(job, instance) group_left openweathermap_current_temperature_celsius)^2)[$__range:1h]))), \"lead\", \"6 h\", \"job\", \".+\") or label_replace(sqrt(avg by (job, instance) (avg_over_time(((openweathermap_forecast_temperature_celsius{forecast_type=\"hourly\", offset_hours=\"12\"} offset 12h - on(job, instance) group_left openweathermap_current_temperature_celsius)^2)[$__range:1h]))), \"lead\", \"12 h\", \"job\", \".+\") or label_replace(sqrt(avg by (job, instance) (avg_over_time(((openweathermap_forecast_temperature_celsius{forecast_type=\"hourly\", offset_hours=\"24\"} offset 24h - on(job, instance) group_left openweathermap_current_temperature_celsius)^2)[$__range:1h]))), \"lead\", \"24 h\", \"job\", \".+\") or label_replace(sqrt(avg by (job, instance) (avg_over_time(((openweathermap_forecast_temperature_celsius{forecast_type=\"hourly\", offset_hours=\"36\"} offset 36h - on(job, instance) group_left openweathermap_current_temperature_celsius)^2)[$__range:1h]))), \"lead\", \"36 h\", \"job\", \".+\") or label_replace(sqrt(avg by (job, instance) (avg_over_time(((openweathermap_forecast_temperature_celsius{forecast_type=\"hourly\", offset_hours=\"47\"} offset 47h - on(job, instance) group_left openweathermap_current_temperature_celsius)^2)[$__range:1h]))), \"lead\", \"47 h\", \"job\", \".+\")",
+                        "format": "table",
                         "instant": true,
                         "legendFormat": "{{lead}}",
-                        "range": false,
-                        "format": "table"
+                        "range": false
                       },
                       "version": "v0"
                     },
@@ -682,8 +1976,8 @@
                     "options": {
                       "excludeByName": {
                         "Time": true,
-                        "job": true,
-                        "instance": true
+                        "instance": true,
+                        "job": true
                       },
                       "renameByName": {
                         "Value #A": "Mean Error",
@@ -719,7 +2013,8 @@
                     "mode": "absolute",
                     "steps": [
                       {
-                        "color": "green"
+                        "color": "green",
+                        "value": null
                       }
                     ]
                   }
@@ -948,584 +2243,6 @@
               }
             },
             "version": "13.0.2"
-          }
-        }
-      },
-      "panel-10": {
-        "kind": "Panel",
-        "spec": {
-          "data": {
-            "kind": "QueryGroup",
-            "spec": {
-              "queries": [
-                {
-                  "kind": "PanelQuery",
-                  "spec": {
-                    "hidden": false,
-                    "query": {
-                      "datasource": {
-                        "name": "${ds_prometheus}"
-                      },
-                      "group": "prometheus",
-                      "kind": "DataQuery",
-                      "spec": {
-                        "editorMode": "code",
-                        "expr": "(openweathermap_forecast_temperature_celsius{forecast_type=\"hourly\", offset_hours=\"6\"} offset 6h) - on(job, instance) openweathermap_current_temperature_celsius",
-                        "legendFormat": "\u00b16 h",
-                        "range": true
-                      },
-                      "version": "v0"
-                    },
-                    "refId": "A"
-                  }
-                },
-                {
-                  "kind": "PanelQuery",
-                  "spec": {
-                    "hidden": false,
-                    "query": {
-                      "datasource": {
-                        "name": "${ds_prometheus}"
-                      },
-                      "group": "prometheus",
-                      "kind": "DataQuery",
-                      "spec": {
-                        "editorMode": "code",
-                        "expr": "(openweathermap_forecast_temperature_celsius{forecast_type=\"hourly\", offset_hours=\"12\"} offset 12h) - on(job, instance) openweathermap_current_temperature_celsius",
-                        "legendFormat": "\u00b112 h",
-                        "range": true
-                      },
-                      "version": "v0"
-                    },
-                    "refId": "B"
-                  }
-                },
-                {
-                  "kind": "PanelQuery",
-                  "spec": {
-                    "hidden": false,
-                    "query": {
-                      "datasource": {
-                        "name": "${ds_prometheus}"
-                      },
-                      "group": "prometheus",
-                      "kind": "DataQuery",
-                      "spec": {
-                        "editorMode": "code",
-                        "expr": "(openweathermap_forecast_temperature_celsius{forecast_type=\"hourly\", offset_hours=\"24\"} offset 24h) - on(job, instance) openweathermap_current_temperature_celsius",
-                        "legendFormat": "\u00b124 h",
-                        "range": true
-                      },
-                      "version": "v0"
-                    },
-                    "refId": "C"
-                  }
-                },
-                {
-                  "kind": "PanelQuery",
-                  "spec": {
-                    "hidden": false,
-                    "query": {
-                      "datasource": {
-                        "name": "${ds_prometheus}"
-                      },
-                      "group": "prometheus",
-                      "kind": "DataQuery",
-                      "spec": {
-                        "editorMode": "code",
-                        "expr": "(openweathermap_forecast_temperature_celsius{forecast_type=\"hourly\", offset_hours=\"47\"} offset 47h) - on(job, instance) openweathermap_current_temperature_celsius",
-                        "legendFormat": "\u00b147 h",
-                        "range": true
-                      },
-                      "version": "v0"
-                    },
-                    "refId": "D"
-                  }
-                },
-                {
-                  "kind": "PanelQuery",
-                  "spec": {
-                    "hidden": false,
-                    "query": {
-                      "datasource": {
-                        "name": "${ds_prometheus}"
-                      },
-                      "group": "prometheus",
-                      "kind": "DataQuery",
-                      "spec": {
-                        "editorMode": "code",
-                        "expr": "vector(0)",
-                        "legendFormat": "zero",
-                        "range": true
-                      },
-                      "version": "v0"
-                    },
-                    "refId": "E"
-                  }
-                }
-              ],
-              "queryOptions": {},
-              "transformations": []
-            }
-          },
-          "description": "Forecast minus actual by lead time. Positive episodes mean forecasts ran warm; the gray line is zero.",
-          "id": 10,
-          "links": [],
-          "title": "Forecast Error by Lead Time",
-          "vizConfig": {
-            "group": "timeseries",
-            "kind": "VizConfig",
-            "spec": {
-              "fieldConfig": {
-                "defaults": {
-                  "color": {
-                    "mode": "palette-classic"
-                  },
-                  "custom": {
-                    "axisBorderShow": false,
-                    "axisCenteredZero": false,
-                    "axisColorMode": "text",
-                    "axisLabel": "",
-                    "axisPlacement": "auto",
-                    "barAlignment": 0,
-                    "barWidthFactor": 0.6,
-                    "drawStyle": "line",
-                    "fillOpacity": 0,
-                    "gradientMode": "none",
-                    "hideFrom": {
-                      "legend": false,
-                      "tooltip": false,
-                      "viz": false
-                    },
-                    "insertNulls": false,
-                    "lineInterpolation": "linear",
-                    "lineWidth": 2,
-                    "pointSize": 5,
-                    "scaleDistribution": {
-                      "type": "linear"
-                    },
-                    "showPoints": "never",
-                    "showValues": false,
-                    "spanNulls": false,
-                    "stacking": {
-                      "group": "A",
-                      "mode": "none"
-                    },
-                    "thresholdsStyle": {
-                      "mode": "off"
-                    }
-                  },
-                  "decimals": 1,
-                  "thresholds": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "color": "green",
-                        "value": 0
-                      }
-                    ]
-                  },
-                  "unit": "celsius"
-                },
-                "overrides": [
-                  {
-                    "matcher": {
-                      "id": "byName",
-                      "options": "\u00b16 h"
-                    },
-                    "properties": [
-                      {
-                        "id": "color",
-                        "value": {
-                          "fixedColor": "#3987e5",
-                          "mode": "fixed"
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    "matcher": {
-                      "id": "byName",
-                      "options": "\u00b112 h"
-                    },
-                    "properties": [
-                      {
-                        "id": "color",
-                        "value": {
-                          "fixedColor": "#d95926",
-                          "mode": "fixed"
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    "matcher": {
-                      "id": "byName",
-                      "options": "\u00b124 h"
-                    },
-                    "properties": [
-                      {
-                        "id": "color",
-                        "value": {
-                          "fixedColor": "#199e70",
-                          "mode": "fixed"
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    "matcher": {
-                      "id": "byName",
-                      "options": "\u00b147 h"
-                    },
-                    "properties": [
-                      {
-                        "id": "color",
-                        "value": {
-                          "fixedColor": "#c98500",
-                          "mode": "fixed"
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    "matcher": {
-                      "id": "byName",
-                      "options": "zero"
-                    },
-                    "properties": [
-                      {
-                        "id": "color",
-                        "value": {
-                          "fixedColor": "#898781",
-                          "mode": "fixed"
-                        }
-                      }
-                    ]
-                  }
-                ]
-              },
-              "options": {
-                "annotations": {
-                  "clustering": -1,
-                  "multiLane": false
-                },
-                "legend": {
-                  "calcs": [
-                    "mean",
-                    "stdDev",
-                    "max",
-                    "min"
-                  ],
-                  "displayMode": "list",
-                  "placement": "bottom",
-                  "showLegend": true
-                },
-                "tooltip": {
-                  "hideZeros": false,
-                  "mode": "multi",
-                  "sort": "none"
-                }
-              }
-            },
-            "version": "13.0.2"
-          }
-        }
-      },
-      "panel-11": {
-        "kind": "Panel",
-        "spec": {
-          "data": {
-            "kind": "QueryGroup",
-            "spec": {
-              "queries": [
-                {
-                  "kind": "PanelQuery",
-                  "spec": {
-                    "hidden": false,
-                    "query": {
-                      "datasource": {
-                        "name": "${ds_prometheus}"
-                      },
-                      "group": "prometheus",
-                      "kind": "DataQuery",
-                      "spec": {
-                        "editorMode": "code",
-                        "expr": "openweathermap_current_temperature_celsius",
-                        "legendFormat": "Actual",
-                        "range": true
-                      },
-                      "version": "v0"
-                    },
-                    "refId": "A"
-                  }
-                },
-                {
-                  "kind": "PanelQuery",
-                  "spec": {
-                    "hidden": false,
-                    "query": {
-                      "datasource": {
-                        "name": "${ds_prometheus}"
-                      },
-                      "group": "prometheus",
-                      "kind": "DataQuery",
-                      "spec": {
-                        "editorMode": "code",
-                        "expr": "(openweathermap_forecast_temperature_celsius{forecast_type=\"hourly\", offset_hours=\"47\"} offset 47h) - on(job, instance) (openweathermap_current_temperature_celsius * 0)",
-                        "legendFormat": "47 h ahead",
-                        "range": true
-                      },
-                      "version": "v0"
-                    },
-                    "refId": "B"
-                  }
-                }
-              ],
-              "queryOptions": {},
-              "transformations": []
-            }
-          },
-          "description": "What the forecast issued 47 h earlier predicted for each hour, shifted to the target hour, against the actual temperature.",
-          "id": 11,
-          "links": [],
-          "title": "47 h Ahead Forecast vs Actual Temperature",
-          "vizConfig": {
-            "group": "timeseries",
-            "kind": "VizConfig",
-            "spec": {
-              "fieldConfig": {
-                "defaults": {
-                  "color": {
-                    "mode": "palette-classic"
-                  },
-                  "custom": {
-                    "axisBorderShow": false,
-                    "axisCenteredZero": false,
-                    "axisColorMode": "text",
-                    "axisLabel": "",
-                    "axisPlacement": "auto",
-                    "barAlignment": 0,
-                    "barWidthFactor": 0.6,
-                    "drawStyle": "line",
-                    "fillOpacity": 0,
-                    "gradientMode": "none",
-                    "hideFrom": {
-                      "legend": false,
-                      "tooltip": false,
-                      "viz": false
-                    },
-                    "insertNulls": false,
-                    "lineInterpolation": "linear",
-                    "lineWidth": 2,
-                    "pointSize": 5,
-                    "scaleDistribution": {
-                      "type": "linear"
-                    },
-                    "showPoints": "never",
-                    "showValues": false,
-                    "spanNulls": false,
-                    "stacking": {
-                      "group": "A",
-                      "mode": "none"
-                    },
-                    "thresholdsStyle": {
-                      "mode": "off"
-                    }
-                  },
-                  "decimals": 1,
-                  "thresholds": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "color": "green",
-                        "value": 0
-                      }
-                    ]
-                  },
-                  "unit": "celsius"
-                },
-                "overrides": [
-                  {
-                    "matcher": {
-                      "id": "byName",
-                      "options": "Actual"
-                    },
-                    "properties": [
-                      {
-                        "id": "color",
-                        "value": {
-                          "fixedColor": "#3987e5",
-                          "mode": "fixed"
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    "matcher": {
-                      "id": "byName",
-                      "options": "47 h ahead"
-                    },
-                    "properties": [
-                      {
-                        "id": "color",
-                        "value": {
-                          "fixedColor": "#c98500",
-                          "mode": "fixed"
-                        }
-                      }
-                    ]
-                  }
-                ]
-              },
-              "options": {
-                "annotations": {
-                  "clustering": -1,
-                  "multiLane": false
-                },
-                "legend": {
-                  "calcs": [
-                    "mean",
-                    "stdDev",
-                    "max",
-                    "min"
-                  ],
-                  "displayMode": "list",
-                  "placement": "bottom",
-                  "showLegend": true
-                },
-                "tooltip": {
-                  "hideZeros": false,
-                  "mode": "multi",
-                  "sort": "none"
-                }
-              }
-            },
-            "version": "13.0.2"
-          }
-        }
-      },
-      "panel-12": {
-        "kind": "Panel",
-        "spec": {
-          "data": {
-            "kind": "QueryGroup",
-            "spec": {
-              "queries": [
-                {
-                  "kind": "PanelQuery",
-                  "spec": {
-                    "hidden": false,
-                    "query": {
-                      "datasource": {
-                        "name": "${ds_prometheus}"
-                      },
-                      "group": "prometheus",
-                      "kind": "DataQuery",
-                      "spec": {
-                        "editorMode": "code",
-                        "exemplar": false,
-                        "expr": "avg by (absolute_hours) (avg_over_time((openweathermap_forecast_temperature_celsius{forecast_type=\"hourly\", offset_hours=\"24\"} offset 24h - on(job, instance) group_left openweathermap_current_temperature_celsius)[$__range:1h]))",
-                        "instant": true,
-                        "legendFormat": "__auto",
-                        "range": false,
-                        "format": "table"
-                      },
-                      "version": "v0"
-                    },
-                    "refId": "A"
-                  }
-                }
-              ],
-              "queryOptions": {},
-              "transformations": [
-                {
-                  "group": "organize",
-                  "kind": "Transformation",
-                  "spec": {
-                    "options": {
-                      "excludeByName": {
-                        "Time": true
-                      },
-                      "renameByName": {
-                        "Value": "Mean Error",
-                        "absolute_hours": "Hour"
-                      }
-                    }
-                  }
-                }
-              ]
-            }
-          },
-          "description": "Mean forecast-minus-actual per target hour of day at 24 h lead; the hours with the most systematic bias sort first.",
-          "id": 12,
-          "links": [],
-          "title": "24 h Lead Mean Error by Hour of Day",
-          "vizConfig": {
-            "group": "table",
-            "kind": "VizConfig",
-            "spec": {
-              "fieldConfig": {
-                "defaults": {
-                  "color": {
-                    "mode": "thresholds"
-                  },
-                  "custom": {
-                    "align": "auto",
-                    "cellOptions": {
-                      "type": "auto"
-                    },
-                    "inspect": false
-                  },
-                  "thresholds": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "color": "green"
-                      }
-                    ]
-                  }
-                },
-                "overrides": [
-                  {
-                    "matcher": {
-                      "id": "byName",
-                      "options": "Mean Error"
-                    },
-                    "properties": [
-                      {
-                        "id": "unit",
-                        "value": "celsius"
-                      },
-                      {
-                        "id": "decimals",
-                        "value": 1
-                      }
-                    ]
-                  }
-                ]
-              },
-              "options": {
-                "cellHeight": "sm",
-                "footer": {
-                  "countRows": false,
-                  "fields": "",
-                  "reducer": [
-                    "sum"
-                  ],
-                  "show": false
-                },
-                "frameIndex": 0,
-                "showHeader": true,
-                "sortBy": [
-                  {
-                    "desc": true,
-                    "displayName": "Mean Error"
-                  }
-                ]
-              }
-            },
-            "version": "9.5.2"
           }
         }
       }
@@ -1758,6 +2475,72 @@
                 }
               },
               "title": "Bias by Target Hour"
+            }
+          },
+          {
+            "kind": "RowsLayoutRow",
+            "spec": {
+              "collapse": false,
+              "layout": {
+                "kind": "GridLayout",
+                "spec": {
+                  "items": [
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-13"
+                        },
+                        "height": 8,
+                        "width": 12,
+                        "x": 0,
+                        "y": 0
+                      }
+                    },
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-14"
+                        },
+                        "height": 8,
+                        "width": 12,
+                        "x": 12,
+                        "y": 0
+                      }
+                    },
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-15"
+                        },
+                        "height": 8,
+                        "width": 24,
+                        "x": 0,
+                        "y": 8
+                      }
+                    },
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-16"
+                        },
+                        "height": 9,
+                        "width": 24,
+                        "x": 0,
+                        "y": 16
+                      }
+                    }
+                  ]
+                }
+              },
+              "title": "Precipitation"
             }
           }
         ]
