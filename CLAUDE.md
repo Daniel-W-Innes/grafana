@@ -44,7 +44,7 @@ Read the live JSON before assembling panels — copy shapes verbatim rather than
 
 - `metadata.name` = dashboard UID; the file name matches (`borgmatic.json` ↔ UID `borgmatic`).
 - Every panel is `spec.elements["panel-<id>"]`, element key **must equal** `spec.id`. Layout `RowsLayout → RowsLayoutRow → GridLayout items` reference elements via `{"kind": "ElementReference", "name": "panel-<id>"}` — every reference must resolve (keep in sync when adding/removing panels). Do not hand-set `metadata.generation`.
-- Panel data: `spec.data.spec.queries[]` are `PanelQuery`s. Queries carry `spec.query` = DataQuery with `datasource: {"name": "<datasource UID>"}` (the UID lives in the name field — current Prometheus UID is `PBFA97CFB590B2093`), `group: "prometheus"`, `editorMode: "code"`, `range: true`.
+- Panel data: `spec.data.spec.queries[]` are `PanelQuery`s. Queries carry `spec.query` = DataQuery with `datasource: {"name": "${ds_prometheus}"}` — the datasource **variable**, per STYLE.md decision D1; the reference lives in the `name` field (a dashboard with a `ds_*` variable may still pin the UID once inside the variable's own definition — current Prometheus UID is `PBFA97CFB590B2093`). Also `group: "prometheus"`, `editorMode: "code"`, `range: true`.
 - **Never set both `"range": true` and `"instant": true`** — that is Grafana's "Both" mode and every query returns two frames, duplicating every series in the panel. House style: `range: true` only (no `instant` key at all).
 - Viz groups: `stat`, `gauge`, `timeseries` (each `VizConfig` carries `version`, currently `"13.0.2"`). Gauges put `min`/`max` and absolute `thresholds.steps` in `fieldConfig.defaults`; markers on (`showThresholdMarkers: true`). House thresholds: named colors `green`/`orange`/`red` (or amber `#EAB839`), units `bytes`/`percent`/`percentunit`/`s`/`dateTimeAsIso`, `decimals: 1` for bytes.
 - Selectors must pin the target explicitly, e.g. `{job="node_exporter", instance="onion.lc.brotherwolf.ca:9100", mountpoint="/run/media/daniel/stb"}`.
@@ -80,6 +80,7 @@ Notes:
 
 ## Conventions
 
+- **Style decisions (palette, units, titles, layout rules, defaults) live in `STYLE.md`** at the repo root — it is the canonical style reference and supersedes the inline notes below where they conflict. Treat its `[OPEN]` markers as unresolved forks, not settled rules.
 - Prefer MCP over direct file edits for anything touching a dashboard that exists in Grafana (see the flow table above). When a file edit is genuinely needed (new dashboards, reconciliation), preserve the resource format exactly and keep `spec.elements`/`spec.layout` consistent.
 - Repo layout mirrors Grafana folders: top-level `*.json` files are dashboards (pretty-printed JSON, 2-space indent); a folder is a subdirectory with a compact single-line `_folder.json` marker (`{"kind": "Folder", "apiVersion": "folder.grafana.app/v1", "metadata": {"name": "<folder UID>"}, "spec": {"title": "<folder name>"}}`).
 - Do not run `git commit`/`git push` unless the user asks: the human commits, and Grafana makes its own write-back commits. `git pull` to sync is fine.
