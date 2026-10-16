@@ -394,179 +394,6 @@
           }
         }
       },
-      "panel-11": {
-        "kind": "Panel",
-        "spec": {
-          "data": {
-            "kind": "QueryGroup",
-            "spec": {
-              "queries": [
-                {
-                  "kind": "PanelQuery",
-                  "spec": {
-                    "hidden": false,
-                    "query": {
-                      "datasource": {
-                        "name": "${ds_prometheus}"
-                      },
-                      "group": "prometheus",
-                      "kind": "DataQuery",
-                      "spec": {
-                        "editorMode": "code",
-                        "expr": "openweathermap_current_temperature_celsius",
-                        "legendFormat": "Actual",
-                        "range": true
-                      },
-                      "version": "v0"
-                    },
-                    "refId": "A"
-                  }
-                },
-                {
-                  "kind": "PanelQuery",
-                  "spec": {
-                    "hidden": false,
-                    "query": {
-                      "datasource": {
-                        "name": "${ds_prometheus}"
-                      },
-                      "group": "prometheus",
-                      "kind": "DataQuery",
-                      "spec": {
-                        "editorMode": "code",
-                        "expr": "(openweathermap_forecast_temperature_celsius{forecast_type=\"hourly\", offset_hours=\"47\"} offset 47h) - on(job, instance) (openweathermap_current_temperature_celsius * 0)",
-                        "legendFormat": "47 h ahead",
-                        "range": true
-                      },
-                      "version": "v0"
-                    },
-                    "refId": "B"
-                  }
-                }
-              ],
-              "queryOptions": {},
-              "transformations": []
-            }
-          },
-          "description": "What the forecast issued 47 h earlier predicted for each hour, shifted to the target hour, against the actual temperature.",
-          "id": 11,
-          "links": [],
-          "title": "47 h Ahead Forecast vs Actual Temperature",
-          "vizConfig": {
-            "group": "timeseries",
-            "kind": "VizConfig",
-            "spec": {
-              "fieldConfig": {
-                "defaults": {
-                  "color": {
-                    "mode": "palette-classic"
-                  },
-                  "custom": {
-                    "axisBorderShow": false,
-                    "axisCenteredZero": false,
-                    "axisColorMode": "text",
-                    "axisLabel": "",
-                    "axisPlacement": "auto",
-                    "barAlignment": 0,
-                    "barWidthFactor": 0.6,
-                    "drawStyle": "line",
-                    "fillOpacity": 0,
-                    "gradientMode": "none",
-                    "hideFrom": {
-                      "legend": false,
-                      "tooltip": false,
-                      "viz": false
-                    },
-                    "insertNulls": false,
-                    "lineInterpolation": "linear",
-                    "lineWidth": 2,
-                    "pointSize": 5,
-                    "scaleDistribution": {
-                      "type": "linear"
-                    },
-                    "showPoints": "never",
-                    "showValues": false,
-                    "spanNulls": false,
-                    "stacking": {
-                      "group": "A",
-                      "mode": "none"
-                    },
-                    "thresholdsStyle": {
-                      "mode": "off"
-                    }
-                  },
-                  "decimals": 1,
-                  "thresholds": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "color": "green",
-                        "value": 0
-                      }
-                    ]
-                  },
-                  "unit": "celsius"
-                },
-                "overrides": [
-                  {
-                    "matcher": {
-                      "id": "byName",
-                      "options": "Actual"
-                    },
-                    "properties": [
-                      {
-                        "id": "color",
-                        "value": {
-                          "fixedColor": "#3987e5",
-                          "mode": "fixed"
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    "matcher": {
-                      "id": "byName",
-                      "options": "47 h ahead"
-                    },
-                    "properties": [
-                      {
-                        "id": "color",
-                        "value": {
-                          "fixedColor": "#c98500",
-                          "mode": "fixed"
-                        }
-                      }
-                    ]
-                  }
-                ]
-              },
-              "options": {
-                "annotations": {
-                  "clustering": -1,
-                  "multiLane": false
-                },
-                "legend": {
-                  "calcs": [
-                    "mean",
-                    "stdDev",
-                    "max",
-                    "min"
-                  ],
-                  "displayMode": "list",
-                  "placement": "bottom",
-                  "showLegend": true
-                },
-                "tooltip": {
-                  "hideZeros": false,
-                  "mode": "multi",
-                  "sort": "none"
-                }
-              }
-            },
-            "version": "13.0.2"
-          }
-        }
-      },
       "panel-12": {
         "kind": "Panel",
         "spec": {
@@ -993,8 +820,8 @@
                       "kind": "DataQuery",
                       "spec": {
                         "editorMode": "code",
-                        "expr": "(sum by (job, instance) (openweathermap_forecast_rain_depth_meters{forecast_type=\"hourly\", offset_hours=\"24\"} offset 24h + openweathermap_forecast_snow_depth_meters{forecast_type=\"hourly\", offset_hours=\"24\"} offset 24h) - on(job, instance) (sum by (job, instance) (openweathermap_current_rain_depth_meters + openweathermap_current_snow_depth_meters) * 0)) * 1000",
-                        "legendFormat": "24 h ahead",
+                        "expr": "(sum by (job, instance) (openweathermap_forecast_rain_depth_meters{forecast_type=\"hourly\", offset_hours=\"$forecast_lead\"} offset ${forecast_lead}h + openweathermap_forecast_snow_depth_meters{forecast_type=\"hourly\", offset_hours=\"$forecast_lead\"} offset ${forecast_lead}h) - on(job, instance) (sum by (job, instance) (openweathermap_current_rain_depth_meters + openweathermap_current_snow_depth_meters) * 0)) * 1000",
+                        "legendFormat": "$forecast_lead h ahead",
                         "range": true
                       },
                       "version": "v0"
@@ -1007,10 +834,10 @@
               "transformations": []
             }
           },
-          "description": "What the forecast issued 24 h earlier predicted for each hour, shifted to the target hour, against measured rain plus snow. Actuals are trailing-hour accumulations, so hour-boundary events can shift by up to an hour.",
+          "description": "What the forecast issued the selected lead earlier predicted for each hour, shifted to the target hour, against measured rain plus snow. Actuals are trailing-hour accumulations, so hour-boundary events can shift by up to an hour.",
           "id": 15,
           "links": [],
-          "title": "24 h Ahead Forecast vs Actual Precipitation",
+          "title": "Forecast vs Actual Precipitation",
           "vizConfig": {
             "group": "timeseries",
             "kind": "VizConfig",
@@ -1085,7 +912,7 @@
                   {
                     "matcher": {
                       "id": "byName",
-                      "options": "24 h ahead"
+                      "options": "$forecast_lead h ahead"
                     },
                     "properties": [
                       {
@@ -2113,8 +1940,8 @@
                       "kind": "DataQuery",
                       "spec": {
                         "editorMode": "code",
-                        "expr": "(openweathermap_forecast_temperature_celsius{forecast_type=\"hourly\", offset_hours=\"24\"} offset 24h) - on(job, instance) (openweathermap_current_temperature_celsius * 0)",
-                        "legendFormat": "24 h ahead",
+                        "expr": "(openweathermap_forecast_temperature_celsius{forecast_type=\"hourly\", offset_hours=\"$forecast_lead\"} offset ${forecast_lead}h) - on(job, instance) (openweathermap_current_temperature_celsius * 0)",
+                        "legendFormat": "$forecast_lead h ahead",
                         "range": true
                       },
                       "version": "v0"
@@ -2127,10 +1954,10 @@
               "transformations": []
             }
           },
-          "description": "What the forecast issued 24 h earlier predicted for each hour, shifted to the target hour, against the actual temperature.",
+          "description": "What the forecast issued the selected lead earlier predicted for each hour, shifted to the target hour, against the actual temperature.",
           "id": 9,
           "links": [],
-          "title": "24 h Ahead Forecast vs Actual Temperature",
+          "title": "Forecast vs Actual Temperature",
           "vizConfig": {
             "group": "timeseries",
             "kind": "VizConfig",
@@ -2205,7 +2032,7 @@
                   {
                     "matcher": {
                       "id": "byName",
-                      "options": "24 h ahead"
+                      "options": "$forecast_lead h ahead"
                     },
                     "properties": [
                       {
@@ -2450,24 +2277,11 @@
                       "spec": {
                         "element": {
                           "kind": "ElementReference",
-                          "name": "panel-11"
-                        },
-                        "height": 8,
-                        "width": 12,
-                        "x": 0,
-                        "y": 0
-                      }
-                    },
-                    {
-                      "kind": "GridLayoutItem",
-                      "spec": {
-                        "element": {
-                          "kind": "ElementReference",
                           "name": "panel-12"
                         },
                         "height": 8,
-                        "width": 12,
-                        "x": 12,
+                        "width": 24,
+                        "x": 0,
                         "y": 0
                       }
                     }
@@ -2603,6 +2417,40 @@
           "refresh": "onDashboardLoad",
           "regex": "",
           "skipUrlSync": false
+        }
+      },
+      {
+        "kind": "QueryVariable",
+        "spec": {
+          "allowCustomValue": false,
+          "current": {
+            "text": "24",
+            "value": "24"
+          },
+          "definition": "label_values(openweathermap_forecast_temperature_celsius{forecast_type=\"hourly\"}, offset_hours)",
+          "hide": "dontHide",
+          "includeAll": false,
+          "label": "Forecast Lead",
+          "multi": false,
+          "name": "forecast_lead",
+          "options": [],
+          "query": {
+            "datasource": {
+              "name": "${ds_prometheus}"
+            },
+            "group": "prometheus",
+            "kind": "DataQuery",
+            "spec": {
+              "query": "label_values(openweathermap_forecast_temperature_celsius{forecast_type=\"hourly\"}, offset_hours)",
+              "refId": "PrometheusVariableQueryEditor-VariableQuery"
+            },
+            "version": "v0"
+          },
+          "refresh": "onDashboardLoad",
+          "regex": "^(1|3|6|12|24|36|47)$",
+          "regexApplyTo": "value",
+          "skipUrlSync": false,
+          "sort": "numericalAsc"
         }
       }
     ]
