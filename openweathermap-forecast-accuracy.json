@@ -1260,10 +1260,22 @@
               "fieldConfig": {
                 "defaults": {
                   "color": {
-                    "fixedColor": "red",
-                    "mode": "fixed"
+                    "mode": "thresholds"
                   },
                   "decimals": 0,
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": 0
+                      },
+                      {
+                        "color": "red",
+                        "value": 1
+                      }
+                    ]
+                  },
                   "unit": "none"
                 },
                 "overrides": []
@@ -1336,10 +1348,22 @@
               "fieldConfig": {
                 "defaults": {
                   "color": {
-                    "fixedColor": "orange",
-                    "mode": "fixed"
+                    "mode": "thresholds"
                   },
                   "decimals": 0,
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "color": "green",
+                        "value": 0
+                      },
+                      {
+                        "color": "orange",
+                        "value": 1
+                      }
+                    ]
+                  },
                   "unit": "none"
                 },
                 "overrides": []
