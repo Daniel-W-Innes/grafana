@@ -113,7 +113,7 @@
                 "wideLayout": true
               }
             },
-            "version": "13.0.2"
+            "version": "13.0.11"
           }
         }
       },
@@ -236,7 +236,7 @@
                 }
               }
             },
-            "version": "13.0.2"
+            "version": "13.0.11"
           }
         }
       },
@@ -457,7 +457,7 @@
                 }
               }
             },
-            "version": "13.0.2"
+            "version": "13.0.11"
           }
         }
       },
@@ -582,7 +582,7 @@
                 }
               }
             },
-            "version": "13.0.2"
+            "version": "13.0.11"
           }
         }
       },
@@ -703,7 +703,7 @@
                 }
               }
             },
-            "version": "13.0.2"
+            "version": "13.0.11"
           }
         }
       },
@@ -787,7 +787,7 @@
                 "wideLayout": true
               }
             },
-            "version": "13.0.2"
+            "version": "13.0.11"
           }
         }
       },
@@ -877,7 +877,7 @@
                 "wideLayout": true
               }
             },
-            "version": "13.0.2"
+            "version": "13.0.11"
           }
         }
       },
@@ -995,7 +995,7 @@
                 }
               }
             },
-            "version": "13.0.2"
+            "version": "13.0.11"
           }
         }
       },
@@ -1113,7 +1113,7 @@
                 }
               }
             },
-            "version": "13.0.2"
+            "version": "13.0.11"
           }
         }
       },
@@ -1257,7 +1257,7 @@
                 }
               }
             },
-            "version": "13.0.2"
+            "version": "13.0.11"
           }
         }
       },
@@ -1340,7 +1340,7 @@
                 "wideLayout": true
               }
             },
-            "version": "13.0.2"
+            "version": "13.0.11"
           }
         }
       },
@@ -1446,7 +1446,7 @@
                 ]
               }
             },
-            "version": "13.0.2"
+            "version": "13.0.11"
           }
         }
       },
@@ -1487,7 +1487,6 @@
           "id": 42,
           "links": [],
           "title": "Songs",
-          "transparent": true,
           "vizConfig": {
             "group": "stat",
             "kind": "VizConfig",
@@ -1524,12 +1523,12 @@
                   "fields": "",
                   "values": false
                 },
-                "showPercentChange": false,
+                "showPercentChange": true,
                 "textMode": "auto",
                 "wideLayout": true
               }
             },
-            "version": "13.0.2"
+            "version": "13.0.11"
           }
         }
       },
@@ -1607,12 +1606,12 @@
                   "fields": "",
                   "values": false
                 },
-                "showPercentChange": false,
+                "showPercentChange": true,
                 "textMode": "auto",
                 "wideLayout": true
               }
             },
-            "version": "13.0.2"
+            "version": "13.0.11"
           }
         }
       },
@@ -1690,12 +1689,12 @@
                   "fields": "",
                   "values": false
                 },
-                "showPercentChange": false,
+                "showPercentChange": true,
                 "textMode": "auto",
                 "wideLayout": true
               }
             },
-            "version": "13.0.2"
+            "version": "13.0.11"
           }
         }
       },
@@ -1815,7 +1814,7 @@
                 }
               }
             },
-            "version": "13.0.2"
+            "version": "13.0.11"
           }
         }
       },
@@ -1930,7 +1929,7 @@
                 }
               }
             },
-            "version": "13.0.2"
+            "version": "13.0.11"
           }
         }
       },
@@ -2073,7 +2072,7 @@
                 }
               }
             },
-            "version": "13.0.2"
+            "version": "13.0.11"
           }
         }
       }
